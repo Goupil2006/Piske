@@ -7,9 +7,9 @@ public class Weg {
     public void weg() {
     }
 
-    public void appendPfad(char s, char e, int x, int y){
-        Pfad temp = new Pfad(s,e,x,y);
-        if(head == null) {
+    public void appendPfad(char s, char e, int x, int y) {
+        Pfad temp = new Pfad(s, e, x, y);
+        if (head == null) {
             head = temp;
             tail = temp;
         } else {

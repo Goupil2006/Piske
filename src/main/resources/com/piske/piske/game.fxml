@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane layoutX="864.0" prefHeight="720.0" prefWidth="416.0" style="-fx-background-color: #C5C5C5;" />
       <Line endX="72.0" endY="720.0" startX="72.0" />
@@ -31,15 +30,15 @@
       <Line endX="864.0" layoutY="576.0" />
       <Line endX="864.0" layoutY="648.0" />
       <Line endX="72.0" endY="720.0" layoutX="792.0" startX="72.0" />
-      <Text layoutX="7.0" layoutY="662.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9" />
-      <Text layoutX="8.0" layoutY="590.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" />
-      <Text layoutX="8.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7" />
-      <Text layoutX="7.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6" />
-      <Text layoutX="5.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
-      <Text layoutX="6.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
-      <Text layoutX="6.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
-      <Text layoutX="7.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
-      <Text layoutX="8.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
+      <Text layoutX="7.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9" />
+      <Text layoutX="7.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8" />
+      <Text layoutX="6.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7" />
+      <Text layoutX="6.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6" />
+      <Text layoutX="6.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
+      <Text layoutX="6.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4" />
+      <Text layoutX="6.0" layoutY="502.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" />
+      <Text layoutX="6.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
+      <Text layoutX="7.0" layoutY="646.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
       <Text layoutX="7.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
       <Text layoutX="81.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
       <Text layoutX="154.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2" />
@@ -52,11 +51,5 @@
       <Text layoutX="661.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9" />
       <Text layoutX="732.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" />
       <Text layoutX="805.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="11" />
-      <Text layoutX="5.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <ImageView fitHeight="72.0" fitWidth="72.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@weg.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
