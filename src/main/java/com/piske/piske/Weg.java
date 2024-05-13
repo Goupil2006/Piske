@@ -1,8 +1,8 @@
 package com.piske.piske;
 
 public class Weg {
-    Pfad head = null;
-    Pfad tail = null;
+    static Pfad head = null;
+    static Pfad tail = null;
 
     public void weg() {
     }
@@ -13,8 +13,12 @@ public class Weg {
             head = temp;
             tail = temp;
         } else {
-            temp.setPrevious(tail);
+            temp.setPrevious(Weg.getTail());
             tail.setNext(temp);
         }
+    }
+
+    public static Pfad getTail() {
+        return tail;
     }
 }
