@@ -60,9 +60,9 @@
             <Image url="@weg.png" />
          </image>
       </ImageView>
-      <Button fx:id="addStation1" alignment="TOP_LEFT" contentDisplay="TOP" graphicTextGap="0.0" layoutX="288.0" layoutY="288.0" mnemonicParsing="false" onAction="#addStation1" prefHeight="72.0" prefWidth="72.0" style="-fx-font-size: 60; -fx-padding: 0; -fx-background-color: #00000000; -fx-text-fill: #000000;" text="+" textAlignment="CENTER">
+      <Button fx:id="addStation1" alignment="TOP_LEFT" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="288.0" layoutY="288.0" mnemonicParsing="false" onAction="#addStation1" prefHeight="72.0" prefWidth="72.0" style="-fx-font-size: 60; -fx-padding: 10; -fx-background-color: #000000FF; -fx-text-fill: #000000; -fx-alignment: center;" text="+" textAlignment="CENTER">
          <font>
-            <Font name="Arial Bold" size="96.0" />
+            <Font name="Arial Bold" size="15.0" />
          </font>
       </Button>
       <ImageView disable="true" fitHeight="72.0" fitWidth="72.0" layoutX="288.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true" visible="false" />
