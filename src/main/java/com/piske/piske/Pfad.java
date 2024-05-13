@@ -13,6 +13,7 @@ public class Pfad {
         ende = e;
         mapX = x;
         mapY = y;
+
     }
 
     public char getStart() {
