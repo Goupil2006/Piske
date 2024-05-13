@@ -13,8 +13,8 @@ public class Weg {
             head = temp;
             tail = temp;
         } else {
-            temp.setPrevious(tail);
-            tail.setNext(temp);
+            //temp.setPrevious(tail);
+            //tail.setNext(temp);
         }
     }
 }

@@ -16,16 +16,14 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainMenuController implements Initializable {
+public class GameController implements Initializable {
 
     @FXML
-    private void gameStart(ActionEvent event) throws Exception {
-        Parent newView = FXMLLoader.load(getClass().getResource("game.fxml"));
-        Scene scene = new Scene(newView);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+    private Button addStation1;
 
+    @FXML
+    private void addStation1(ActionEvent event) throws Exception {
+        System.out.println("Station 1 added");
     }
 
     @Override
