@@ -96,7 +96,6 @@ public class GameController implements Initializable {
             } else if (temp.getStart() == 'n' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 'n' ) {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 3);
             }
-            createStraightPathView(temp.getMapX(), temp.getMapY(), false);
             temp = temp.getNext();
             System.out.println("durchgang");
         }
@@ -105,11 +104,12 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        schuelerweg.appendPfad('w','e',0,4);
         schuelerweg.appendPfad('w','e',1,4);
-        schuelerweg.appendPfad('w','e',2,4);
-        schuelerweg.appendPfad('w','e',3,4);
-        schuelerweg.appendPfad('w','e',4,4);
-        schuelerweg.appendPfad('w','e',4,4);
+        schuelerweg.appendPfad('w','n',2,4);
+        schuelerweg.appendPfad('s','n',2,3);
+        schuelerweg.appendPfad('s','e',2,2);
+        schuelerweg.appendPfad('w','e',2,3);
         renderWeg(schuelerweg);
     }
 }
