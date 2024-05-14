@@ -20,6 +20,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.io.File;
+import java.util.Scanner;
 
 public class GameController implements Initializable {
 
@@ -100,9 +102,16 @@ public class GameController implements Initializable {
 
     }
 
+    public void renderMap() {
+        File file = new File("map1.txt");
+        Scanner sc = new Scanner(file);
+        while (sc.hasNextLine())
+            System.out.println(sc.nextLine());
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        schuelerweg.appendPfad('w','e',0,4);
+        /* schuelerweg.appendPfad('w','e',0,4);
         schuelerweg.appendPfad('w','e',1,4);
         schuelerweg.appendPfad('w','n',2,4);
         schuelerweg.appendPfad('s','n',2,3);
@@ -133,6 +142,7 @@ public class GameController implements Initializable {
         schuelerweg.appendPfad('e','w',1,5);
         schuelerweg.appendPfad('e','w',0,5);
         schuelerweg.appendPfad('e','w',-1,5);
-        renderWeg(schuelerweg);
+        renderWeg(schuelerweg); */
+        renderMap();
     }
 }
