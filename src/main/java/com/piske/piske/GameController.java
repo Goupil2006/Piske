@@ -26,11 +26,7 @@ public class GameController implements Initializable {
     @FXML
     private AnchorPane gamescreen;
 
-    @FXML
-    private Button addStation1;
-
     Weg schuelerweg = new Weg();
-
 
     @FXML
     private void addStation1(ActionEvent event) throws Exception {
@@ -45,7 +41,7 @@ public class GameController implements Initializable {
         ImageView imageView = new ImageView();
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
-        if(r) {
+        if (r) {
             imageView.setRotate(90);
         } else {
             imageView.setRotate(0);
@@ -60,17 +56,17 @@ public class GameController implements Initializable {
         y = y * 72;
 
         ImageView imageView = new ImageView();
-        if(r == 0 ) {
+        if (r == 0) {
             imageView.setRotate(0);
             x += 21;
-        } else if (r == 1){
+        } else if (r == 1) {
             imageView.setRotate(90);
             y += 21;
             x += 21;
         } else if (r == 2) {
             imageView.setRotate(180);
             y += 21;
-        } else if (r == 3){
+        } else if (r == 3) {
             imageView.setRotate(270);
         }
         imageView.setLayoutX(x);
@@ -86,34 +82,34 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        createStraightPathView(1,4,false);
-        createCurvePathView(2,4,3);
-        createStraightPathView(2,3,true);
-        createCurvePathView(2,2,1);
-        createStraightPathView(3,2,false);
-        createStraightPathView(4,2,false);
-        createStraightPathView(5,2,false);
-        createStraightPathView(6,2,false);
-        createStraightPathView(7,2,false);
-        createStraightPathView(8,2,false);
-        createStraightPathView(9,2,false);
-        createCurvePathView(10,2,2);
-        createStraightPathView(10,3,true);
-        createStraightPathView(10,4,true);
-        createStraightPathView(10,5,true);
-        createStraightPathView(10,6,true);
-        createCurvePathView(10,7,3);
-        createStraightPathView(9,7,false);
-        createStraightPathView(8,7,false);
-        createStraightPathView(7,7,false);
-        createStraightPathView(6,7,false);
-        createStraightPathView(5,7,false);
-        createStraightPathView(4,7,false);
-        createStraightPathView(3,7,false);
-        createCurvePathView(2,7,0);
-        createStraightPathView(2,6,true);
-        createCurvePathView(2,5,2);
-        createStraightPathView(1,5,false);
-        createStraightPathView(0,5,false);
+        createStraightPathView(1, 4, false);
+        createCurvePathView(2, 4, 3);
+        createStraightPathView(2, 3, true);
+        createCurvePathView(2, 2, 1);
+        createStraightPathView(3, 2, false);
+        createStraightPathView(4, 2, false);
+        createStraightPathView(5, 2, false);
+        createStraightPathView(6, 2, false);
+        createStraightPathView(7, 2, false);
+        createStraightPathView(8, 2, false);
+        createStraightPathView(9, 2, false);
+        createCurvePathView(10, 2, 2);
+        createStraightPathView(10, 3, true);
+        createStraightPathView(10, 4, true);
+        createStraightPathView(10, 5, true);
+        createStraightPathView(10, 6, true);
+        createCurvePathView(10, 7, 3);
+        createStraightPathView(9, 7, false);
+        createStraightPathView(8, 7, false);
+        createStraightPathView(7, 7, false);
+        createStraightPathView(6, 7, false);
+        createStraightPathView(5, 7, false);
+        createStraightPathView(4, 7, false);
+        createStraightPathView(3, 7, false);
+        createCurvePathView(2, 7, 0);
+        createStraightPathView(2, 6, true);
+        createCurvePathView(2, 5, 2);
+        createStraightPathView(1, 5, false);
+        createStraightPathView(0, 5, false);
     }
 }
