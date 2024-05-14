@@ -35,51 +35,85 @@ public class GameController implements Initializable {
     @FXML
     private void addStation1(ActionEvent event) throws Exception {
         System.out.println("Station 1 added");
-        createImageView(20, 20);
+        createStraightPathView(22, 22, true);
     }
 
-    public void createImageView(int x, int y) {
+    public void createStraightPathView(int x, int y, boolean r) {
         x = x * 72;
         y = y * 72;
         y += 21;
         ImageView imageView = new ImageView();
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
+        if(r) {
+            imageView.setRotate(90);
+        } else {
+            imageView.setRotate(0);
+        }
         Image image = new Image(getClass().getResourceAsStream("weg.png"));
         imageView.setImage(image);
         gamescreen.getChildren().add(imageView);
     }
 
+    public void createCurvePathView(int x, int y, int r) {
+        x = x * 72;
+        y = y * 72;
+
+        ImageView imageView = new ImageView();
+        if(r == 0 ) {
+            imageView.setRotate(0);
+            x += 21;
+        } else if (r == 1){
+            imageView.setRotate(90);
+            y += 21;
+            x += 21;
+        } else if (r == 2) {
+            imageView.setRotate(180);
+            y += 21;
+        } else if (r == 3){
+            imageView.setRotate(270);
+        }
+        imageView.setLayoutX(x);
+        imageView.setLayoutY(y);
+        Image image = new Image(getClass().getResourceAsStream("wegL.png"));
+        imageView.setImage(image);
+        gamescreen.getChildren().add(imageView);
+    }
+
+    public void renderWeg(Weg w) {
+        Pfad temp = null;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        createImageView(1,4);
-        createImageView(2,4);
-        createImageView(2,3);
-        createImageView(2,2);
-        createImageView(3,2);
-        createImageView(4,2);
-        createImageView(5,2);
-        createImageView(6,2);
-        createImageView(7,2);
-        createImageView(8,2);
-        createImageView(9,2);
-        createImageView(10,2);
-        createImageView(10,3);
-        createImageView(10,4);
-        createImageView(10,5);
-        createImageView(10,6);
-        createImageView(10,7);
-        createImageView(9,7);
-        createImageView(8,7);
-        createImageView(7,7);
-        createImageView(6,7);
-        createImageView(5,7);
-        createImageView(4,7);
-        createImageView(3,7);
-        createImageView(2,7);
-        createImageView(2,6);
-        createImageView(2,5);
-        createImageView(1,5);
-        createImageView(0,5);
+        createStraightPathView(1,4,false);
+        createCurvePathView(2,4,3);
+        createStraightPathView(2,3,true);
+        createCurvePathView(2,2,1);
+        createStraightPathView(3,2,false);
+        createStraightPathView(4,2,false);
+        createStraightPathView(5,2,false);
+        createStraightPathView(6,2,false);
+        createStraightPathView(7,2,false);
+        createStraightPathView(8,2,false);
+        createStraightPathView(9,2,false);
+        createCurvePathView(10,2,2);
+        createStraightPathView(10,3,true);
+        createStraightPathView(10,4,true);
+        createStraightPathView(10,5,true);
+        createStraightPathView(10,6,true);
+        createCurvePathView(10,7,3);
+        createStraightPathView(9,7,false);
+        createStraightPathView(8,7,false);
+        createStraightPathView(7,7,false);
+        createStraightPathView(6,7,false);
+        createStraightPathView(5,7,false);
+        createStraightPathView(4,7,false);
+        createStraightPathView(3,7,false);
+        createCurvePathView(2,7,0);
+        createStraightPathView(2,6,true);
+        createCurvePathView(2,5,2);
+        createStraightPathView(1,5,false);
+        createStraightPathView(0,5,false);
     }
 }
