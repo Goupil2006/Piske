@@ -9,16 +9,21 @@ public class Weg {
 
     public void appendPfad(char s, char e, int x, int y) {
         Pfad temp = new Pfad(s, e, x, y);
-        if (head == null) {
+        if (this.head == null) {
             head = temp;
             tail = temp;
         } else {
-            temp.setPrevious(Weg.getTail());
             tail.setNext(temp);
+            tail = temp;
         }
+        System.out.println("appended!");
     }
 
     public static Pfad getTail() {
         return tail;
+    }
+
+    public static Pfad getHead() {
+        return head;
     }
 }

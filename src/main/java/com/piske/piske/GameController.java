@@ -35,7 +35,6 @@ public class GameController implements Initializable {
     @FXML
     private void addStation1(ActionEvent event) throws Exception {
         System.out.println("Station 1 added");
-        createStraightPathView(22, 22, true);
     }
 
     public void createStraightPathView(int x, int y, boolean r) {
@@ -81,39 +80,36 @@ public class GameController implements Initializable {
     }
 
     public void renderWeg(Weg w) {
-        Pfad temp = null;
+        Pfad temp = Weg.getHead();
+        System.out.println("hi");
+        while(Weg.getTail() != temp) {
+            if (temp.getStart() == 'n' && temp.getEnd() == 's' || temp.getStart() == 's' && temp.getEnd() == 'n') {
+                createStraightPathView(temp.getMapX(), temp.getMapY(), true);
+            } else if (temp.getStart() == 'e' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 'e' ){
+                createStraightPathView(temp.getMapX(), temp.getMapY(), false);
+            } else if (temp.getStart() == 'n' && temp.getStart() == 'e' || temp.getStart() == 'e' && temp.getStart() == 'n' ) {
+                createCurvePathView(temp.getMapX(), temp.getMapY(), 0);
+            } else if (temp.getStart() == 's' && temp.getStart() == 'e' || temp.getStart() == 'e' && temp.getStart() == 's' ) {
+                createCurvePathView(temp.getMapX(), temp.getMapY(), 1);
+            } else if (temp.getStart() == 's' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 's' ) {
+                createCurvePathView(temp.getMapX(), temp.getMapY(), 2);
+            } else if (temp.getStart() == 'n' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 'n' ) {
+                createCurvePathView(temp.getMapX(), temp.getMapY(), 3);
+            }
+            createStraightPathView(temp.getMapX(), temp.getMapY(), false);
+            temp = temp.getNext();
+            System.out.println("durchgang");
+        }
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        createStraightPathView(1,4,false);
-        createCurvePathView(2,4,3);
-        createStraightPathView(2,3,true);
-        createCurvePathView(2,2,1);
-        createStraightPathView(3,2,false);
-        createStraightPathView(4,2,false);
-        createStraightPathView(5,2,false);
-        createStraightPathView(6,2,false);
-        createStraightPathView(7,2,false);
-        createStraightPathView(8,2,false);
-        createStraightPathView(9,2,false);
-        createCurvePathView(10,2,2);
-        createStraightPathView(10,3,true);
-        createStraightPathView(10,4,true);
-        createStraightPathView(10,5,true);
-        createStraightPathView(10,6,true);
-        createCurvePathView(10,7,3);
-        createStraightPathView(9,7,false);
-        createStraightPathView(8,7,false);
-        createStraightPathView(7,7,false);
-        createStraightPathView(6,7,false);
-        createStraightPathView(5,7,false);
-        createStraightPathView(4,7,false);
-        createStraightPathView(3,7,false);
-        createCurvePathView(2,7,0);
-        createStraightPathView(2,6,true);
-        createCurvePathView(2,5,2);
-        createStraightPathView(1,5,false);
-        createStraightPathView(0,5,false);
+        schuelerweg.appendPfad('w','e',1,4);
+        schuelerweg.appendPfad('w','e',2,4);
+        schuelerweg.appendPfad('w','e',3,4);
+        schuelerweg.appendPfad('w','e',4,4);
+        schuelerweg.appendPfad('w','e',4,4);
+        renderWeg(schuelerweg);
     }
 }
