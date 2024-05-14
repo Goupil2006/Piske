@@ -14,6 +14,7 @@ public class Weg {
             tail = temp;
         } else {
             tail.setNext(temp);
+            tail = temp;
         }
         System.out.println("appended!");
     }

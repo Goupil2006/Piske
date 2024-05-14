@@ -81,8 +81,9 @@ public class GameController implements Initializable {
 
     public void renderWeg(Weg w) {
         Pfad temp = Weg.getHead();
+        System.out.println("hi");
         while(Weg.getTail() != temp) {
-            /*if (temp.getStart() == 'n' && temp.getEnd() == 's' || temp.getStart() == 's' && temp.getEnd() == 'n') {
+            if (temp.getStart() == 'n' && temp.getEnd() == 's' || temp.getStart() == 's' && temp.getEnd() == 'n') {
                 createStraightPathView(temp.getMapX(), temp.getMapY(), true);
             } else if (temp.getStart() == 'e' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 'e' ){
                 createStraightPathView(temp.getMapX(), temp.getMapY(), false);
@@ -94,7 +95,7 @@ public class GameController implements Initializable {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 2);
             } else if (temp.getStart() == 'n' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 'n' ) {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 3);
-            }*/
+            }
             createStraightPathView(temp.getMapX(), temp.getMapY(), false);
             temp = temp.getNext();
             System.out.println("durchgang");
@@ -107,6 +108,7 @@ public class GameController implements Initializable {
         schuelerweg.appendPfad('w','e',1,4);
         schuelerweg.appendPfad('w','e',2,4);
         schuelerweg.appendPfad('w','e',3,4);
+        schuelerweg.appendPfad('w','e',4,4);
         schuelerweg.appendPfad('w','e',4,4);
         renderWeg(schuelerweg);
     }
