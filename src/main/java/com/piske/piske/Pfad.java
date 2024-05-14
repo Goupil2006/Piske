@@ -3,10 +3,9 @@ package com.piske.piske;
 public class Pfad {
     public char start = ' ';
     public char ende = ' ';
-    public Pfad previous = null;
     public Pfad next = null;
-    public int mapX = Integer.parseInt(null);
-    public int mapY = Integer.parseInt(null);
+    public int mapX = 0;
+    public int mapY = 0;
 
     public Pfad(char s, char e, int x, int y) {
         start = s;
@@ -32,13 +31,6 @@ public class Pfad {
         ende = e;
     }
 
-    public Pfad getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(Pfad p) {
-        previous = p;
-    }
 
     public Pfad getNext() {
         return next;
