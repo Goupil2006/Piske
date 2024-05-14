@@ -20,8 +20,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.io.File;
-import java.util.Scanner;
+import javax.xml.datatype.Duration;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class GameController implements Initializable {
 
@@ -33,10 +35,10 @@ public class GameController implements Initializable {
 
     Weg schuelerweg = new Weg();
 
+    private Schüler[] schülers = new Schüler[1];
 
-    @FXML
-    private void addStation1(ActionEvent event) throws Exception {
-        System.out.println("Station 1 added");
+    public void createSchüler(int x, int y) { // TODO: Weg als übergabeparamether hinzufügen
+        schülers[0] = new Schüler(x, y, gamescreen);
     }
 
     public void createStraightPathView(int x, int y, boolean r) {
@@ -46,7 +48,7 @@ public class GameController implements Initializable {
         ImageView imageView = new ImageView();
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
-        if(r) {
+        if (r) {
             imageView.setRotate(90);
         } else {
             imageView.setRotate(0);
@@ -61,17 +63,17 @@ public class GameController implements Initializable {
         y = y * 72;
 
         ImageView imageView = new ImageView();
-        if(r == 0 ) {
+        if (r == 0) {
             imageView.setRotate(0);
             x += 21;
-        } else if (r == 1){
+        } else if (r == 1) {
             imageView.setRotate(90);
             y += 21;
             x += 21;
         } else if (r == 2) {
             imageView.setRotate(180);
             y += 21;
-        } else if (r == 3){
+        } else if (r == 3) {
             imageView.setRotate(270);
         }
         imageView.setLayoutX(x);
@@ -83,18 +85,23 @@ public class GameController implements Initializable {
 
     public void renderWeg(Weg w) {
         Pfad temp = Weg.getHead();
-        while(Weg.getTail() != temp) {
+        while (Weg.getTail() != temp) {
             if (temp.getStart() == 'n' && temp.getEnd() == 's' || temp.getStart() == 's' && temp.getEnd() == 'n') {
                 createStraightPathView(temp.getMapX(), temp.getMapY(), true);
-            } else if (temp.getStart() == 'e' && temp.getEnd() == 'w' || temp.getStart() == 'w' && temp.getEnd() == 'e' ){
+            } else if (temp.getStart() == 'e' && temp.getEnd() == 'w'
+                    || temp.getStart() == 'w' && temp.getEnd() == 'e') {
                 createStraightPathView(temp.getMapX(), temp.getMapY(), false);
-            } else if (temp.getStart() == 'n' && temp.getEnd() == 'e' || temp.getStart() == 'e' && temp.getEnd() == 'n' ) {
+            } else if (temp.getStart() == 'n' && temp.getEnd() == 'e'
+                    || temp.getStart() == 'e' && temp.getEnd() == 'n') {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 0);
-            } else if (temp.getStart() == 's' && temp.getEnd() == 'e' || temp.getStart() == 'e' && temp.getEnd() == 's' ) {
+            } else if (temp.getStart() == 's' && temp.getEnd() == 'e'
+                    || temp.getStart() == 'e' && temp.getEnd() == 's') {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 1);
-            } else if (temp.getStart() == 's' && temp.getEnd() == 'w' || temp.getStart() == 'w' && temp.getEnd() == 's' ) {
+            } else if (temp.getStart() == 's' && temp.getEnd() == 'w'
+                    || temp.getStart() == 'w' && temp.getEnd() == 's') {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 2);
-            } else if (temp.getStart() == 'n' && temp.getEnd() == 'w' || temp.getStart() == 'w' && temp.getEnd() == 'n' ) {
+            } else if (temp.getStart() == 'n' && temp.getEnd() == 'w'
+                    || temp.getStart() == 'w' && temp.getEnd() == 'n') {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 3);
             }
             temp = temp.getNext();
@@ -102,16 +109,11 @@ public class GameController implements Initializable {
 
     }
 
-    public void renderMap() {
-        File file = new File("map1.txt");
-        Scanner sc = new Scanner(file);
-        while (sc.hasNextLine())
-            System.out.println(sc.nextLine());
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /* schuelerweg.appendPfad('w','e',0,4);
+        createSchüler(0,0);
+        //Pfad erstellen
+        schuelerweg.appendPfad('w','e',0,4);
         schuelerweg.appendPfad('w','e',1,4);
         schuelerweg.appendPfad('w','n',2,4);
         schuelerweg.appendPfad('s','n',2,3);
@@ -142,7 +144,24 @@ public class GameController implements Initializable {
         schuelerweg.appendPfad('e','w',1,5);
         schuelerweg.appendPfad('e','w',0,5);
         schuelerweg.appendPfad('e','w',-1,5);
-        renderWeg(schuelerweg); */
-        renderMap();
+        renderWeg(schuelerweg);
+        schülers[0].goWeg(schuelerweg);
+
+
+        delay(1500, () -> {
+           System.out.println(schülers[0].getX());
+            System.out.println(schülers[0].getY());
+        });
+
+        delay(5500, () -> {
+            System.out.println(schülers[0].getX());
+            System.out.println(schülers[0].getY());
+        });
+    }
+
+    public void delay(int milliseconds, Runnable task) {
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.schedule(task, milliseconds, TimeUnit.MILLISECONDS);
+        executor.shutdown();
     }
 }
