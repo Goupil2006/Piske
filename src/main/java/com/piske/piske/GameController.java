@@ -81,23 +81,21 @@ public class GameController implements Initializable {
 
     public void renderWeg(Weg w) {
         Pfad temp = Weg.getHead();
-        System.out.println("hi");
         while(Weg.getTail() != temp) {
             if (temp.getStart() == 'n' && temp.getEnd() == 's' || temp.getStart() == 's' && temp.getEnd() == 'n') {
                 createStraightPathView(temp.getMapX(), temp.getMapY(), true);
-            } else if (temp.getStart() == 'e' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 'e' ){
+            } else if (temp.getStart() == 'e' && temp.getEnd() == 'w' || temp.getStart() == 'w' && temp.getEnd() == 'e' ){
                 createStraightPathView(temp.getMapX(), temp.getMapY(), false);
-            } else if (temp.getStart() == 'n' && temp.getStart() == 'e' || temp.getStart() == 'e' && temp.getStart() == 'n' ) {
+            } else if (temp.getStart() == 'n' && temp.getEnd() == 'e' || temp.getStart() == 'e' && temp.getEnd() == 'n' ) {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 0);
-            } else if (temp.getStart() == 's' && temp.getStart() == 'e' || temp.getStart() == 'e' && temp.getStart() == 's' ) {
+            } else if (temp.getStart() == 's' && temp.getEnd() == 'e' || temp.getStart() == 'e' && temp.getEnd() == 's' ) {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 1);
-            } else if (temp.getStart() == 's' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 's' ) {
+            } else if (temp.getStart() == 's' && temp.getEnd() == 'w' || temp.getStart() == 'w' && temp.getEnd() == 's' ) {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 2);
-            } else if (temp.getStart() == 'n' && temp.getStart() == 'w' || temp.getStart() == 'w' && temp.getStart() == 'n' ) {
+            } else if (temp.getStart() == 'n' && temp.getEnd() == 'w' || temp.getStart() == 'w' && temp.getEnd() == 'n' ) {
                 createCurvePathView(temp.getMapX(), temp.getMapY(), 3);
             }
             temp = temp.getNext();
-            System.out.println("durchgang");
         }
 
     }
@@ -109,7 +107,32 @@ public class GameController implements Initializable {
         schuelerweg.appendPfad('w','n',2,4);
         schuelerweg.appendPfad('s','n',2,3);
         schuelerweg.appendPfad('s','e',2,2);
-        schuelerweg.appendPfad('w','e',2,3);
+        schuelerweg.appendPfad('w','e',3,2);
+        schuelerweg.appendPfad('w','e',4,2);
+        schuelerweg.appendPfad('w','e',5,2);
+        schuelerweg.appendPfad('w','e',6,2);
+        schuelerweg.appendPfad('w','e',7,2);
+        schuelerweg.appendPfad('w','e',8,2);
+        schuelerweg.appendPfad('w','e',9,2);
+        schuelerweg.appendPfad('w','s',10,2);
+        schuelerweg.appendPfad('n','s',10,3);
+        schuelerweg.appendPfad('n','s',10,4);
+        schuelerweg.appendPfad('n','s',10,5);
+        schuelerweg.appendPfad('n','s',10,6);
+        schuelerweg.appendPfad('n','w',10,7);
+        schuelerweg.appendPfad('e','w',9,7);
+        schuelerweg.appendPfad('e','w',8,7);
+        schuelerweg.appendPfad('e','w',7,7);
+        schuelerweg.appendPfad('e','w',6,7);
+        schuelerweg.appendPfad('e','w',5,7);
+        schuelerweg.appendPfad('e','w',4,7);
+        schuelerweg.appendPfad('e','w',3,7);
+        schuelerweg.appendPfad('e','n',2,7);
+        schuelerweg.appendPfad('s','n',2,6);
+        schuelerweg.appendPfad('s','w',2,5);
+        schuelerweg.appendPfad('e','w',1,5);
+        schuelerweg.appendPfad('e','w',0,5);
+        schuelerweg.appendPfad('e','w',-1,5);
         renderWeg(schuelerweg);
     }
 }
