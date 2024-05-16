@@ -1,26 +1,21 @@
 package com.piske.piske;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javax.xml.datatype.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -36,10 +31,6 @@ public class GameController implements Initializable {
     Weg schuelerweg = new Weg();
 
     private Schüler[] schülers = new Schüler[1];
-
-    public void createSchüler(int x, int y) { // TODO: Weg als übergabeparamether hinzufügen
-        schülers[0] = new Schüler(x, y, gamescreen);
-    }
 
     public void createStraightPathView(int x, int y, boolean r) {
         x = x * 72;
@@ -111,45 +102,43 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        createSchüler(0,0);
-        //Pfad erstellen
-        schuelerweg.appendPfad('w','e',0,4);
-        schuelerweg.appendPfad('w','e',1,4);
-        schuelerweg.appendPfad('w','n',2,4);
-        schuelerweg.appendPfad('s','n',2,3);
-        schuelerweg.appendPfad('s','e',2,2);
-        schuelerweg.appendPfad('w','e',3,2);
-        schuelerweg.appendPfad('w','e',4,2);
-        schuelerweg.appendPfad('w','e',5,2);
-        schuelerweg.appendPfad('w','e',6,2);
-        schuelerweg.appendPfad('w','e',7,2);
-        schuelerweg.appendPfad('w','e',8,2);
-        schuelerweg.appendPfad('w','e',9,2);
-        schuelerweg.appendPfad('w','s',10,2);
-        schuelerweg.appendPfad('n','s',10,3);
-        schuelerweg.appendPfad('n','s',10,4);
-        schuelerweg.appendPfad('n','s',10,5);
-        schuelerweg.appendPfad('n','s',10,6);
-        schuelerweg.appendPfad('n','w',10,7);
-        schuelerweg.appendPfad('e','w',9,7);
-        schuelerweg.appendPfad('e','w',8,7);
-        schuelerweg.appendPfad('e','w',7,7);
-        schuelerweg.appendPfad('e','w',6,7);
-        schuelerweg.appendPfad('e','w',5,7);
-        schuelerweg.appendPfad('e','w',4,7);
-        schuelerweg.appendPfad('e','w',3,7);
-        schuelerweg.appendPfad('e','n',2,7);
-        schuelerweg.appendPfad('s','n',2,6);
-        schuelerweg.appendPfad('s','w',2,5);
-        schuelerweg.appendPfad('e','w',1,5);
-        schuelerweg.appendPfad('e','w',0,5);
-        schuelerweg.appendPfad('e','w',-1,5);
+        createSchüler(0, 0);
+        // Pfad erstellen
+        // Map1.json einlesen
+        InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map1.json");
+        try {
+            if (inputStream == null) {
+                throw new FileNotFoundException("Map1.json not found");
+            }
+            byte[] data = inputStream.readAllBytes();
+            String json = new String(data, "UTF-8");
+
+            JSONObject paths2 = new JSONObject(json);
+            JSONArray paths = new JSONArray(paths2.getJSONArray("Map"));
+            for (int i = 0; i < paths.length(); i++) {
+                JSONArray path = paths.getJSONArray(i);
+                char start = path.getString(0).charAt(0);
+                char end = path.getString(1).charAt(0);
+                int x = path.getInt(2);
+                int y = path.getInt(3);
+                schuelerweg.appendPfad(start, end, x, y);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException("Invalid JSON format", e);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Map1.json not found", e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("Unsupported encoding", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file", e);
+        }
+
         renderWeg(schuelerweg);
+        schülers[0] = new Schüler(0, 0, gamescreen);
         schülers[0].goWeg(schuelerweg);
 
-
         delay(1500, () -> {
-           System.out.println(schülers[0].getX());
+            System.out.println(schülers[0].getX());
             System.out.println(schülers[0].getY());
         });
 

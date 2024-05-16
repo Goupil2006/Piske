@@ -10,6 +10,7 @@ module com.piske.piske {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires org.json;
 
     opens com.piske.piske to javafx.fxml;
     exports com.piske.piske;

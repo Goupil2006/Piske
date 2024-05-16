@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.piske.piske'
-    mainClass = 'com.piske.piske.HelloApplication'
+    mainClass = 'com.piske.piske.Main'
 }
 
 javafx {
@@ -35,6 +35,8 @@ javafx {
 }
 
 dependencies {
+    implementation('org.json:json:20240303')
+
     implementation('org.controlsfx:controlsfx:11.1.2')
     implementation('com.dlsc.formsfx:formsfx-core:11.5.0') {
         exclude(group: 'org.openjfx')
