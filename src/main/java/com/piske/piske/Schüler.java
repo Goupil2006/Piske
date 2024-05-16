@@ -9,6 +9,8 @@ import javafx.util.Duration;
 
 public class Schüler {
 
+    private int startx = 0;
+    private int starty = 0;
     private int x = 0;
     private int y = 0;
     ImageView imageView = new ImageView();
@@ -28,6 +30,8 @@ public class Schüler {
         Pfad temp = way.getHead();
         imageView.setLayoutX(temp.mapX * 72);
         imageView.setLayoutY(temp.mapY * 72);
+        startx = temp.mapX * 72;
+        starty = temp.mapY * 72;
         imageView.toFront();
         temp = temp.getNext();
         goNextPfad(temp);
@@ -54,10 +58,10 @@ public class Schüler {
     }
 
     public double getX() {
-        return translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x;
+        return translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x + startx;
     }
 
     public double getY() {
-        return translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y;
+        return translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y + starty;
     }
 }
