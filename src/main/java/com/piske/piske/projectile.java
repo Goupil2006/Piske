@@ -34,15 +34,15 @@ public class projectile {
     }
 
     public int getMapY(){
-        //return mapY;
-        return translate.getCurrentTime().toMillis() / 500 * ((int) translate.getToY() - this.mapY) + this.mapY + starty;
+        return mapY;
+        //return translate.getCurrentTime().toMillis() / 500 * ((int) translate.getToY() - this.mapY) + this.mapY + starty;
     }
 
     public void setMapY(int y){mapY = y;}
 
     public int getMapX(){
-        //return mapX;
-        return translate.getCurrentTime().toMillis() / 500 * ((int) translate.getToX() - this.mapX) + this.mapX + startx;
+        return mapX;
+        //return translate.getCurrentTime().toMillis() / 500 * ((int) translate.getToX() - this.mapX) + this.mapX + startx;
     }
 
     public void setMapX(int x){mapX = x;}
@@ -64,19 +64,18 @@ public class projectile {
     public void setAngle(double a){angle = a;}
 
     public void spawnProjectile(projectile p){
-        
+
     }
 
-    public void goProjectile(projectile p){
+    public void goProjectile(int x, int y){
         translate.setDuration(Duration.millis(500));
         translate.setNode(imageView);
-        translate.setToX((double) projectile.getMapX() * 72);
-        translate.setToY((double) projectile.getMapY() * 72 - 4 * 72);
-        this.mapX = projectile.getMapX() * 72;
-        this.mapY = projectile.getMapY() * 72 - 4 * 72;
+        translate.setToX(x * 72);
+        translate.setToY(y * 72);
+        setMapX(x);
+        setMapY(y);
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
-        //pfad = pfad.getNext();
     }
 }
 
