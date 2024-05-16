@@ -25,6 +25,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+
 public class GameController implements Initializable {
 
     @FXML
@@ -106,6 +107,10 @@ public class GameController implements Initializable {
             }
             temp = temp.getNext();
         }
+
+    }
+
+    public void renderMap() {
 
     }
 
