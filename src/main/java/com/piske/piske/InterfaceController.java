@@ -21,11 +21,18 @@ public class InterfaceController implements Initializable {
     private VBox contentBox;
 
     @FXML
+    private Parent root;
+
+    @FXML
     private AnchorPane buyinclude;
 
-    public void test(Runnable test) throws IOException {
-        buyinclude.setVisible(true);
-        test.run();
+    public void test(Runnable test) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/piske/piske/Buy.fxml"));
+        root = loader.load();
+
+        BuyController buycontorller = loader.getController();
+        buycontorller.show();
+        // test.run();
         // printNode(rootinterface, 0);
     }
 
