@@ -2,6 +2,7 @@ package com.piske.piske;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,7 +20,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 
 public class GameController implements Initializable {
 
@@ -48,6 +48,10 @@ public class GameController implements Initializable {
         Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/weg.png"));
         imageView.setImage(image);
         gamescreen.getChildren().add(imageView);
+    }
+
+    public void update() {
+        gamescreen.layout();
     }
 
     public void createCurvePathView(int x, int y, int r) {
