@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,18 +29,30 @@ public class StationController implements Initializable {
         root = loader.load();
 
         InterfaceController interfaceController = loader.getController();
-        interfaceController.test(this::addSilli);
+        interfaceController.test(() -> {
+            try {
+                addSilli();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
 
     }
 
-    private void addSilli() {
+    private void addSilli() throws IOException {
         ImageView imageView = new ImageView();
         imageView.setLayoutX(station.getLayoutX());
         imageView.setLayoutY(station.getLayoutY());
         Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Station.png"));
         imageView.setImage(image);
         plane.getChildren().add(imageView);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/piske/piske/game.fxml"));
+        root = loader.load();
+
+        GameController gameController = loader.getController();
+        gameController.createProjectile(1, 1, 0,0,0,0);
     }
 
     @Override
