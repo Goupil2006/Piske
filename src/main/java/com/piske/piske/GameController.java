@@ -45,7 +45,7 @@ public class GameController implements Initializable {
         } else {
             imageView.setRotate(0);
         }
-        Image image = new Image(getClass().getResourceAsStream("weg.png"));
+        Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/weg.png"));
         imageView.setImage(image);
         gamescreen.getChildren().add(imageView);
     }
@@ -70,7 +70,7 @@ public class GameController implements Initializable {
         }
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
-        Image image = new Image(getClass().getResourceAsStream("wegL.png"));
+        Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/wegL.png"));
         imageView.setImage(image);
         gamescreen.getChildren().add(imageView);
     }
@@ -107,7 +107,6 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        createSchüler(0, 0);
         // Pfad erstellen
         // Map1.json einlesen
         InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map1.json");

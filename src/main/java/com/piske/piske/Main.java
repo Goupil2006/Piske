@@ -10,17 +10,14 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader menu = new FXMLLoader(Main.class.getResource("mainmenu.fxml"));
+        FXMLLoader menu = new FXMLLoader(Main.class.getResource("/com/piske/piske/mainmenu.fxml"));
         Scene scene = new Scene(menu.load(), 1280, 720);
         stage.setTitle("Piske: Feed the Beasts!");
         stage.setScene(scene);
         stage.show();
     }
 
-
-
     public static void main(String[] args) {
         launch();
-
     }
 }

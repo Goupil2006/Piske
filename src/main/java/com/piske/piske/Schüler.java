@@ -21,7 +21,7 @@ public class Schüler {
         this.screen = screen;
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
-        Image image = new Image(getClass().getResourceAsStream("Station.png"));
+        Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Station.png"));
         imageView.setImage(image);
         screen.getChildren().add(imageView);
     }

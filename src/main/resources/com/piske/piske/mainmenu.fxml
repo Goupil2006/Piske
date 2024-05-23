@@ -15,7 +15,7 @@
       </Button>
       <ImageView fitHeight="317.0" fitWidth="413.0" layoutX="459.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@logoalpha.png" />
+            <Image url="@Images/logoalpha.png" />
          </image>
       </ImageView>
    </children>
