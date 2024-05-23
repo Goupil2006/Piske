@@ -28,7 +28,7 @@ public class projectile {
         height = h;
         width = w;
         this.screen = screen;
-        Image image = new Image(getClass().getResourceAsStream("bullet.png"));
+        Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
         imageView.setImage(image);
         screen.getChildren().add(imageView);
     }
@@ -63,12 +63,8 @@ public class projectile {
 
     public void setAngle(double a){angle = a;}
 
-    public void spawnProjectile(projectile p){
-
-    }
-
     public void goProjectile(int x, int y){
-        translate.setDuration(Duration.millis(500));
+        translate.setDuration(Duration.millis(5000));
         translate.setNode(imageView);
         translate.setToX(x * 72);
         translate.setToY(y * 72);
