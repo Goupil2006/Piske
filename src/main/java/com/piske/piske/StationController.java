@@ -29,8 +29,6 @@ public class StationController implements Initializable {
 
         InterfaceController interfaceController = loader.getController();
         interfaceController.test(this::addSilli);
-
-
     }
 
     private void addSilli() {
