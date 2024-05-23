@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class GameController implements Initializable {
 
     @FXML
-    private AnchorPane gamescreen;
+    public AnchorPane gamescreen;
 
     @FXML
     private Button addStation1;
@@ -48,6 +48,11 @@ public class GameController implements Initializable {
         Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/weg.png"));
         imageView.setImage(image);
         gamescreen.getChildren().add(imageView);
+    }
+
+    public void createProjectile(int x, int y, double a,int v,int h,int w) {
+        projectile p = new projectile(x,  y,  a, v, h, w, gamescreen);
+        p.goProjectile((int) 4, (int) 4 +1);
     }
 
     public void createCurvePathView(int x, int y, int r) {
@@ -109,6 +114,8 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Pfad erstellen
         // Map1.json einlesen
+//        projectile p = new projectile(1, 1, 0,0,0,0, gamescreen);
+//        p.goProjectile(5, 5);
         InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map1.json");
         try {
             if (inputStream == null) {
