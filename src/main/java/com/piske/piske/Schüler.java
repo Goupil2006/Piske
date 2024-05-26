@@ -57,11 +57,11 @@ public class Schüler {
         });
     }
 
-    public double getX() {
-        return translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x + startx;
+    public int getX() {
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x + startx;
     }
 
-    public double getY() {
-        return translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y + starty;
+    public int getY() {
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y + starty;
     }
 }

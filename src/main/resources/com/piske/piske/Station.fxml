@@ -12,8 +12,8 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.piske.piske.StationController"
             prefHeight="400.0" prefWidth="600.0">
-    <ImageView fx:id="station" onMouseClicked="#addStation" disable="false" fitHeight="72.0" fitWidth="72.0" layoutX="288.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+    <!-- <ImageView fx:id="station" onMouseClicked="#addStation" disable="false" fitHeight="72.0" fitWidth="72.0" layoutX="288.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@Images/addStation.png" />
-        </image></ImageView>
+        </image></ImageView> -->
 </AnchorPane>

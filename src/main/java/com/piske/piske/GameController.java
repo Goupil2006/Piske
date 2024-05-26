@@ -54,7 +54,7 @@ public class GameController implements Initializable {
 
     Weg schuelerweg = new Weg();
 
-    private Schüler[] schülers = new Schüler[1];
+    public SchülerManager schülerManager = new SchülerManager();
 
     public void createStraightPathView(int x, int y, boolean r) {
         x = x * 72;
@@ -77,9 +77,11 @@ public class GameController implements Initializable {
         gamescreen.layout();
     }
 
-    public void createProjectile(int x, int y, double a, int v, int h, int w) {
-        projectile p = new projectile(x, y, a, v, h, w, gamescreen);
-        p.goProjectile((int) 4, (int) 4 + 1);
+    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target) {
+        System.out.println("goo");
+        Projectile p = new Projectile(x, y, a, v, h, w, gamescreen);
+        System.out.println("goo");
+        p.goProjectile(target);
     }
 
     public void createCurvePathView(int x, int y, int r) {
@@ -205,17 +207,17 @@ public class GameController implements Initializable {
         }
 
         renderWeg(schuelerweg);
-        schülers[0] = new Schüler(0, 0, gamescreen);
-        schülers[0].goWeg(schuelerweg);
+        schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
+        schülerManager.getSchülerAtIndex(0).goWeg(schuelerweg);
 
         delay(1500, () -> {
-            System.out.println(schülers[0].getX());
-            System.out.println(schülers[0].getY());
+            System.out.println(schülerManager.getSchülerAtIndex(0).getX());
+            System.out.println(schülerManager.getSchülerAtIndex(0).getY());
         });
 
         delay(5500, () -> {
-            System.out.println(schülers[0].getX());
-            System.out.println(schülers[0].getY());
+            System.out.println(schülerManager.getSchülerAtIndex(0).getX());
+            System.out.println(schülerManager.getSchülerAtIndex(0).getY());
         });
     }
 

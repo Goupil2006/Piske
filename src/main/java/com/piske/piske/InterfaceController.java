@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,8 +35,23 @@ public class InterfaceController implements Initializable {
     @FXML
     public AnchorPane rootinterface;
 
+    @FXML
+    public Text money;
+
+    private float amount = 60;
+
+    public void changeAmount(float amount) {
+        this.amount += amount;
+        money.setText(this.amount + "$");
+    }
+
+    public float getMoney() {
+        return amount;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        System.out.println("InterfaceController initialized");
+        money.setText(amount + "$");
     }
 }

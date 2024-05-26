@@ -7,7 +7,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-public class projectile {
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+public class Projectile {
     private int startx = 0;
     private int starty = 0;
     public int mapY;
@@ -20,7 +24,7 @@ public class projectile {
     private AnchorPane screen;
     TranslateTransition translate = new TranslateTransition();
 
-    public projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen){
+    public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen){
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
         angle = a;
@@ -63,15 +67,26 @@ public class projectile {
 
     public void setAngle(double a){angle = a;}
 
-    public void goProjectile(int x, int y){
-        translate.setDuration(Duration.millis(5000));
+    public void goProjectile(Schüler target){
+        System.out.println("going");
+        translate.setDuration(Duration.millis(500));
         translate.setNode(imageView);
-        translate.setToX(x * 72);
-        translate.setToY(y * 72);
-        setMapX(x);
-        setMapY(y);
+        translate.setToX(target.getX());
+        translate.setToY(target.getY());
+        setMapX(target.getX());
+        setMapY(target.getY());
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
+        Schüler finaltarget = target;
+        delay(500, () -> {
+            goProjectile(finaltarget);
+        });
+    }
+
+    public void delay(int milliseconds, Runnable task) {
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.schedule(task, milliseconds, TimeUnit.MILLISECONDS);
+        executor.shutdown();
     }
 }
 

@@ -21,10 +21,10 @@ public class BuyController implements Initializable {
     private GameController gameController;
 
     public void setContollers(StationController stationController, InterfaceController interfaceController,
-                              GameController gameController) {
+            GameController gameController) {
         this.stationController = stationController;
         this.interfaceController = interfaceController;
-        //this.buyController = buyController;
+        // this.buyController = buyController;
         this.gameController = gameController;
     }
 
@@ -49,8 +49,33 @@ public class BuyController implements Initializable {
     }
 
     @FXML
-    public void addsilli() {
+    public void addsilli() throws Exception {
+        this.stop();
         this.createStation.accept("silli");
+    }
+
+    @FXML
+    public void addIra() throws Exception {
+        this.stop();
+        this.createStation.accept("ira");
+    }
+
+    @FXML
+    public void addBiene() throws Exception {
+        this.stop();
+        this.createStation.accept("biene");
+    }
+
+    @FXML
+    public void addConny() throws Exception {
+        this.stop();
+        this.createStation.accept("conny");
+    }
+
+    @FXML
+    public void addEvy() throws Exception {
+        this.stop();
+        this.createStation.accept("evy");
     }
 
     @Override

@@ -31,7 +31,7 @@
                </ImageView>
                 </children></Pane>
             <ProgressBar layoutX="28.0" layoutY="28.0" prefHeight="18.0" prefWidth="360.0" progress="0.0" style="-fx-background-radius: 5;" />
-            <Text fill="#1d2f6f" layoutX="49.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="215$" textAlignment="CENTER" wrappingWidth="319.2796630859375">
+            <Text fx:id="money" fill="#1d2f6f" layoutX="49.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="215$" textAlignment="CENTER" wrappingWidth="319.2796630859375">
                 <font>
                     <Font name="System Bold" size="42.0" />
                 </font>
