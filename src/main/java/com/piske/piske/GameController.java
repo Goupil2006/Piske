@@ -1,16 +1,26 @@
 package com.piske.piske;
 
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javafx.scene.input.MouseEvent;
+import java.beans.Visibility;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +32,19 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class GameController implements Initializable {
+
+    private StationController stationController;
+    private InterfaceController interfaceController;
+    private BuyController buyController;
+    // private GameController gameController;
+
+    public void setContollers(StationController stationController, InterfaceController interfaceController,
+            BuyController buyController) {
+        this.stationController = stationController;
+        this.interfaceController = interfaceController;
+        this.buyController = buyController;
+        // this.gameController = gameController;
+    }
 
     @FXML
     public AnchorPane gamescreen;
@@ -114,6 +137,39 @@ public class GameController implements Initializable {
 
     }
 
+    // public void changebuymenu() {
+    // System.out.println("changebuymenu");
+    //
+    // if (gamescreen.lookup("#buyhead").isVisible()) {
+    // gamescreen.lookup("#buyhead").visibleProperty().bind(new
+    // SimpleBooleanProperty(true));
+    // } else {
+    // gamescreen.lookup("#buyhead").visibleProperty().bind(new
+    // SimpleBooleanProperty(false));
+    // }
+    // }
+
+    public void refreshScene(MouseEvent event) {
+        try {
+            // Load the FXML file
+            Parent root = FXMLLoader.load(getClass().getResource("/com/piske/piske/game.fxml"));
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Create a new scene with the root from the FXML file
+            Scene scene = new Scene(root);
+
+            // Set the scene on the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Pfad erstellen
@@ -168,4 +224,5 @@ public class GameController implements Initializable {
         executor.schedule(task, milliseconds, TimeUnit.MILLISECONDS);
         executor.shutdown();
     }
+
 }

@@ -1,5 +1,6 @@
 package com.piske.piske;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,39 +18,21 @@ import java.util.ResourceBundle;
 
 public class InterfaceController implements Initializable {
 
-    @FXML
-    private VBox contentBox;
+    private StationController stationController;
+    // private InterfaceController interfaceController;
+    private BuyController buyController;
+    private GameController gameController;
 
-    @FXML
-    private Parent root;
-
-    @FXML
-    private AnchorPane buyinclude;
-
-    public void test(Runnable test) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/piske/piske/Buy.fxml"));
-        root = loader.load();
-
-        BuyController buycontorller = loader.getController();
-        buycontorller.show();
-        // test.run();
-        // printNode(rootinterface, 0);
+    public void setContollers(StationController stationController, GameController gameController,
+            BuyController buyController) {
+        this.stationController = stationController;
+        // this.interfaceController = interfaceController;
+        this.buyController = buyController;
+        this.gameController = gameController;
     }
 
-    public static void printNode(Node node, int level) {
-        // Print the current node with indentation
-        String indent = " ".repeat(level * 2);
-        System.out.println(indent + node.getClass().getSimpleName() + ": " + node);
-
-        // If the node is a Parent, recursively print its children
-        if (node instanceof Parent) {
-            Parent parent = (Parent) node;
-            for (Node child : parent.getChildrenUnmodifiable()) {
-                printNode(child, level + 1);
-            }
-        }
-    }
-
+    @FXML
+    public AnchorPane rootinterface;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

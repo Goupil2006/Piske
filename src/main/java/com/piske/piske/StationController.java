@@ -1,5 +1,6 @@
 package com.piske.piske;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,12 +9,27 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import java.util.function.Consumer;
+
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StationController implements Initializable {
+
+    // private StationController stationController;
+    private InterfaceController interfaceController;
+    private BuyController buyController;
+    private GameController gameController;
+
+    public void setContollers(InterfaceController interfaceController, GameController gameController,
+            BuyController buyController) {
+        // this.stationController = stationController;
+        this.interfaceController = interfaceController;
+        this.buyController = buyController;
+        this.gameController = gameController;
+    }
 
     @FXML
     private AnchorPane plane;
@@ -25,19 +41,21 @@ public class StationController implements Initializable {
 
     @FXML
     private void addStation(MouseEvent event) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/piske/piske/Interface.fxml"));
-        root = loader.load();
-
-        InterfaceController interfaceController = loader.getController();
-        interfaceController.test(() -> {
-            try {
-                addSilli();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        System.out.println(this.buyController);
+        Consumer<String> createStation = ((String type) -> {
+            switch (type) {
+                case "silli":
+                    try {
+                        addSilli();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                default:
+                    break;
             }
         });
-
-
+        this.buyController.start(createStation);
     }
 
     private void addSilli() throws IOException {
@@ -48,11 +66,7 @@ public class StationController implements Initializable {
         imageView.setImage(image);
         plane.getChildren().add(imageView);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/piske/piske/game.fxml"));
-        root = loader.load();
-
-        GameController gameController = loader.getController();
-        gameController.createProjectile(1, 1, 0,0,0,0);
+        this.gameController.createProjectile(1, 1, 0, 0, 0, 0);
     }
 
     @Override

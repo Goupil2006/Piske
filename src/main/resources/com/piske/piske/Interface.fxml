@@ -36,6 +36,7 @@
                     <Font name="System Bold" size="42.0" />
                 </font>
             </Text>
-            <fx:include fx:id="buyinclude" source="Buy.fxml" visible="false" />
-        </children></Pane>
+        </children>
+        <!--<fx:include source="Buy.fxml"/>-->
+    </Pane>
 </AnchorPane>
