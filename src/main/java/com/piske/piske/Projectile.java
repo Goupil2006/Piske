@@ -1,7 +1,6 @@
 package com.piske.piske;
 
-import javafx.animation.Interpolator;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -105,14 +104,26 @@ public class Projectile {
     }
 
     public int getX() {
-        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x + startx;
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x
+                + startx;
     }
 
     public int getY() {
-        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y + starty;
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y
+                + starty;
     }
 
     public void goProjectile(Schüler target, Consumer<Projectile> checkColision) {
+
+    public void goProjectile(Schüler target) {
+        System.out.println("going");
+        // rotate projectile
+        RotateTransition rt = new RotateTransition(Duration.millis(300), imageViewp);
+        rt.setByAngle(180);
+        rt.setCycleCount(1);
+        rt.setAutoReverse(true);
+        rt.play();
+
         translate.setDuration(Duration.millis(500));
         translate.setNode(imageViewp);
         translate.setToX(target.getX() - startx + 72 / 2);
