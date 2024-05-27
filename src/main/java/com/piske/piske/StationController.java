@@ -80,7 +80,7 @@ public class StationController implements Initializable {
 
 
 
-        this.shot(x * 72, y * 72);
+        this.shot(x, y);
     }
 
     private void shot(int x, int y) {

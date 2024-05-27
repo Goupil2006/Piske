@@ -25,8 +25,10 @@ public class Projectile {
 
     public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen){
         System.out.println("test");
-        imageViewp.setLayoutX(x);
-        imageViewp.setLayoutY(y);
+        imageViewp.setLayoutX(x * 72);
+        imageViewp.setLayoutY(y * 72);
+        this.startx = x * 72;
+        this.starty = x * 72;
         angle = a;
         velocity = v;
         height = h;
@@ -74,10 +76,10 @@ public class Projectile {
         System.out.println("going");
         translate.setDuration(Duration.millis(500));
         translate.setNode(imageViewp);
-        translate.setToX(target.getX());
-        translate.setToY(target.getY());
-        setMapX(target.getX());
-        setMapY(target.getY());
+        translate.setToX(target.getX() - startx + 72/2);
+        translate.setToY(target.getY() - starty + 72/2);
+//        setMapX(target.getX());
+//        setMapY(target.getY());
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
         Schüler finaltarget = target;
