@@ -78,8 +78,6 @@ public class StationController implements Initializable {
         imageView.setImage(image);
         plane.getChildren().add(imageView);
 
-
-
         this.shot(x * 72, y * 72);
     }
 
