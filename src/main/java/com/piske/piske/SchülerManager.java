@@ -47,4 +47,16 @@ public class SchülerManager {
         }
     }
 
+    public void checkColistion(Projectile projectile) {
+        System.out.println("check colision");
+        for (Schüler schüler : schülerList) {
+            double distance = Math.sqrt(Math.pow(schüler.getX() - projectile.getX(), 2) + Math.pow(schüler.getY() - projectile.getY(), 2));
+
+            if (distance <= 30) {
+                schüler.hit(projectile.getDamage());
+                projectile.hit();
+            }
+        }
+    }
+
 }

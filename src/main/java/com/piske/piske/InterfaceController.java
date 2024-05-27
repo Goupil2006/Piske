@@ -38,7 +38,7 @@ public class InterfaceController implements Initializable {
     @FXML
     public Text money;
 
-    private float amount = 60;
+    private float amount = 2000;
 
     public void changeAmount(float amount) {
         this.amount += amount;

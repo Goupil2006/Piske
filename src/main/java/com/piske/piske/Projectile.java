@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class Projectile {
     private int startx = 0;
@@ -20,15 +21,20 @@ public class Projectile {
     public int velocity;
     public int height;
     public int width;
+    private int damage = 20;
+    private int x;
+    private int y;
     ImageView imageViewp = new ImageView();
     TranslateTransition translate = new TranslateTransition();
 
-    public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen){
+    public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen) {
         System.out.println("test");
         imageViewp.setLayoutX(x * 72);
         imageViewp.setLayoutY(y * 72);
         this.startx = x * 72;
         this.starty = y * 72;
+        this.x = x * 72;
+        this.y = y * 72;
         angle = a;
         velocity = v;
         height = h;
@@ -42,50 +48,91 @@ public class Projectile {
         System.out.println("test4");
     }
 
-    public int getMapY(){
+    public int getMapY() {
         return mapY;
-        //return translate.getCurrentTime().toMillis() / 500 * ((int) translate.getToY() - this.mapY) + this.mapY + starty;
+        // return translate.getCurrentTime().toMillis() / 500 * ((int)
+        // translate.getToY() - this.mapY) + this.mapY + starty;
     }
 
-    public void setMapY(int y){mapY = y;}
+    public int getDamage() {
+        return this.damage;
+    }
 
-    public int getMapX(){
+    public void setMapY(int y) {
+        mapY = y;
+    }
+
+    public int getMapX() {
         return mapX;
-        //return translate.getCurrentTime().toMillis() / 500 * ((int) translate.getToX() - this.mapX) + this.mapX + startx;
+        // return translate.getCurrentTime().toMillis() / 500 * ((int)
+        // translate.getToX() - this.mapX) + this.mapX + startx;
     }
 
-    public void setMapX(int x){mapX = x;}
+    public void setMapX(int x) {
+        mapX = x;
+    }
 
-    public int getVelocity(){return velocity;}
+    public int getVelocity() {
+        return velocity;
+    }
 
-    public void setVelocity(int v){velocity = v;}
+    public void setVelocity(int v) {
+        velocity = v;
+    }
 
-    public int getHeight(){return height;}
+    public int getHeight() {
+        return height;
+    }
 
-    public void setHeight(int h){height = h;}
+    public void setHeight(int h) {
+        height = h;
+    }
 
-    public int getWidth(){return width;}
+    public int getWidth() {
+        return width;
+    }
 
-    public void setWidth(int w){width = w;}
+    public void setWidth(int w) {
+        width = w;
+    }
 
-    public double getAngle(){return angle;}
+    public double getAngle() {
+        return angle;
+    }
 
-    public void setAngle(double a){angle = a;}
+    public void setAngle(double a) {
+        angle = a;
+    }
 
-    public void goProjectile(Schüler target){
-        System.out.println("going");
+    public int getX() {
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x + startx;
+    }
+
+    public int getY() {
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y + starty;
+    }
+
+    public void goProjectile(Schüler target, Consumer<Projectile> checkColision) {
         translate.setDuration(Duration.millis(500));
         translate.setNode(imageViewp);
-        translate.setToX(target.getX() - startx + 72/2);
-        translate.setToY(target.getY() - starty + 72/2);
-//        setMapX(target.getX());
-//        setMapY(target.getY());
+        translate.setToX(target.getX() - startx + 72 / 2);
+        translate.setToY(target.getY() - starty + 72 / 2);
+        this.x = target.getX() - startx + 72 / 2;
+        this.y = target.getY() - starty + 72 / 2;
+        // setMapX(target.getX());
+        // setMapY(target.getY());
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
         Schüler finaltarget = target;
         delay(500, () -> {
-            goProjectile(finaltarget);
+            checkColision.accept(this);
+            goProjectile(finaltarget, checkColision);
         });
+    }
+
+    public void hit() {
+        translate.stop();
+        imageViewp.setImage(null);
     }
 
     public void delay(int milliseconds, Runnable task) {
@@ -94,6 +141,3 @@ public class Projectile {
         executor.shutdown();
     }
 }
-
-
-

@@ -51,6 +51,7 @@ public class StationController implements Initializable {
             switch (type) {
                 case "silli":
                     try {
+                        System.out.println("creating silli: " + x + " " + y);
                         addSilli(x, y);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -76,7 +77,7 @@ public class StationController implements Initializable {
         imageView.setLayoutY(y * 72);
         Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Station.png"));
         imageView.setImage(image);
-        plane.getChildren().add(imageView);
+        this.plane.getChildren().add(imageView);
 
         this.shot(x, y);
     }
@@ -111,8 +112,8 @@ public class StationController implements Initializable {
                 ImageView station = new ImageView();
                 station.setFitHeight(72.0);
                 station.setFitWidth(72.0);
-                station.setLayoutX((x * 72.0));
-                station.setLayoutY((y * 72.0));
+                station.setLayoutX(x * 72.0);
+                station.setLayoutY(y * 72.0);
                 station.setPickOnBounds(true);
                 station.setPreserveRatio(true);
                 Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/addStation.png"));

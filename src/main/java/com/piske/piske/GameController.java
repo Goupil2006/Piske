@@ -30,6 +30,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class GameController implements Initializable {
 
@@ -81,7 +82,8 @@ public class GameController implements Initializable {
         System.out.println("go");
         Projectile p = new Projectile(x, y, a, v, h, w, gamescreen);
         System.out.println("goo");
-        p.goProjectile(target);
+        Consumer<Projectile> checkColision = ((Projectile projectile) -> {schülerManager.checkColistion(projectile);});
+        p.goProjectile(target, checkColision);
     }
 
     public void createCurvePathView(int x, int y, int r) {

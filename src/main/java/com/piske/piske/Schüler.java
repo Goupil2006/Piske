@@ -16,6 +16,7 @@ public class Schüler {
     ImageView imageView = new ImageView();
     private AnchorPane screen;
     TranslateTransition translate = new TranslateTransition();
+    private int health = 20;
 
     public Schüler(int x, int y, AnchorPane screen) {
         this.screen = screen;
@@ -57,11 +58,21 @@ public class Schüler {
         });
     }
 
+    public void hit(int damage) {
+        health -= damage;
+        if (health <= 0) {
+            screen.getChildren().remove(imageView);
+        }
+        System.out.println("hit");
+    }
+
     public int getX() {
-        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x + startx;
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x
+                + startx;
     }
 
     public int getY() {
-        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y + starty;
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y
+                + starty;
     }
 }
