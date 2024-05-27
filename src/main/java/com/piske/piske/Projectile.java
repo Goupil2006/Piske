@@ -73,12 +73,16 @@ public class Projectile {
 
     public void goProjectile(Schüler target){
         System.out.println("going");
+        Schüler finaltarget = target;
         //rotate projectile
         RotateTransition rt = new RotateTransition(Duration.millis(300), imageViewp);
+        double sinalpha = 0;
+        sinalpha = (finaltarget.getX()-)/Math.sqrt(Math.pow(finaltarget.getX()-,2)+Math.pow(finaltarget.getY()-,2));
         rt.setByAngle(180);
         rt.setCycleCount(1);
         rt.setAutoReverse(true);
         rt.play();
+
 
         translate.setDuration(Duration.millis(500));
         translate.setNode(imageViewp);
@@ -88,8 +92,7 @@ public class Projectile {
 //        setMapY(target.getY());
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
-        Schüler finaltarget = target;
-        delay(500, () -> {
+        delay(50, () -> {
             goProjectile(finaltarget);
         });
     }
