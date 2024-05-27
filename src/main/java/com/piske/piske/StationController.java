@@ -78,15 +78,15 @@ public class StationController implements Initializable {
         imageView.setImage(image);
         plane.getChildren().add(imageView);
 
-        this.shot(x * 72, y * 72);
+        this.shot(x, y);
     }
 
     private void shot(int x, int y) {
         // find Target
-        Schüler target = this.gameController.schülerManager.getSchüler(x , y, 300);
+        Schüler target = this.gameController.schülerManager.getSchüler(x, y, 300);
 
         System.out.println("active");
-        if(target != null) {
+        if (target != null) {
             System.out.println("created");
             this.gameController.createProjectile(x, y, 0, 0, 0, 0, target);
         }
@@ -94,7 +94,7 @@ public class StationController implements Initializable {
         int finalx = x;
         int finaly = y;
         delay(1000, () -> {
-            if(this.active) {
+            if (this.active) {
                 this.shot(finalx, finaly);
             }
         });
