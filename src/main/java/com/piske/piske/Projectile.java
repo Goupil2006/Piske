@@ -119,10 +119,13 @@ public class Projectile {
         System.out.println("going");
         // rotate projectile
         RotateTransition rt = new RotateTransition(Duration.millis(300), imageViewp);
+        double sinalpha = 0;
+        sinalpha = (finaltarget.getX()-)/Math.sqrt(Math.pow(finaltarget.getX()-,2)+Math.pow(finaltarget.getY()-,2));
         rt.setByAngle(180);
         rt.setCycleCount(1);
         rt.setAutoReverse(true);
         rt.play();
+
 
         translate.setDuration(Duration.millis(500));
         translate.setNode(imageViewp);
