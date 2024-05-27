@@ -20,21 +20,24 @@ public class Projectile {
     public int velocity;
     public int height;
     public int width;
-    ImageView imageView = new ImageView();
-    private AnchorPane screen;
+    ImageView imageViewp = new ImageView();
     TranslateTransition translate = new TranslateTransition();
 
     public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen){
-        imageView.setLayoutX(x);
-        imageView.setLayoutY(y);
+        System.out.println("test");
+        imageViewp.setLayoutX(x);
+        imageViewp.setLayoutY(y);
         angle = a;
         velocity = v;
         height = h;
         width = w;
-        this.screen = screen;
+        System.out.println("test2");
         Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
-        imageView.setImage(image);
-        screen.getChildren().add(imageView);
+        System.out.println("test3");
+        imageViewp.setImage(image);
+        System.out.println("test3");
+        screen.getChildren().add(imageViewp);
+        System.out.println("test4");
     }
 
     public int getMapY(){
@@ -70,7 +73,7 @@ public class Projectile {
     public void goProjectile(Schüler target){
         System.out.println("going");
         translate.setDuration(Duration.millis(500));
-        translate.setNode(imageView);
+        translate.setNode(imageViewp);
         translate.setToX(target.getX());
         translate.setToY(target.getY());
         setMapX(target.getX());
