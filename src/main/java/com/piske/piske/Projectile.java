@@ -28,7 +28,7 @@ public class Projectile {
         imageViewp.setLayoutX(x * 72);
         imageViewp.setLayoutY(y * 72);
         this.startx = x * 72;
-        this.starty = x * 72;
+        this.starty = y * 72;
         angle = a;
         velocity = v;
         height = h;
