@@ -90,7 +90,7 @@ public class StationController implements Initializable {
         System.out.println("active");
         if(target != null) {
             System.out.println("created");
-            this.gameController.createProjectile(x / 72, y / 72, 0, 0, 0, 0, target);
+            this.gameController.createProjectile(x, y, 0, 0, 0, 0, target);
         }
 
         int finalx = x;

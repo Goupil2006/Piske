@@ -175,9 +175,7 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Pfad erstellen
-        // Map1.json einlesen
-        // projectile p = new projectile(1, 1, 0,0,0,0, gamescreen);
-        // p.goProjectile(5, 5);
+        // Map1.json einlesen;
         InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map1.json");
         try {
             if (inputStream == null) {
