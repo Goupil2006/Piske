@@ -1,7 +1,6 @@
 package com.piske.piske;
 
-import javafx.animation.Interpolator;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -74,6 +73,13 @@ public class Projectile {
 
     public void goProjectile(Schüler target){
         System.out.println("going");
+        //rotate projectile
+        RotateTransition rt = new RotateTransition(Duration.millis(300), imageViewp);
+        rt.setByAngle(180);
+        rt.setCycleCount(1);
+        rt.setAutoReverse(true);
+        rt.play();
+
         translate.setDuration(Duration.millis(500));
         translate.setNode(imageViewp);
         translate.setToX(target.getX() - startx + 72/2);
