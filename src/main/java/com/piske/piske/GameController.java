@@ -78,7 +78,7 @@ public class GameController implements Initializable {
     }
 
     public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target) {
-        System.out.println("goo");
+        System.out.println("go");
         Projectile p = new Projectile(x, y, a, v, h, w, gamescreen);
         System.out.println("goo");
         p.goProjectile(target);
