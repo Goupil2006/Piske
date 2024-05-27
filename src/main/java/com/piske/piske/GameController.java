@@ -55,6 +55,8 @@ public class GameController implements Initializable {
 
     Weg schuelerweg = new Weg();
 
+    public int [] anzahlSchueler;
+
     public SchülerManager schülerManager = new SchülerManager();
 
     public void createStraightPathView(int x, int y, boolean r) {
@@ -209,6 +211,8 @@ public class GameController implements Initializable {
         renderWeg(schuelerweg);
         schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
         schülerManager.getSchülerAtIndex(0).goWeg(schuelerweg);
+         
+        erzeugeWellen(4);
 
         delay(1500, () -> {
             System.out.println(schülerManager.getSchülerAtIndex(0).getX());
@@ -220,6 +224,24 @@ public class GameController implements Initializable {
             System.out.println(schülerManager.getSchülerAtIndex(0).getY());
         });
     }
+
+    public void erzeugeWellen(int j ){
+        anzahlSchueler = new int[j];
+        for (int i = 0; i< j; i++) {
+            AnzahlSchueler[i] =  i * 5 + (Math.random() * 10 * i);
+        }
+    }   
+
+    public void erzeugeWelle(int num) {
+        for (i = 0; i< num; i++){
+                delay(500, () -> {
+            new Schüler(0, 0, gamescreen);
+                Schüler.goWeg(schuelerweg);
+             })
+        }
+    }
+
+
 
     public void delay(int milliseconds, Runnable task) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
