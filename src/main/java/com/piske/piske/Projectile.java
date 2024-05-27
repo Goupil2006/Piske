@@ -114,13 +114,12 @@ public class Projectile {
     }
 
     public void goProjectile(Schüler target, Consumer<Projectile> checkColision) {
-
-    public void goProjectile(Schüler target) {
         System.out.println("going");
+        Schüler finaltarget = target;
         // rotate projectile
         RotateTransition rt = new RotateTransition(Duration.millis(300), imageViewp);
         double sinalpha = 0;
-        sinalpha = (finaltarget.getX()-)/Math.sqrt(Math.pow(finaltarget.getX()-,2)+Math.pow(finaltarget.getY()-,2));
+        sinalpha = (finaltarget.getX()-this.getX())/Math.sqrt(Math.pow(finaltarget.getX()-this.getX(),2)+Math.pow(finaltarget.getY()-this.getY(),2));
         rt.setByAngle(180);
         rt.setCycleCount(1);
         rt.setAutoReverse(true);
@@ -137,7 +136,6 @@ public class Projectile {
         // setMapY(target.getY());
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
-        Schüler finaltarget = target;
         delay(500, () -> {
             checkColision.accept(this);
             goProjectile(finaltarget, checkColision);
