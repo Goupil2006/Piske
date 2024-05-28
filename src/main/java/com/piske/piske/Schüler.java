@@ -2,6 +2,7 @@ package com.piske.piske;
 
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -60,10 +61,15 @@ public class Schüler {
 
     public void hit(int damage) {
         health -= damage;
+        System.out.println(health);
         if (health <= 0) {
-            screen.getChildren().remove(imageView);
+            System.out.println("hit");
+            Platform.runLater(() -> {
+                screen.getChildren().remove(imageView);
+            });
+
         }
-        System.out.println("hit");
+
     }
 
     public int getX() {
