@@ -118,29 +118,33 @@ public class Projectile {
         // rotate projectile
         RotateTransition rt = new RotateTransition(Duration.millis(300), imageViewp);
         double nowangle = 0;
-        nowangle = Math.asin((target.getX()-this.getX())/Math.sqrt(Math.pow(target.getX()-this.getX(),2)+Math.pow(target.getY()-this.getY(),2)));
+        nowangle = Math.asin((target.getX() - this.getX())
+                / Math.sqrt(Math.pow(target.getX() - this.getX(), 2) + Math.pow(target.getY()
+                        - this.getY(), 2)));
         System.out.println(nowangle);
         rt.setToAngle(nowangle);
         rt.setCycleCount(1);
         rt.setAutoReverse(true);
         rt.play();
 
-
-        translate.setDuration(Duration.millis(500));
+        translate.setDuration(Duration.millis(1000));
         translate.setNode(imageViewp);
-        translate.setToX(target.getX() - startx + 72 / 2);
-        translate.setToY(target.getY() - starty + 72 / 2);
-        this.x = target.getX() - startx + 72 / 2;
-        this.y = target.getY() - starty + 72 / 2;
+        System.out.println(String.valueOf(target.getX() - startx + 72 / 2) + " "
+                + String.valueOf(target.getY() - starty + 72 / 2));
+        translate.setToX(target.getX() - startx + 72 / 2 + ((target.getX() - startx + 72 / 2 - startx)));
+        translate.setToY(target.getY() - starty + 72 / 2 + ((target.getY() - starty + 72 / 2 - starty)));
+
+        // this.x = target.getX() - startx + 72 / 2;
+        // this.y = target.getY() - starty + 72 / 2;
         // setMapX(target.getX());
         // setMapY(target.getY());
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
-        Schüler finaltarget = target;
-        delay(500, () -> {
-            checkColision.accept(this);
-            goProjectile(finaltarget, checkColision);
-        });
+        // Schüler finaltarget = target;
+        // delay(100, () -> {
+        // checkColision.accept(this);
+        // goProjectile(finaltarget, checkColision);
+        // });
     }
 
     public void hit() {

@@ -39,12 +39,20 @@ public class GameController implements Initializable {
     private BuyController buyController;
     // private GameController gameController;
 
+    private int difficulty;
+    private int sound;
+
     public void setContollers(StationController stationController, InterfaceController interfaceController,
             BuyController buyController) {
         this.stationController = stationController;
         this.interfaceController = interfaceController;
         this.buyController = buyController;
         // this.gameController = gameController;
+    }
+
+    public void setDifAndSound(int difficulty, int sound) {
+        this.difficulty = difficulty;
+        this.sound = sound;
     }
 
     @FXML
@@ -55,7 +63,7 @@ public class GameController implements Initializable {
 
     Weg schuelerweg = new Weg();
 
-    public int [] anzahlSchueler;
+    public int[] anzahlSchueler;
 
     public SchülerManager schülerManager = new SchülerManager();
 
@@ -84,7 +92,9 @@ public class GameController implements Initializable {
         System.out.println("go");
         Projectile p = new Projectile(x, y, a, v, h, w, gamescreen);
         System.out.println("goo");
-        Consumer<Projectile> checkColision = ((Projectile projectile) -> {schülerManager.checkColistion(projectile);});
+        Consumer<Projectile> checkColision = ((Projectile projectile) -> {
+            schülerManager.checkColistion(projectile);
+        });
         p.goProjectile(target, checkColision);
     }
 
@@ -209,10 +219,23 @@ public class GameController implements Initializable {
         }
 
         renderWeg(schuelerweg);
-        schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
-        schülerManager.getSchülerAtIndex(0).goWeg(schuelerweg);
-         
-        erzeugeWellen(4);
+
+        delay(1000, () -> {
+            System.out.println(String.valueOf(difficulty));
+            for (int i = -1; i < (int)(difficulty / 10); i++) {
+                int finalI = i + 1;
+                delay((i + 1) * 2000, () -> {
+                    Platform.runLater(() -> {
+                        System.out.println("Spawn");
+                        schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
+                        schülerManager.getSchülerAtIndex(finalI).goWeg(schuelerweg);
+                    });
+                });
+            }
+        });
+
+
+        // erzeugeWellen(4);
 
         delay(1500, () -> {
             System.out.println(schülerManager.getSchülerAtIndex(0).getX());
@@ -225,23 +248,21 @@ public class GameController implements Initializable {
         });
     }
 
-    public void erzeugeWellen(int j ){
-        anzahlSchueler = new int[j];
-        for (int i = 0; i< j; i++) {
-            AnzahlSchueler[i] =  i * 5 + (Math.random() * 10 * i);
-        }
-    }   
-
-    public void erzeugeWelle(int num) {
-        for (i = 0; i< num; i++){
-                delay(500, () -> {
-            new Schüler(0, 0, gamescreen);
-                Schüler.goWeg(schuelerweg);
-             })
-        }
-    }
-
-
+    // public void erzeugeWellen(int j ){
+    // anzahlSchueler = new int[j];
+    // for (int i = 0; i< j; i++) {
+    // AnzahlSchueler[i] = i * 5 + (Math.random() * 10 * i);
+    // }
+    // }
+    //
+    // public void erzeugeWelle(int num) {
+    // for (i = 0; i< num; i++){
+    // delay(500, () -> {
+    // new Schüler(0, 0, gamescreen);
+    // Schüler.goWeg(schuelerweg);
+    // })
+    // }
+    // }
 
     public void delay(int milliseconds, Runnable task) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
@@ -249,6 +270,5 @@ public class GameController implements Initializable {
         executor.shutdown();
     }
 
-
-    //test
+    // test
 }

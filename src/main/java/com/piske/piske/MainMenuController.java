@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,6 +42,17 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
+    private Slider difficulty;
+
+    @FXML
+    private Slider sound;
+
+    private GameController gameContoller;
+
+    int difficultyValue = 1;
+    int soundValue = 1;
+
+    @FXML
     private void gameStart(ActionEvent event) throws Exception {
         // Load StationController
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/com/piske/piske/Station.fxml"));
@@ -63,13 +75,14 @@ public class MainMenuController implements Initializable {
         // Load GameController
         FXMLLoader loader5 = new FXMLLoader(getClass().getResource("/com/piske/piske/game.fxml"));
         Parent root5 = loader5.load();
-        GameController gameContoller = loader5.getController();
+        gameContoller = loader5.getController();
         System.out.println("gameContoller loaded: " + gameContoller);
 
         interfaceController.setContollers(stationController, gameContoller, buyController);
         stationController.setContollers(interfaceController, gameContoller, buyController);
         buyController.setContollers(stationController, interfaceController, gameContoller);
         gameContoller.setContollers(stationController, interfaceController, buyController);
+        this.gameContoller.setDifAndSound(difficultyValue, soundValue);
 
         AnchorPane root = new AnchorPane(root5, root4, root3, root2);
 
@@ -83,6 +96,13 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        difficulty.valueProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("testt");
+           this.difficultyValue = newValue.intValue();
+            System.out.println(difficultyValue);
+        });
+        sound.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.soundValue = newValue.intValue();
+        });
     }
 }
