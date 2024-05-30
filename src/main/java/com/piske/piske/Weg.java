@@ -16,7 +16,6 @@ public class Weg {
             tail.setNext(temp);
             tail = temp;
         }
-        System.out.println("appended!");
     }
 
     public static Pfad getTail() {

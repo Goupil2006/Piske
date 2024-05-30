@@ -2,6 +2,7 @@ package com.piske.piske;
 
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -16,6 +17,7 @@ public class Schüler {
     ImageView imageView = new ImageView();
     private AnchorPane screen;
     TranslateTransition translate = new TranslateTransition();
+    private int health = 20;
 
     public Schüler(int x, int y, AnchorPane screen) {
         this.screen = screen;
@@ -57,11 +59,26 @@ public class Schüler {
         });
     }
 
-    public double getX() {
-        return translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x + startx;
+    public void hit(int damage) {
+        health -= damage;
+        System.out.println(health);
+        if (health <= 0) {
+            System.out.println("hit");
+            Platform.runLater(() -> {
+                screen.getChildren().remove(imageView);
+            });
+
+        }
+
     }
 
-    public double getY() {
-        return translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y + starty;
+    public int getX() {
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x
+                + startx;
+    }
+
+    public int getY() {
+        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y
+                + starty;
     }
 }

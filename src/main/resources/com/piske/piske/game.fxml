@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="gamescreen" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piske.piske.GameController">
    <children>
-      <fx:include source="Interface.fxml" />
+      <!--<fx:include source="Interface.fxml"/>-->
       <Line endX="72.0" endY="720.0" startX="72.0" stroke="#1d2f6f" />
       <Line endX="72.0" endY="720.0" layoutX="72.0" startX="72.0" stroke="#1d2f6f" />
       <Line endX="72.0" endY="720.0" layoutX="216.0" startX="72.0" stroke="#1d2f6f" />
@@ -51,7 +51,7 @@
       <Text fill="#1d2f6f" layoutX="732.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" />
       <Text fill="#1d2f6f" layoutX="805.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="11" />
       <Text fill="#1d2f6f" layoutX="5.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <fx:include source="Station.fxml" />
+      <!--<fx:include source="Station.fxml" />-->
       <Accordion />
       <Accordion />
    </children>

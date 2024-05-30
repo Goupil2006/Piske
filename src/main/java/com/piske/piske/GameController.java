@@ -1,15 +1,26 @@
 package com.piske.piske;
 
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javafx.scene.input.MouseEvent;
+import java.beans.Visibility;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,19 +30,42 @@ import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
+import java.util.function.Consumer;
 
 public class GameController implements Initializable {
 
+    private StationController stationController;
+    private InterfaceController interfaceController;
+    private BuyController buyController;
+    // private GameController gameController;
+
+    private int difficulty;
+    private int sound;
+
+    public void setContollers(StationController stationController, InterfaceController interfaceController,
+            BuyController buyController) {
+        this.stationController = stationController;
+        this.interfaceController = interfaceController;
+        this.buyController = buyController;
+        // this.gameController = gameController;
+    }
+
+    public void setDifAndSound(int difficulty, int sound) {
+        this.difficulty = difficulty;
+        this.sound = sound;
+    }
+
     @FXML
-    private AnchorPane gamescreen;
+    public AnchorPane gamescreen;
 
     @FXML
     private Button addStation1;
 
     Weg schuelerweg = new Weg();
 
-    private Schüler[] schülers = new Schüler[1];
+    public int[] anzahlSchueler;
+
+    public SchülerManager schülerManager = new SchülerManager();
 
     public void createStraightPathView(int x, int y, boolean r) {
         x = x * 72;
@@ -48,6 +82,20 @@ public class GameController implements Initializable {
         Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/weg.png"));
         imageView.setImage(image);
         gamescreen.getChildren().add(imageView);
+    }
+
+    public void update() {
+        gamescreen.layout();
+    }
+
+    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target) {
+        System.out.println("go");
+        Projectile p = new Projectile(x, y, a, v, h, w, gamescreen);
+        System.out.println("goo");
+        Consumer<Projectile> checkColision = ((Projectile projectile) -> {
+            schülerManager.checkColistion(projectile);
+        });
+        p.goProjectile(target, checkColision);
     }
 
     public void createCurvePathView(int x, int y, int r) {
@@ -105,10 +153,43 @@ public class GameController implements Initializable {
 
     }
 
+    // public void changebuymenu() {
+    // System.out.println("changebuymenu");
+    //
+    // if (gamescreen.lookup("#buyhead").isVisible()) {
+    // gamescreen.lookup("#buyhead").visibleProperty().bind(new
+    // SimpleBooleanProperty(true));
+    // } else {
+    // gamescreen.lookup("#buyhead").visibleProperty().bind(new
+    // SimpleBooleanProperty(false));
+    // }
+    // }
+
+    public void refreshScene(MouseEvent event) {
+        try {
+            // Load the FXML file
+            Parent root = FXMLLoader.load(getClass().getResource("/com/piske/piske/game.fxml"));
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Create a new scene with the root from the FXML file
+            Scene scene = new Scene(root);
+
+            // Set the scene on the stage
+            stage.setScene(scene);
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Pfad erstellen
-        // Map1.json einlesen
+        // Map1.json einlesen;
         InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map1.json");
         try {
             if (inputStream == null) {
@@ -138,23 +219,56 @@ public class GameController implements Initializable {
         }
 
         renderWeg(schuelerweg);
-        schülers[0] = new Schüler(0, 0, gamescreen);
-        schülers[0].goWeg(schuelerweg);
+
+        delay(1000, () -> {
+            System.out.println(String.valueOf(difficulty));
+            for (int i = -1; i < (int)(difficulty / 10); i++) {
+                int finalI = i + 1;
+                delay((i + 1) * 2000, () -> {
+                    Platform.runLater(() -> {
+                        System.out.println("Spawn");
+                        schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
+                        schülerManager.getSchülerAtIndex(finalI).goWeg(schuelerweg);
+                    });
+                });
+            }
+        });
+
+
+        // erzeugeWellen(4);
 
         delay(1500, () -> {
-            System.out.println(schülers[0].getX());
-            System.out.println(schülers[0].getY());
+            System.out.println(schülerManager.getSchülerAtIndex(0).getX());
+            System.out.println(schülerManager.getSchülerAtIndex(0).getY());
         });
 
         delay(5500, () -> {
-            System.out.println(schülers[0].getX());
-            System.out.println(schülers[0].getY());
+            System.out.println(schülerManager.getSchülerAtIndex(0).getX());
+            System.out.println(schülerManager.getSchülerAtIndex(0).getY());
         });
     }
+
+    // public void erzeugeWellen(int j ){
+    // anzahlSchueler = new int[j];
+    // for (int i = 0; i< j; i++) {
+    // AnzahlSchueler[i] = i * 5 + (Math.random() * 10 * i);
+    // }
+    // }
+    //
+    // public void erzeugeWelle(int num) {
+    // for (i = 0; i< num; i++){
+    // delay(500, () -> {
+    // new Schüler(0, 0, gamescreen);
+    // Schüler.goWeg(schuelerweg);
+    // })
+    // }
+    // }
 
     public void delay(int milliseconds, Runnable task) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.schedule(task, milliseconds, TimeUnit.MILLISECONDS);
         executor.shutdown();
     }
+
+    // test
 }
