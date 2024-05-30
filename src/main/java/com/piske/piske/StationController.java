@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -46,7 +47,7 @@ public class StationController implements Initializable {
 
     public boolean active = true;
 
-    private Station[] stationList = new Station[10];
+    private ArrayList<Station> Stations = new ArrayList<>();
 
     @FXML
     private void addStation(int x, int y) throws Exception {
@@ -82,7 +83,6 @@ public class StationController implements Initializable {
                     }
                     break;
 
-
                 case "conny":
                     try {
                         System.out.println("creating conny: " + x + " " + y);
@@ -108,25 +108,31 @@ public class StationController implements Initializable {
     private void addSilli(int x, int y) throws IOException {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Silly.png");
+        Stations.add(newStation);
     }
+
     private void addIra(int x, int y) throws IOException {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Ira.png");
+        Stations.add(newStation);
     }
 
     private void addBiene(int x, int y) throws IOException {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Biene.png");
+        Stations.add(newStation);
     }
 
     private void addConny(int x, int y) throws IOException {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Conny.png");
+        Stations.add(newStation);
     }
 
     private void addEvy(int x, int y) throws IOException {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Evy.png");
+        Stations.add(newStation);
     }
 
     @Override
