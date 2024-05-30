@@ -1,5 +1,6 @@
 package com.piske.piske;
 
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 
 import java.util.concurrent.Executors;
@@ -17,13 +18,12 @@ public class Uhr {
     public int runTimer(int t) {
       zeit = t;
       double rotationswinkel = 360 / t;
-      double rotationaktuell = 0;
-        for (int i = 0; i < 12; i++) {
-            rotationaktuell += rotationswinkel;
-            double finalRotationaktuell = rotationaktuell;
-            delay(1000, () -> {
-                uhrzeiger.setRotate(finalRotationaktuell);
-                System.out.println(finalRotationaktuell +"");
+      for (int i = 0; i < t; i++) {
+            int finalI = i;
+            delay(1000 * i, () -> {
+                Platform.runLater(() -> {
+                    uhrzeiger.setRotate(rotationswinkel*(finalI +1));
+                });
             });
         }
     return 1;

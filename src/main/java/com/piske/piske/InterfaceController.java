@@ -63,7 +63,7 @@ public class InterfaceController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Uhr uhr = new Uhr(uhrzeiger);
-        uhr.runTimer(12);
+        uhr.runTimer(60);
         System.out.println("InterfaceController initialized");
         money.setText(amount + "$");
     }
