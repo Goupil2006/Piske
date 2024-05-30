@@ -38,16 +38,18 @@ public class GameController implements Initializable {
     private InterfaceController interfaceController;
     private BuyController buyController;
     // private GameController gameController;
+    private UpgradeController upgradeController;
 
     private int difficulty;
     private int sound;
 
     public void setContollers(StationController stationController, InterfaceController interfaceController,
-            BuyController buyController) {
+            BuyController buyController, UpgradeController upgradeController) {
         this.stationController = stationController;
         this.interfaceController = interfaceController;
         this.buyController = buyController;
         // this.gameController = gameController;
+        this.upgradeController = upgradeController;
     }
 
     public void setDifAndSound(int difficulty, int sound) {
@@ -64,7 +66,6 @@ public class GameController implements Initializable {
     Weg schuelerweg = new Weg();
 
     public int[] anzahlSchueler;
-
 
     public SchülerManager schülerManager = new SchülerManager();
 
@@ -223,7 +224,7 @@ public class GameController implements Initializable {
 
         delay(1000, () -> {
             System.out.println(String.valueOf(difficulty));
-            for (int i = -1; i < (int)(difficulty / 10); i++) {
+            for (int i = -1; i < (int) (difficulty / 10); i++) {
                 int finalI = i + 1;
                 delay((i + 1) * 2000, () -> {
                     Platform.runLater(() -> {
@@ -234,7 +235,6 @@ public class GameController implements Initializable {
                 });
             }
         });
-
 
         erzeugeWellen(4);
 
@@ -249,21 +249,21 @@ public class GameController implements Initializable {
         });
     }
 
-    public void erzeugeWellen(int j ){
+    public void erzeugeWellen(int j) {
         anzahlSchueler = new int[j];
-        for (int i = 0; i< j; i++) {
+        for (int i = 0; i < j; i++) {
             anzahlSchueler[i] = (int) (i * 5 + (Math.random() * 10 * i));
         }
     }
 
     public void erzeugeWelle(int num) {
-        for (int i = 0; i < num; i++){
+        for (int i = 0; i < num; i++) {
             int finalI = i;
             delay((int) (1000 + (Math.random() * 2000)), () -> {
                 Platform.runLater(() -> {
                     System.out.println("Spawn");
-                        schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
-                        schülerManager.getSchülerAtIndex(finalI).goWeg(schuelerweg);
+                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
+                    schülerManager.getSchülerAtIndex(finalI).goWeg(schuelerweg);
                 });
             });
         }
