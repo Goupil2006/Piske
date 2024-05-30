@@ -1,5 +1,6 @@
 package com.piske.piske;
 
+import com.almasb.fxgl.ui.ProgressBar;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,6 @@ public class InterfaceController implements Initializable {
     private GameController gameController;
     private UpgradeController upgradeController;
 
-
     @FXML
     private Parent root;
 
@@ -48,6 +48,7 @@ public class InterfaceController implements Initializable {
     @FXML
     public AnchorPane rootinterface;
 
+
     @FXML
     public Text money;
 
@@ -68,5 +69,6 @@ public class InterfaceController implements Initializable {
         uhr.runTimer(60);
         System.out.println("InterfaceController initialized");
         money.setText(amount + "$");
+
     }
 }

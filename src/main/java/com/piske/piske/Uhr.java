@@ -23,6 +23,7 @@ public class Uhr {
             delay(1000 * i, () -> {
                 Platform.runLater(() -> {
                     uhrzeiger.setRotate(rotationswinkel*(finalI +1));
+
                 });
             });
         }
