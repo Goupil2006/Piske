@@ -126,7 +126,7 @@ public class Projectile {
 //        System.out.println(target.getY());
 //        System.out.println(xval);
 //        System.out.println(yval);
-//        nowangle = xval / Math.sqrt(Math.pow(xval, 2) + Math.pow(yval, 2));
+        nowangle = xval / Math.sqrt(Math.pow(xval, 2) + Math.pow(yval, 2));
         nowangle = Math.asin(nowangle) * 180 / Math.PI;
         System.out.println(nowangle);
         rt.setToAngle(nowangle);
