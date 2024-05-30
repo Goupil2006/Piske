@@ -118,16 +118,23 @@ public class Projectile {
         // rotate projectile
         RotateTransition rt = new RotateTransition(Duration.millis(300), imageViewp);
         double nowangle = 0;
-        nowangle = Math.asin((target.getX() - this.getX())
-                / Math.sqrt(Math.pow(target.getX() - this.getX(), 2) + Math.pow(target.getY()
-                        - this.getY(), 2)));
+        int xval = target.getX() - this.getX();
+        int yval = target.getY() - this.getY();
+//        System.out.println(this.getX());
+//        System.out.println(this.getY());
+//        System.out.println(target.getX());
+//        System.out.println(target.getY());
+//        System.out.println(xval);
+//        System.out.println(yval);
+//        nowangle = xval / Math.sqrt(Math.pow(xval, 2) + Math.pow(yval, 2));
+        nowangle = Math.asin(nowangle) * 180 / Math.PI;
         System.out.println(nowangle);
         rt.setToAngle(nowangle);
         rt.setCycleCount(1);
         rt.setAutoReverse(true);
         rt.play();
 
-        translate.setDuration(Duration.millis(1000));
+        translate.setDuration(Duration.millis(2000));
         translate.setNode(imageViewp);
         System.out.println(String.valueOf(target.getX() - startx + 72 / 2) + " "
                 + String.valueOf(target.getY() - starty + 72 / 2));
