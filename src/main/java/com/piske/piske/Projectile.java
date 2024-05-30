@@ -1,6 +1,9 @@
 package com.piske.piske;
 
 import javafx.animation.*;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,11 +26,15 @@ public class Projectile {
     private int damage = 20;
     private int x;
     private int y;
+    private Schüler target;
     ImageView imageViewp = new ImageView();
     TranslateTransition translate = new TranslateTransition();
+    SchülerManager schülerManager;
 
-    public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen) {
+    public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen, int damage, SchülerManager schülerManager) {
         System.out.println("test");
+        this.damage = damage;
+        this.schülerManager = schülerManager;
         imageViewp.setLayoutX(x * 72);
         imageViewp.setLayoutY(y * 72);
         this.startx = x * 72;
@@ -43,8 +50,11 @@ public class Projectile {
         System.out.println("test3");
         imageViewp.setImage(image);
         System.out.println("test3");
-        screen.getChildren().add(imageViewp);
-        System.out.println("test4");
+        Platform.runLater(() -> {
+            screen.getChildren().add(imageViewp);
+            System.out.println("test4");
+        });
+
     }
 
     public int getMapY() {
@@ -114,6 +124,7 @@ public class Projectile {
     }
 
     public void goProjectile(Schüler target, Consumer<Projectile> checkColision) {
+        this.target = target;
         System.out.println("going");
         // rotate projectile
         RotateTransition rt = new RotateTransition(Duration.millis(50), imageViewp);
@@ -134,12 +145,10 @@ public class Projectile {
         rt.setAutoReverse(true);
         rt.play();
 
-        translate.setDuration(Duration.millis(1000));
+        translate.setDuration(Duration.millis(300));
         translate.setNode(imageViewp);
-        System.out.println(String.valueOf(target.getX() - startx + 72 / 2) + " "
-                + String.valueOf(target.getY() - starty + 72 / 2));
-        translate.setToX(target.getX() - startx + 72 / 2 + ((target.getX() - startx + 72 / 2 - startx)));
-        translate.setToY(target.getY() - starty + 72 / 2 + ((target.getY() - starty + 72 / 2 - starty)));
+        translate.setToX(target.getX() - startx + 72 / 2);
+        translate.setToY(target.getY() - starty + 72 / 2);
 
         // this.x = target.getX() - startx + 72 / 2;
         // this.y = target.getY() - starty + 72 / 2;
@@ -147,11 +156,22 @@ public class Projectile {
         // setMapY(target.getY());
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
+
+        delay( 300, () -> {
+            finished();
+        });
+
+
         // Schüler finaltarget = target;
         // delay(100, () -> {
         // checkColision.accept(this);
         // goProjectile(finaltarget, checkColision);
         // });
+    }
+
+    public void finished() {
+        this.target.hit(this.damage, schülerManager);
+        this.hit();
     }
 
     public void hit() {

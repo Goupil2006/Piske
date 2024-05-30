@@ -21,6 +21,10 @@ public class SchülerManager {
         return schülerList.size();
     }
 
+    public int length() {
+        return schülerList.size();
+    }
+
     public Schüler getSchülerAtIndex(int index) {
         return schülerList.get(index);
     }
@@ -32,7 +36,10 @@ public class SchülerManager {
             int schülerX = (int) schüler.getX();
             int schülerY = (int) schüler.getY();
 
-            double distance = Math.sqrt(Math.pow(schülerX - x, 2) + Math.pow(schülerY - y, 2));
+            System.out.println("SchülerX: " + schülerX + " SchülerY: " + schülerY);
+            System.out.println("X: " + x + " Y: " + y);
+
+            double distance = Math.sqrt(Math.pow(schülerX - x * 72, 2) + Math.pow(schülerY - y * 72, 2));
 
             if (distance <= radius) {
                 schülerInRadius.add(schüler);
@@ -47,16 +54,21 @@ public class SchülerManager {
         }
     }
 
-    public void checkColistion(Projectile projectile) {
-        System.out.println("check colision");
-        for (Schüler schüler : schülerList) {
-            double distance = Math.sqrt(Math.pow(schüler.getX() - projectile.getX(), 2) + Math.pow(schüler.getY() - projectile.getY(), 2));
-            System.out.println(distance);
-            if (distance <= 51) {
-                schüler.hit(projectile.getDamage());
-                projectile.hit();
-            }
-        }
+//    public void checkColistion(Projectile projectile) {
+//        System.out.println("check colision");
+//        for (Schüler schüler : schülerList) {
+//            double distance = Math.sqrt(
+//                    Math.pow(schüler.getX() - projectile.getX(), 2) + Math.pow(schüler.getY() - projectile.getY(), 2));
+//            System.out.println(distance);
+//            if (distance <= 51) {
+//                schüler.hit(projectile.getDamage());
+//                projectile.hit();
+//            }
+//        }
+//    }
+
+    public void deleteSchüler(Schüler schüler) {
+        schülerList.remove(schüler);
     }
 
 }

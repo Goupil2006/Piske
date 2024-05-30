@@ -64,9 +64,7 @@ public class GameController implements Initializable {
     private Button addStation1;
 
     Weg schuelerweg = new Weg();
-
     public int[] anzahlSchueler;
-
     public SchülerManager schülerManager = new SchülerManager();
 
     public void createStraightPathView(int x, int y, boolean r) {
@@ -86,16 +84,12 @@ public class GameController implements Initializable {
         gamescreen.getChildren().add(imageView);
     }
 
-    public void update() {
-        gamescreen.layout();
-    }
-
-    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target) {
+    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target, int damage) {
         System.out.println("go");
-        Projectile p = new Projectile(x, y, a, v, h, w, gamescreen);
+        Projectile p = new Projectile(x, y, a, v, h, w, gamescreen, damage, schülerManager);
         System.out.println("goo");
         Consumer<Projectile> checkColision = ((Projectile projectile) -> {
-            schülerManager.checkColistion(projectile);
+            //schülerManager.checkColistion(projectile);
         });
         p.goProjectile(target, checkColision);
     }
@@ -230,7 +224,8 @@ public class GameController implements Initializable {
                     Platform.runLater(() -> {
                         System.out.println("Spawn");
                         schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
-                        schülerManager.getSchülerAtIndex(finalI).goWeg(schuelerweg);
+                        System.out.println(schülerManager.length());
+                        schülerManager.getSchülerAtIndex(schülerManager.length() - 1).goWeg(schuelerweg);
                     });
                 });
             }

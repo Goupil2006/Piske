@@ -40,9 +40,6 @@ public class StationController implements Initializable {
     @FXML
     private AnchorPane plane;
 
-    @FXML
-    private ImageView[] stations;
-
     private Parent root;
 
     public boolean active = true;
@@ -58,7 +55,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating silli: " + x + " " + y);
                         addSilli(x, y);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     break;
@@ -66,7 +63,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating ira: " + x + " " + y);
                         addIra(x, y);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     break;
@@ -78,7 +75,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating biene: " + x + " " + y);
                         addBiene(x, y);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     break;
@@ -87,7 +84,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating conny: " + x + " " + y);
                         addConny(x, y);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     break;
@@ -96,43 +93,50 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating evy: " + x + " " + y);
                         addEvy(x, y);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     break;
             }
         });
+        System.out.println("buynew");
+        this.upgradeController.stop();
         this.buyController.start(createStation);
     }
 
-    private void addSilli(int x, int y) throws IOException {
+    private void addSilli(int x, int y) throws Exception {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Silly.png");
+                "/com/piske/piske/Images/Silly.png", "Silli");
         Stations.add(newStation);
+        this.upgradeController.addStation(newStation);
     }
 
-    private void addIra(int x, int y) throws IOException {
+    private void addIra(int x, int y) throws Exception {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Ira.png");
+                "/com/piske/piske/Images/Ira.png", "Ira");
         Stations.add(newStation);
+        this.upgradeController.addStation(newStation);
     }
 
-    private void addBiene(int x, int y) throws IOException {
+    private void addBiene(int x, int y) throws Exception {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Biene.png");
+                "/com/piske/piske/Images/Biene.png", "Biene");
         Stations.add(newStation);
+        this.upgradeController.addStation(newStation);
     }
 
-    private void addConny(int x, int y) throws IOException {
+    private void addConny(int x, int y) throws Exception {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Conny.png");
+                "/com/piske/piske/Images/Conny.png", "Conny");
         Stations.add(newStation);
+        this.upgradeController.addStation(newStation);
     }
 
-    private void addEvy(int x, int y) throws IOException {
+    private void addEvy(int x, int y) throws Exception {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Evy.png");
+                "/com/piske/piske/Images/Evy.png", "Evy");
         Stations.add(newStation);
+        this.upgradeController.addStation(newStation);
     }
 
     @Override
@@ -155,6 +159,7 @@ public class StationController implements Initializable {
                 int finalx = x;
                 int finaly = y;
                 station.setOnMouseClicked(event -> {
+                    System.out.println("buynew");
                     try {
                         addStation(finalx, finaly);
                     } catch (Exception e) {

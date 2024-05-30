@@ -11,6 +11,7 @@ module com.piske.piske {
     requires com.almasb.fxgl.all;
     requires java.desktop;
     requires org.json;
+    requires javafx.media;
 
     opens com.piske.piske to javafx.fxml;
     exports com.piske.piske;

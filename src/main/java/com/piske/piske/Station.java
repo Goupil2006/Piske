@@ -14,13 +14,18 @@ public class Station {
     StationController stationController;
     AnchorPane plane;
 
+    private String name;
+
+    private int damage = 10;
+
     public Station(InterfaceController interfaceController, GameController gameController,
             StationController stationController, AnchorPane plane, int x,
-            int y, String grafic) {
+            int y, String grafic, String name) {
         this.interfaceController = interfaceController;
         this.gameController = gameController;
         this.stationController = stationController;
         this.plane = plane;
+        this.name = name;
 
         if (this.interfaceController.getMoney() < 50) {
             return;
@@ -33,6 +38,7 @@ public class Station {
         imageView.setImage(image);
         this.plane.getChildren().add(imageView);
 
+        shot(x, y);
     }
 
     private void shot(int x, int y) {
@@ -42,7 +48,7 @@ public class Station {
         System.out.println("active");
         if (target != null) {
             System.out.println("created");
-            this.gameController.createProjectile(x, y, 0, 0, 0, 0, target);
+            this.gameController.createProjectile(x, y, 0, 0, 0, 0, target, this.damage);
         }
 
         int finalx = x;
@@ -52,6 +58,24 @@ public class Station {
                 this.shot(finalx, finaly);
             }
         });
+    }
+
+    public void upgrade() {
+        if (this.interfaceController.getMoney() < this.damage * 5) {
+            return;
+        }
+        this.interfaceController.changeAmount(-this.damage * 5);
+        this.damage += 10;
+    }
+
+    public String getName() {
+        return name;
+
+    }
+
+    public int getDamage() {
+        return this.damage;
+
     }
 
     public void delay(int milliseconds, Runnable task) {

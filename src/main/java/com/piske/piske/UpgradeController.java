@@ -7,7 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,28 +32,48 @@ public class UpgradeController implements Initializable {
     }
 
     @FXML
-    public AnchorPane upgreadhead;
+    public AnchorPane upgreadheadpane;
 
-    private Parent root;
+    private int numberStations = 0;
 
     @FXML
     public void start() throws Exception {
-        upgreadhead.setVisible(true);
+        upgreadheadpane.setVisible(true);
     }
 
     @FXML
     public void stop() throws Exception {
-        upgreadhead.setVisible(false);
+        upgreadheadpane.setVisible(false);
     }
 
     @FXML
     public void addStation(Station station) throws Exception {
+        numberStations += 1;
+        Label stationName = new Label(station.getName());
+        stationName.setText(station.getName());
+        Button upgradeButton = new Button("Upgrade " + station.getDamage() * 5 + "$");
+        upgradeButton.setOnAction(event -> {
+            station.upgrade();
+            upgradeButton.setText("Upgrade " + station.getDamage() * 5 + "$");
+        });
 
+        stationName.setLayoutX(36 - 10);
+        stationName.setLayoutY(15 + numberStations * 30 - 22.5);
+
+        upgradeButton.setLayoutX(254 - 10);
+        upgradeButton.setLayoutY(11 + numberStations * 30 - 22.5);
+        upgradeButton.setMnemonicParsing(false);
+        upgradeButton.setStyle("-fx-background-color: FF5964; -fx-background-radius: 10;");
+
+        // Add the upgrade button to the anchor pane
+        upgreadheadpane.getChildren().add(upgradeButton);
+        upgreadheadpane.getChildren().add(stationName);
+        upgreadheadpane.setPrefHeight(50 * numberStations);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        upgreadhead.setVisible(false);
+        upgreadheadpane.setVisible(false);
         System.out.println("UpgradeController initialized");
     }
 }

@@ -59,7 +59,7 @@ public class Schüler {
         });
     }
 
-    public void hit(int damage) {
+    public void hit(int damage, SchülerManager schülerManager) {
         health -= damage;
         System.out.println(health);
         if (health <= 0) {
@@ -67,7 +67,7 @@ public class Schüler {
             Platform.runLater(() -> {
                 screen.getChildren().remove(imageView);
             });
-
+            schülerManager.deleteSchüler(this);
         }
 
     }

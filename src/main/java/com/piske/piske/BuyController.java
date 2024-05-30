@@ -48,6 +48,7 @@ public class BuyController implements Initializable {
     public void stop() throws Exception {
         System.out.println("hide buy");
         buyhead.setVisible(false);
+        this.upgradeController.start();
     }
 
     @FXML
