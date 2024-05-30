@@ -25,6 +25,17 @@ public class InterfaceController implements Initializable {
     private GameController gameController;
     private UpgradeController upgradeController;
 
+
+    @FXML
+    private Parent root;
+
+    @FXML
+    private AnchorPane buyinclude;
+
+    @FXML
+    private ImageView uhrzeiger;
+
+
     public void setContollers(StationController stationController, GameController gameController,
             BuyController buyController, UpgradeController upgradeController) {
         this.stationController = stationController;
@@ -53,6 +64,8 @@ public class InterfaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Uhr uhr = new Uhr(uhrzeiger);
+        uhr.runTimer(60);
         System.out.println("InterfaceController initialized");
         money.setText(amount + "$");
     }

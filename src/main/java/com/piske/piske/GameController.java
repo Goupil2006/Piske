@@ -236,7 +236,7 @@ public class GameController implements Initializable {
             }
         });
 
-        // erzeugeWellen(4);
+        erzeugeWellen(4);
 
         delay(1500, () -> {
             System.out.println(schülerManager.getSchülerAtIndex(0).getX());
@@ -249,21 +249,25 @@ public class GameController implements Initializable {
         });
     }
 
-    // public void erzeugeWellen(int j ){
-    // anzahlSchueler = new int[j];
-    // for (int i = 0; i< j; i++) {
-    // AnzahlSchueler[i] = i * 5 + (Math.random() * 10 * i);
-    // }
-    // }
-    //
-    // public void erzeugeWelle(int num) {
-    // for (i = 0; i< num; i++){
-    // delay(500, () -> {
-    // new Schüler(0, 0, gamescreen);
-    // Schüler.goWeg(schuelerweg);
-    // })
-    // }
-    // }
+    public void erzeugeWellen(int j) {
+        anzahlSchueler = new int[j];
+        for (int i = 0; i < j; i++) {
+            anzahlSchueler[i] = (int) (i * 5 + (Math.random() * 10 * i));
+        }
+    }
+
+    public void erzeugeWelle(int num) {
+        for (int i = 0; i < num; i++) {
+            int finalI = i;
+            delay((int) (1000 + (Math.random() * 2000)), () -> {
+                Platform.runLater(() -> {
+                    System.out.println("Spawn");
+                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
+                    schülerManager.getSchülerAtIndex(finalI).goWeg(schuelerweg);
+                });
+            });
+        }
+    }
 
     public void delay(int milliseconds, Runnable task) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
