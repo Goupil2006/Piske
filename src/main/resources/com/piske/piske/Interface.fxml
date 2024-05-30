@@ -24,7 +24,7 @@
                      <Image url="@Images/uhr.png" />
                   </image>
                </ImageView>
-               <ImageView fitHeight="127.0" fitWidth="24.0" layoutX="169.5" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fx:id="uhrzeiger" fitHeight="127.0" fitWidth="24.0" layoutX="169.5" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@Images/uhrzeiger.png" />
                   </image>

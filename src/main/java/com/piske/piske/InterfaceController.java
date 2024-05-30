@@ -26,6 +26,9 @@ public class InterfaceController implements Initializable {
     @FXML
     private AnchorPane buyinclude;
 
+    @FXML
+    private ImageView uhrzeiger;
+
     public void test(Runnable test) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/piske/piske/Buy.fxml"));
         root = loader.load();
@@ -53,6 +56,8 @@ public class InterfaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Uhr uhr = new Uhr(uhrzeiger);
+        uhr.runTimer(12);
 
     }
 }
