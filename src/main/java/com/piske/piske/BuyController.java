@@ -19,13 +19,15 @@ public class BuyController implements Initializable {
     private InterfaceController interfaceController;
     // private BuyController buyController;
     private GameController gameController;
+    private UpgradeController upgradeController;
 
     public void setContollers(StationController stationController, InterfaceController interfaceController,
-            GameController gameController) {
+            GameController gameController, UpgradeController upgradeController) {
         this.stationController = stationController;
         this.interfaceController = interfaceController;
         // this.buyController = buyController;
         this.gameController = gameController;
+        this.upgradeController = upgradeController;
     }
 
     private Consumer<String> createStation;

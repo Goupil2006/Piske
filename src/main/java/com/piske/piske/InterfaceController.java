@@ -23,13 +23,15 @@ public class InterfaceController implements Initializable {
     // private InterfaceController interfaceController;
     private BuyController buyController;
     private GameController gameController;
+    private UpgradeController upgradeController;
 
     public void setContollers(StationController stationController, GameController gameController,
-            BuyController buyController) {
+            BuyController buyController, UpgradeController upgradeController) {
         this.stationController = stationController;
         // this.interfaceController = interfaceController;
         this.buyController = buyController;
         this.gameController = gameController;
+        this.upgradeController = upgradeController;
     }
 
     @FXML

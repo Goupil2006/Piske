@@ -27,20 +27,6 @@ public class MainMenuController implements Initializable {
     private Parent root4;
     private Parent root5;
 
-    public void setContollers(InterfaceController interfaceController, GameController gameController,
-            BuyController buyController, StationController stationController, Parent root2, Parent root3, Parent root4,
-            Parent root5) {
-        this.stationController = stationController;
-        this.interfaceController = interfaceController;
-        this.buyController = buyController;
-        // this.mainMenuController = mainMenuController;
-        this.gameController = gameController;
-        this.root2 = root2;
-        this.root3 = root3;
-        this.root4 = root4;
-        this.root5 = root5;
-    }
-
     @FXML
     private Slider difficulty;
 
@@ -78,13 +64,20 @@ public class MainMenuController implements Initializable {
         gameContoller = loader5.getController();
         System.out.println("gameContoller loaded: " + gameContoller);
 
-        interfaceController.setContollers(stationController, gameContoller, buyController);
-        stationController.setContollers(interfaceController, gameContoller, buyController);
-        buyController.setContollers(stationController, interfaceController, gameContoller);
-        gameContoller.setContollers(stationController, interfaceController, buyController);
+        // Load UpgradeController
+        FXMLLoader loader6 = new FXMLLoader(getClass().getResource("/com/piske/piske/Upgrade.fxml"));
+        Parent root6 = loader6.load();
+        UpgradeController upgradeController = loader6.getController();
+        System.out.println("UpgradeContoller loaded: " + upgradeController);
+
+        interfaceController.setContollers(stationController, gameContoller, buyController, upgradeController);
+        stationController.setContollers(interfaceController, gameContoller, buyController, upgradeController);
+        buyController.setContollers(stationController, interfaceController, gameContoller, upgradeController);
+        gameContoller.setContollers(stationController, interfaceController, buyController, upgradeController);
+        upgradeController.setContollers(stationController, interfaceController, gameContoller, buyController);
         this.gameContoller.setDifAndSound(difficultyValue, soundValue);
 
-        AnchorPane root = new AnchorPane(root5, root4, root3, root2);
+        AnchorPane root = new AnchorPane(root5, root4, root3, root2, root6);
 
         // Create a Scene
         Scene scene = new Scene(root, 1280, 720);
@@ -97,9 +90,7 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         difficulty.valueProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("testt");
-           this.difficultyValue = newValue.intValue();
-            System.out.println(difficultyValue);
+            this.difficultyValue = newValue.intValue();
         });
         sound.valueProperty().addListener((observable, oldValue, newValue) -> {
             this.soundValue = newValue.intValue();
