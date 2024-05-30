@@ -109,6 +109,7 @@ public class StationController implements Initializable {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Silly.png");
     }
+    
     private void addIra(int x, int y) throws IOException {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Ira.png");
