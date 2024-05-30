@@ -62,9 +62,43 @@ public class StationController implements Initializable {
                     }
                     break;
                 case "ira":
+                    try {
+                        System.out.println("creating ira: " + x + " " + y);
+                        addIra(x, y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
 
                 default:
+                    break;
+
+                case "biene":
+                    try {
+                        System.out.println("creating biene: " + x + " " + y);
+                        addBiene(x, y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+
+                case "conny":
+                    try {
+                        System.out.println("creating conny: " + x + " " + y);
+                        addConny(x, y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+
+                case "evy":
+                    try {
+                        System.out.println("creating evy: " + x + " " + y);
+                        addEvy(x, y);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
             }
         });
@@ -73,7 +107,26 @@ public class StationController implements Initializable {
 
     private void addSilli(int x, int y) throws IOException {
         Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Station.png");
+                "/com/piske/piske/Images/Silly.png");
+    }
+    private void addIra(int x, int y) throws IOException {
+        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+                "/com/piske/piske/Images/Ira.png");
+    }
+
+    private void addBiene(int x, int y) throws IOException {
+        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+                "/com/piske/piske/Images/Biene.png");
+    }
+
+    private void addConny(int x, int y) throws IOException {
+        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+                "/com/piske/piske/Images/Conny.png");
+    }
+
+    private void addEvy(int x, int y) throws IOException {
+        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+                "/com/piske/piske/Images/Evy.png");
     }
 
     @Override
