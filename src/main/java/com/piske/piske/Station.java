@@ -14,7 +14,8 @@ public class Station {
     StationController stationController;
     AnchorPane plane;
 
-    public Station(InterfaceController interfaceController, GameController gameController, StationController stationController, AnchorPane plane, int x,
+    public Station(InterfaceController interfaceController, GameController gameController,
+            StationController stationController, AnchorPane plane, int x,
             int y, String grafic) {
         this.interfaceController = interfaceController;
         this.gameController = gameController;
@@ -32,26 +33,25 @@ public class Station {
         imageView.setImage(image);
         this.plane.getChildren().add(imageView);
 
-        this.shot(x, y);
     }
 
     private void shot(int x, int y) {
         // find Target
-//        Schüler target = this.gameController.schülerManager.getSchüler(x, y, 300);
-//
-//        System.out.println("active");
-//        if (target != null) {
-//            System.out.println("created");
-//            this.gameController.createProjectile(x, y, 0, 0, 0, 0, target);
-//        }
-//
-//        int finalx = x;
-//        int finaly = y;
-//        delay(1000, () -> {
-//            if (stationController.active) {
-//                this.shot(finalx, finaly);
-//            }
-//        });
+        Schüler target = this.gameController.schülerManager.getSchüler(x, y, 300);
+
+        System.out.println("active");
+        if (target != null) {
+            System.out.println("created");
+            this.gameController.createProjectile(x, y, 0, 0, 0, 0, target);
+        }
+
+        int finalx = x;
+        int finaly = y;
+        delay(1000, () -> {
+            if (stationController.active) {
+                this.shot(finalx, finaly);
+            }
+        });
     }
 
     public void delay(int milliseconds, Runnable task) {
