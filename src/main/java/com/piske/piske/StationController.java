@@ -79,7 +79,14 @@ public class StationController implements Initializable {
         imageView.setImage(image);
         this.plane.getChildren().add(imageView);
 
-        this.shot(x, y);
+        for (int i = 0; i < 100; i++) {
+            delay(2000 * i, () -> {
+                Platform.runLater(() -> {
+                    this.shot(x, y);
+                });
+
+            });
+        }
     }
 
     private void shot(int x, int y) {
