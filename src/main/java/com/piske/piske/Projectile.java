@@ -116,7 +116,7 @@ public class Projectile {
     public void goProjectile(Schüler target, Consumer<Projectile> checkColision) {
         System.out.println("going");
         // rotate projectile
-        RotateTransition rt = new RotateTransition(Duration.millis(300), imageViewp);
+        RotateTransition rt = new RotateTransition(Duration.millis(50), imageViewp);
         double nowangle = 0;
         int xval = target.getX() - this.getX();
         int yval = target.getY() - this.getY();
@@ -134,7 +134,7 @@ public class Projectile {
         rt.setAutoReverse(true);
         rt.play();
 
-        translate.setDuration(Duration.millis(2000));
+        translate.setDuration(Duration.millis(1000));
         translate.setNode(imageViewp);
         System.out.println(String.valueOf(target.getX() - startx + 72 / 2) + " "
                 + String.valueOf(target.getY() - starty + 72 / 2));
