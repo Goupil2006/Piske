@@ -14,16 +14,42 @@ public class Schüler {
     private int starty = 0;
     private int x = 0;
     private int y = 0;
+    private int type = 1;
     ImageView imageView = new ImageView();
     private AnchorPane screen;
     TranslateTransition translate = new TranslateTransition();
     private int health = 20;
 
-    public Schüler(int x, int y, AnchorPane screen) {
+    public Schüler(int x, int y, AnchorPane screen, int type) {
         this.screen = screen;
+        this.type = type;
         imageView.setLayoutX(x);
         imageView.setLayoutY(y);
-        Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Station.png"));
+        Image image;
+        switch (type) {
+            case 1:
+                image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Marc.png"));
+                health = 20;
+                break;
+
+            case 2:
+                image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Georgios.png"));
+                health = 50;
+                break;
+
+            case 3:
+                image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Lukas.png"));
+                health = 200;
+                break;
+
+            case 4:
+                image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Paul.png"));
+                health = 500;
+
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
         imageView.setImage(image);
         screen.getChildren().add(imageView);
     }
