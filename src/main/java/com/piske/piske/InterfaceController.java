@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -35,6 +36,11 @@ public class InterfaceController implements Initializable {
     @FXML
     private ImageView uhrzeiger;
 
+    @FXML
+    private Button startwavebutton;
+
+    public Uhr uhr = new Uhr(uhrzeiger);
+
 
     public void setContollers(StationController stationController, GameController gameController,
             BuyController buyController, UpgradeController upgradeController) {
@@ -47,7 +53,6 @@ public class InterfaceController implements Initializable {
 
     @FXML
     public AnchorPane rootinterface;
-
 
     @FXML
     public Text money;
@@ -65,10 +70,8 @@ public class InterfaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Uhr uhr = new Uhr(uhrzeiger);
-        uhr.runTimer(60);
         System.out.println("InterfaceController initialized");
         money.setText(amount + "$");
-
+        startwavebutton.setOnAction(event -> gameController.startwave(event));
     }
 }

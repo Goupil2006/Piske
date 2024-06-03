@@ -159,12 +159,15 @@ public class StationController implements Initializable {
                 int finalx = x;
                 int finaly = y;
                 station.setOnMouseClicked(event -> {
-                    System.out.println("buynew");
-                    try {
-                        addStation(finalx, finaly);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                    if (this.gameController.phase % 2 != 0) {
+                        System.out.println("buynew");
+                        try {
+                            addStation(finalx, finaly);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
                     }
+
                 });
                 plane.getChildren().add(station);
             }

@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="buyhead" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piske.piske.BuyController">
-    <Pane layoutX="892" layoutY="200" prefHeight="250" prefWidth="360.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 28; -fx-border-color: f7c83d; -fx-border-radius: 24; -fx-border-width: 4;">
+    <Pane layoutX="892" layoutY="170" prefHeight="250" prefWidth="360.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 28; -fx-border-color: f7c83d; -fx-border-radius: 24; -fx-border-width: 4;">
         <children>
             <Button onAction="#addsilli" layoutX="295.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: FF5964; -fx-background-radius: 10;" text="50$" />
             <Text fill="#1d2f6f" layoutX="24.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Silli" wrappingWidth="261.3748779296875">
