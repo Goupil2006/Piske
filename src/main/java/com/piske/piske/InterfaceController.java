@@ -39,7 +39,7 @@ public class InterfaceController implements Initializable {
     @FXML
     private Button startwavebutton;
 
-    public Uhr uhr = new Uhr(uhrzeiger);
+    public Uhr uhr;
 
 
     public void setContollers(StationController stationController, GameController gameController,
@@ -73,5 +73,6 @@ public class InterfaceController implements Initializable {
         System.out.println("InterfaceController initialized");
         money.setText(amount + "$");
         startwavebutton.setOnAction(event -> gameController.startwave(event));
+        this.uhr = new Uhr(uhrzeiger);
     }
 }

@@ -1,26 +1,18 @@
 package com.piske.piske;
 
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javafx.scene.input.MouseEvent;
-import java.beans.Visibility;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,6 +59,7 @@ public class GameController implements Initializable {
     public int[] anzahlSchueler;
     public SchülerManager schülerManager = new SchülerManager();
     public int phase = 1;
+    public Dankeschoen sounds;
 
     public void createStraightPathView(int x, int y, boolean r) {
         x = x * 72;
@@ -214,10 +207,11 @@ public class GameController implements Initializable {
             System.out.println(schülerManager.getSchülerAtIndex(0).getY());
         });
 
-
+        this.sounds = new Dankeschoen();
     }
 
     public void startwave(ActionEvent event) {
+        this.sounds.sagDankeschoen();
         System.out.println(phase);
         if (phase % 2 != 0) {
             System.out.println("Startwave");
@@ -225,7 +219,7 @@ public class GameController implements Initializable {
             erzeugeWelle(this.phase / 2);
             ((Node) event.getSource()).setVisible(false);
             interfaceController.uhr.runTimer(anzahlSchueler[this.phase / 2] * 3 + 30);
-            delay((anzahlSchueler[this.phase / 2] * 3 + 10) * 1000, () -> {
+            delay((anzahlSchueler[this.phase / 2] * 3) * 1000, () -> {
                 this.phase++;
                 Platform.runLater(() -> {
                     startwavebutton.setVisible(true);

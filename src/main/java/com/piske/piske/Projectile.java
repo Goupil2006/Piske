@@ -129,18 +129,36 @@ public class Projectile {
         // rotate projectile
         RotateTransition rt = new RotateTransition(Duration.millis(50), imageViewp);
         double nowangle = 0;
-        int xval = target.getX() - this.getX();
-        int yval = target.getY() - this.getY();
-//        System.out.println(this.getX());
-//        System.out.println(this.getY());
-//        System.out.println(target.getX());
-//        System.out.println(target.getY());
-//        System.out.println(xval);
-//        System.out.println(yval);
-        nowangle = xval / Math.sqrt(Math.pow(xval, 2) + Math.pow(yval, 2));
-        nowangle = Math.asin(nowangle) * 180 / Math.PI;
+        int bonus = 0;
+        System.out.println(this.getX());
+        System.out.println(target.getX());
+        System.out.println(this.getY());
+        System.out.println(target.getY());
+        double xval = target.getX() - this.getX();
+        double yval = this.getY() - target.getY();
+        System.out.println(xval);
+        System.out.println(yval);
+        if (xval > 0 && yval < 0){
+            yval = Math.abs(yval);
+            bonus = 90;
+        } else if(xval < 0 && yval < 0){
+            yval = Math.abs(yval);
+            xval = Math.abs(xval);
+            bonus = 180;
+        } else if (xval < 0 && yval > 0){
+            xval = Math.abs(xval);
+            bonus = 270;
+        }
+        System.out.println("bonus: " + bonus);
+        nowangle = Math.atan(yval / xval);
         System.out.println(nowangle);
-        rt.setToAngle(nowangle);
+        nowangle = Math.toDegrees(nowangle) + bonus;
+        System.out.println(nowangle);
+//        if (nowangle < 0) {
+//            nowangle += 360;
+//        }
+        System.out.println(nowangle);
+        rt.setToAngle(Math.abs(nowangle));
         rt.setCycleCount(1);
         rt.setAutoReverse(true);
         rt.play();
