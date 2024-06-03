@@ -12,5 +12,15 @@ public class Dankeschoen {
          mp.play();
     }
 
-    
+    public void schießeLaut() {
+         Media media = new Media("/com/piske/piske/audio/schuss.mp3");
+         mp = new MediaPlayer(media);
+         mp.play();
+    }
+
+     public void beameMitarbeiter() {
+         Media media = new Media("/com/piske/piske/audio/beam.mp3");
+         mp = new MediaPlayer(media);
+         mp.play();
+    }
 }
