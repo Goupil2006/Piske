@@ -241,7 +241,7 @@ public class GameController implements Initializable {
             delay((int) ((2000 * i) + (Math.random() * 2000)), () -> {
                 Platform.runLater(() -> {
                     System.out.println("Spawn");
-                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen));
+                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen, 1));
                     schülerManager.getSchülerAtIndex(schülerManager.length() - 1).goWeg(schuelerweg);
                 });
             });
