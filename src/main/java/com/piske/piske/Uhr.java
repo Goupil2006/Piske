@@ -13,9 +13,11 @@ public class Uhr {
 
     public Uhr(ImageView uhrzeiger) {
         this.uhrzeiger = uhrzeiger;
+        System.out.println("Uhrzeiger: " + uhrzeiger);
     }
 
-    public int runTimer(int t) {
+    public void runTimer(int t) {
+        System.out.println(uhrzeiger);
       zeit = t;
       double rotationswinkel = 360 / t;
       for (int i = 0; i < t; i++) {
@@ -23,11 +25,9 @@ public class Uhr {
             delay(1000 * i, () -> {
                 Platform.runLater(() -> {
                     uhrzeiger.setRotate(rotationswinkel*(finalI +1));
-
                 });
             });
         }
-    return 1;
     }
 
     public void delay(int milliseconds, Runnable task) {

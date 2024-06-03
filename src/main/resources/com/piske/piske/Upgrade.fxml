@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="upgreadheadpane" prefHeight="720.0" prefWidth="1080.0" layoutX="892" layoutY="200" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piske.piske.UpgradeController">
+<AnchorPane fx:id="upgreadheadpane" prefHeight="720.0" prefWidth="1080.0" layoutX="892" layoutY="150" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piske.piske.UpgradeController">
     <Pane prefHeight="250" prefWidth="360.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 28; -fx-border-color: f7c83d; -fx-border-radius: 24; -fx-border-width: 4;">
 
     </Pane>

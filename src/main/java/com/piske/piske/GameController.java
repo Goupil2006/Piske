@@ -225,7 +225,7 @@ public class GameController implements Initializable {
             erzeugeWelle(this.phase / 2);
             ((Node) event.getSource()).setVisible(false);
             interfaceController.uhr.runTimer(anzahlSchueler[this.phase / 2] * 3 + 30);
-            delay((anzahlSchueler[this.phase / 2] * 3 + 10) * 1000, () -> {
+            delay((anzahlSchueler[this.phase / 2] * 3) * 1000, () -> {
                 this.phase++;
                 Platform.runLater(() -> {
                     startwavebutton.setVisible(true);
