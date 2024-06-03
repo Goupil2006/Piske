@@ -2,8 +2,6 @@ package com.piske.piske;
 
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -123,7 +121,7 @@ public class Projectile {
                 + starty;
     }
 
-    public void goProjectile(Schüler target, Consumer<Projectile> checkColision) {
+    public void goProjectile(Schüler target, Consumer<Integer> giveMoney) {
         this.target = target;
         System.out.println("going");
         // rotate projectile
@@ -176,7 +174,8 @@ public class Projectile {
         translate.play();
 
         delay( 300, () -> {
-            finished();
+            finished(giveMoney);
+            //giveMoney.accept(this.target.health);
         });
 
 
@@ -187,8 +186,8 @@ public class Projectile {
         // });
     }
 
-    public void finished() {
-        this.target.hit(this.damage, schülerManager);
+    public void finished(Consumer<Integer> giveMoney) {
+        this.target.hit(this.damage, schülerManager, giveMoney);
         this.hit();
     }
 

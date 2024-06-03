@@ -41,7 +41,6 @@ public class InterfaceController implements Initializable {
 
     public Uhr uhr;
 
-
     public void setContollers(StationController stationController, GameController gameController,
             BuyController buyController, UpgradeController upgradeController) {
         this.stationController = stationController;
@@ -57,7 +56,7 @@ public class InterfaceController implements Initializable {
     @FXML
     public Text money;
 
-    private float amount = 2000;
+    private float amount = 100;
 
     public void changeAmount(float amount) {
         this.amount += amount;

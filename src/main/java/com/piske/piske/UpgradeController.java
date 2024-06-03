@@ -51,10 +51,10 @@ public class UpgradeController implements Initializable {
         });
 
         stationName.setLayoutX(36 - 10);
-        stationName.setLayoutY(15 + numberStations * 30 - 22.5);
+        stationName.setLayoutY(15 + numberStations * 27 - 22.5);
 
         upgradeButton.setLayoutX(254 - 10);
-        upgradeButton.setLayoutY(11 + numberStations * 30 - 22.5);
+        upgradeButton.setLayoutY(11 + numberStations * 27 - 22.5);
         upgradeButton.setMnemonicParsing(false);
         upgradeButton.setStyle("-fx-background-color: FF5964; -fx-background-radius: 10;");
 

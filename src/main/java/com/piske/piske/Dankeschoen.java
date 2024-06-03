@@ -9,14 +9,16 @@ import java.nio.file.Paths;
 
 public class Dankeschoen {
     public static MediaPlayer mp; //static um abbruch durch GC zu verhindern
+    public int sound;
 
-    public Dankeschoen() {
-
+    public Dankeschoen(int sound) {
+        this.sound = sound;
     }
 
     public void sagDankeschoen() throws MediaException {
         Media media = new Media(getClass().getResource("/com/piske/piske/audio/Dankeschoen.mp3").toString());
         mp = new MediaPlayer(media);
+        mp.setVolume(this.sound / 100);
         mp.play();
     }
 

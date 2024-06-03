@@ -17,7 +17,6 @@ public class Uhr {
     }
 
     public void runTimer(int t) {
-        System.out.println(uhrzeiger);
       zeit = t;
       double rotationswinkel = 360 / t;
       for (int i = 0; i < t; i++) {

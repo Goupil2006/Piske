@@ -8,6 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.util.function.Consumer;
+
 public class Schüler {
 
     private int startx = 0;
@@ -18,7 +20,8 @@ public class Schüler {
     ImageView imageView = new ImageView();
     private AnchorPane screen;
     TranslateTransition translate = new TranslateTransition();
-    private int health = 20;
+    public int initalhealth = 20;
+    public int health = initalhealth;
 
     public Schüler(int x, int y, AnchorPane screen, int type) {
         this.screen = screen;
@@ -30,21 +33,25 @@ public class Schüler {
             case 1:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Marc.png"));
                 health = 20;
+                initalhealth = 20;
                 break;
 
             case 2:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Georgios.png"));
                 health = 50;
+                initalhealth = 50;
                 break;
 
             case 3:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Lukas.png"));
                 health = 200;
+                initalhealth = 200;
                 break;
 
             case 4:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Paul.png"));
                 health = 500;
+                initalhealth = 500;
 
                 break;
             default:
@@ -85,15 +92,17 @@ public class Schüler {
         });
     }
 
-    public void hit(int damage, SchülerManager schülerManager) {
+    public void hit(int damage, SchülerManager schülerManager, Consumer<Integer> giveMoney) {
         health -= damage;
         System.out.println(health);
         if (health <= 0) {
             System.out.println("hit");
+            giveMoney.accept(this.initalhealth / 5);
             Platform.runLater(() -> {
                 screen.getChildren().remove(imageView);
             });
             schülerManager.deleteSchüler(this);
+
         }
 
     }
