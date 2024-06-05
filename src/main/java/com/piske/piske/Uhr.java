@@ -19,13 +19,20 @@ public class Uhr {
     public void runTimer(int t) {
       zeit = t;
       double rotationswinkel = 360 / t;
-      for (int i = 0; i < t; i++) {
+      for (int i = 0; i <= t; i++) {
             int finalI = i;
-            delay(1000 * i, () -> {
+            delay( 1000 * i, () -> {
                 Platform.runLater(() -> {
-                    uhrzeiger.setRotate(rotationswinkel*(finalI +1));
+                    uhrzeiger.setRotate(rotationswinkel * finalI);
                 });
             });
+            if(i == t) {
+                delay( 1000 * i, () -> {
+                    Platform.runLater(() -> {
+                        uhrzeiger.setRotate(360);
+                    });
+                });
+            }
         }
     }
 

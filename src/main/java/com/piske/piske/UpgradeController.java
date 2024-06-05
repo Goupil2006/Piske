@@ -46,15 +46,17 @@ public class UpgradeController implements Initializable {
         stationName.setText(station.getName());
         Button upgradeButton = new Button("Upgrade " + station.getDamage() * 5 + "$");
         upgradeButton.setOnAction(event -> {
-            station.upgrade();
-            upgradeButton.setText("Upgrade " + station.getDamage() * 5 + "$");
+            if (this.gameController.phase % 2 != 0) {
+                station.upgrade();
+                upgradeButton.setText("Upgrade " + station.getDamage() * 5 + "$");
+            }
         });
 
         stationName.setLayoutX(36 - 10);
-        stationName.setLayoutY(15 + numberStations * 27 - 22.5);
+        stationName.setLayoutY(15 + numberStations * 29 - 22.5);
 
         upgradeButton.setLayoutX(254 - 10);
-        upgradeButton.setLayoutY(11 + numberStations * 27 - 22.5);
+        upgradeButton.setLayoutY(11 + numberStations * 29 - 22.5);
         upgradeButton.setMnemonicParsing(false);
         upgradeButton.setStyle("-fx-background-color: FF5964; -fx-background-radius: 10;");
 

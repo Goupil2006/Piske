@@ -48,6 +48,7 @@ public class Projectile {
         System.out.println("test3");
         imageViewp.setImage(image);
         System.out.println("test3");
+        imageViewp.toFront();
         Platform.runLater(() -> {
             screen.getChildren().add(imageViewp);
             System.out.println("test4");

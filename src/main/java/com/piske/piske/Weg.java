@@ -1,5 +1,7 @@
 package com.piske.piske;
 
+import org.json.JSONArray;
+
 public class Weg {
     static Pfad head = null;
     static Pfad tail = null;
@@ -24,5 +26,29 @@ public class Weg {
 
     public static Pfad getHead() {
         return head;
+    }
+
+    public boolean isPossibleToWalkBySchuler() {
+        if (head == null || tail == null) {
+            return false;
+        }
+        if (head.getMapX() != 0 || tail.getMapX() != 0) {
+            return false;
+        }
+
+        Pfad current = head;
+        while (current != null && current.getNext() != null) {
+            if (!isNextToEachOther(current, current.getNext())) {
+                return false;
+            }
+            current = current.getNext();
+        }
+        return true;
+    }
+
+    private boolean isNextToEachOther(Pfad p1, Pfad p2) {
+        int xDiff = Math.abs(p1.getMapX() - p2.getMapX());
+        int yDiff = Math.abs(p1.getMapY() - p2.getMapY());
+        return (xDiff == 1 && yDiff == 0) || (xDiff == 0 && yDiff == 1);
     }
 }

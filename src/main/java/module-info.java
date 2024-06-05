@@ -12,6 +12,7 @@ module com.piske.piske {
     requires java.desktop;
     requires org.json;
     requires javafx.media;
+    requires com.fasterxml.jackson.databind;
 
     opens com.piske.piske to javafx.fxml;
     exports com.piske.piske;

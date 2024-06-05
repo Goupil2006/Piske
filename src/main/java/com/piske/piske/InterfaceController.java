@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -56,7 +57,14 @@ public class InterfaceController implements Initializable {
     @FXML
     public Text money;
 
+    @FXML
+    public Label waveindicator;
+
     private float amount = 100;
+
+    public void setWaveIndicator(int wave, int maxWave) {
+        waveindicator.setText("Welle: " + wave + " / " + maxWave);
+    }
 
     public void changeAmount(float amount) {
         this.amount += amount;
@@ -71,7 +79,13 @@ public class InterfaceController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("InterfaceController initialized");
         money.setText(amount + "$");
-        startwavebutton.setOnAction(event -> gameController.startwave(event));
+        startwavebutton.setOnAction(event -> {
+            try {
+                gameController.startwave(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         this.uhr = new Uhr(uhrzeiger);
     }
 }

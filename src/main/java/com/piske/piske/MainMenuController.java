@@ -1,5 +1,6 @@
 package com.piske.piske;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,7 +85,23 @@ public class MainMenuController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
 
+    @FXML
+    public void mapStart(ActionEvent event) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/piske/piske/Mapcreator.fxml"));
+        Parent root = loader.load();
+        MapcreatorController mapcreatorController = loader.getController();
+        System.out.println("mapcreatorController loaded: " + mapcreatorController);
+
+        VBox rootVBox = new VBox(root);
+
+        Scene scene = new Scene(rootVBox, 1280, 720);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Platform.runLater(() -> {
+            stage.setScene(scene);
+            stage.show();
+        });
     }
 
     @Override

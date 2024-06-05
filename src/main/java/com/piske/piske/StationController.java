@@ -16,6 +16,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,6 +38,14 @@ public class StationController implements Initializable {
         this.buyController = buyController;
         this.gameController = gameController;
         this.upgradeController = upgradeController;
+
+        JSONObject mapJson = null;
+        try {
+            mapJson = this.gameController.readJson();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        this.loadStations(mapJson);
     }
 
     @FXML
@@ -105,72 +116,74 @@ public class StationController implements Initializable {
     }
 
     private void addSilli(int x, int y) throws Exception {
-        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+        this.newStation(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Silly.png", "Silli");
-        Stations.add(newStation);
-        this.upgradeController.addStation(newStation);
     }
 
     private void addIra(int x, int y) throws Exception {
-        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+        this.newStation(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Ira.png", "Ira");
-        Stations.add(newStation);
-        this.upgradeController.addStation(newStation);
     }
 
     private void addBiene(int x, int y) throws Exception {
-        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+        this.newStation(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Biene.png", "Biene");
-        Stations.add(newStation);
-        this.upgradeController.addStation(newStation);
     }
 
     private void addConny(int x, int y) throws Exception {
-        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+        this.newStation(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Conny.png", "Conny");
-        Stations.add(newStation);
-        this.upgradeController.addStation(newStation);
     }
 
     private void addEvy(int x, int y) throws Exception {
-        Station newStation = new Station(interfaceController, gameController, this, this.plane, x, y,
+        this.newStation(interfaceController, gameController, this, this.plane, x, y,
                 "/com/piske/piske/Images/Evy.png", "Evy");
-        Stations.add(newStation);
-        this.upgradeController.addStation(newStation);
+    }
+
+    public void newStation(InterfaceController interfaceController, GameController gameController,
+            StationController stationController, AnchorPane plane, int x,
+            int y, String grafic, String name) throws Exception {
+        if (this.interfaceController.getMoney() >= 50) {
+            Station station = new Station(interfaceController, gameController, stationController, plane, x, y, grafic,
+                    name);
+            this.upgradeController.addStation(station);
+
+            Stations.add(station);
+        }
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        int topleftX = 4;
-        int topleftY = 4;
-        int bottomrightX = 8;
-        int bottomrightY = 5;
-        for (int x = topleftX; x <= bottomrightX; x++) {
-            for (int y = topleftY; y <= bottomrightY; y++) {
-                ImageView station = new ImageView();
-                station.setFitHeight(72.0);
-                station.setFitWidth(72.0);
-                station.setLayoutX(x * 72.0);
-                station.setLayoutY(y * 72.0);
-                station.setPickOnBounds(true);
-                station.setPreserveRatio(true);
-                Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/addStation.png"));
-                station.setImage(image);
-                int finalx = x;
-                int finaly = y;
-                station.setOnMouseClicked(event -> {
-                    if (this.gameController.phase % 2 != 0) {
-                        System.out.println("buynew");
-                        try {
-                            addStation(finalx, finaly);
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
 
-                });
-                plane.getChildren().add(station);
-            }
+    }
+
+    public void loadStations(JSONObject json) {
+        JSONArray stations = json.getJSONArray("Stations");
+        for (int i = 0; i < stations.length(); i++) {
+            ImageView station = new ImageView();
+            station.setFitHeight(72.0);
+            station.setFitWidth(72.0);
+            station.setLayoutX(stations.getJSONArray(i).getInt(0) * 72.0);
+            station.setLayoutY(stations.getJSONArray(i).getInt(1) * 72.0);
+            station.setPickOnBounds(true);
+            station.setPreserveRatio(true);
+            Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/addStation.png"));
+            station.setImage(image);
+            int finalx = stations.getJSONArray(i).getInt(1);
+            int finaly = stations.getJSONArray(i).getInt(0);
+            station.setOnMouseClicked(event -> {
+                if (this.gameController.phase % 2 != 0) {
+                    System.out.println("buynew");
+                    try {
+                        addStation(finalx, finaly);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            });
+            plane.getChildren().add(station);
         }
     }
 
