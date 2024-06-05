@@ -128,14 +128,14 @@ public class Projectile {
         RotateTransition rt = new RotateTransition(Duration.millis(50), imageViewp);
         double nowangle = 0;
         int bonus = 0;
-        System.out.println(this.getX());
-        System.out.println(target.getX());
-        System.out.println(this.getY());
-        System.out.println(target.getY());
+        System.out.println("xpos stat: " + this.getX());
+        System.out.println("xpos target: " + target.getX());
+        System.out.println("ypos stat: " + this.getY());
+        System.out.println("ypos target: " + target.getY());
         double xval = target.getX() - this.getX();
         double yval = this.getY() - target.getY();
-        System.out.println(xval);
-        System.out.println(yval);
+        System.out.println("xval: " + xval);
+        System.out.println("yval: " + yval);
         if (xval > 0 && yval < 0){
             yval = Math.abs(yval);
             bonus = 90;
@@ -146,12 +146,16 @@ public class Projectile {
         } else if (xval < 0 && yval > 0){
             xval = Math.abs(xval);
             bonus = 270;
+        } else if (xval > 0 && yval > 0) {
+            bonus = 0;
         }
         System.out.println("bonus: " + bonus);
         nowangle = Math.atan(yval / xval);
-        System.out.println(nowangle);
-        nowangle = Math.toDegrees(nowangle) + bonus;
-        System.out.println(nowangle);
+        System.out.println("angle: " + nowangle);
+        nowangle = Math.toDegrees(nowangle);
+        System.out.println("angledeg: " + nowangle);
+        nowangle += bonus;
+        System.out.println("anglebon: " + nowangle);
 //        if (nowangle < 0) {
 //            nowangle += 360;
 //        }
