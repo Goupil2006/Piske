@@ -196,7 +196,8 @@ public class GameController implements Initializable {
                     if (difficulty > 20) {
                         type = (int) num / difficulty + 1;
                     }
-                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen, type));
+
+                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen, (int) type));
                     schülerManager.getSchülerAtIndex(schülerManager.length() - 1).goWeg(schuelerweg);
                 });
             });
