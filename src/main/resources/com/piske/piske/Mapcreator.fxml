@@ -77,6 +77,6 @@
       <Accordion />
       <Button layoutX="887.0" layoutY="23.0" mnemonicParsing="false" fx:id="checkMap" prefHeight="25.0" prefWidth="370.0" text="Check Map" />
       <Button fx:id="uploadButton" layoutX="887.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="370.0" text="Upload Map" />
-      <TextArea layoutX="888.0" layoutY="108.0" prefHeight="124.0" prefWidth="370.0" text="Rules:&#10;1. Start can only be set on the left&#10;2. Way must be a mossible way to travel for a Oponent&#10;3. Must end on the left&#10;4. Stations can be placed anyware&#10;5. Place the Way in the correct order (how the Opponent should walk it)" />
+      <TextArea layoutX="888.0" layoutY="108.0" prefHeight="124.0" prefWidth="370.0" text="Rules:&#10;1. Start can only be build on the left side&#10;2. Road must be build in a way, so that it is possible for the opponents to walk on&#10;3. End can only be build on the left side&#10;4. Stations can be placed anyware&#10;5. Place the Roadways in the right order (from start to tile to end tile)" />
    </children>
 </AnchorPane>

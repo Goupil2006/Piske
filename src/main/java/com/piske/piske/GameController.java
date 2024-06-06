@@ -91,7 +91,7 @@ public class GameController implements Initializable {
 
     public JSONObject readJson() throws IOException {
         // Map1.json einlesen;
-        InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map1.json");
+        InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map2.json");
         try {
             if (inputStream == null) {
                 throw new FileNotFoundException("Map1.json not found");

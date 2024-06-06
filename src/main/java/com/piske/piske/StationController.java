@@ -170,8 +170,8 @@ public class StationController implements Initializable {
             station.setPreserveRatio(true);
             Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/addStation.png"));
             station.setImage(image);
-            int finalx = stations.getJSONArray(i).getInt(1);
-            int finaly = stations.getJSONArray(i).getInt(0);
+            int finalx = stations.getJSONArray(i).getInt(0);
+            int finaly = stations.getJSONArray(i).getInt(1);
             station.setOnMouseClicked(event -> {
                 if (this.gameController.phase % 2 != 0) {
                     System.out.println("buynew");

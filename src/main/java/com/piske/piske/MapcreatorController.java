@@ -173,8 +173,8 @@ public class MapcreatorController {
             JSONArray stationArray = new JSONArray();
             for (int i = 0; i < currentStation; i++) {
                 JSONArray station = new JSONArray();
-                station.put(stations[i][1]);
                 station.put(stations[i][0]);
+                station.put(stations[i][1]);
                 stationArray.put(station);
             }
             mapObject.put("Stations", stationArray);
