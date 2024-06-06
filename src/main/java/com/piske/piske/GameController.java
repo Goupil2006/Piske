@@ -187,8 +187,11 @@ public class GameController implements Initializable {
                 Platform.runLater(() -> {
                     System.out.println("Spawn");
                     int type = 1;
+                    if (num > 6) {
+                        type = (Math.random()*2+1);
+                    }
                     if (num > 3) {
-                        type = 2;
+                        type = (Math.random()*2);;
                     }
                     if (difficulty > 20) {
                         type = (int) num / difficulty + 1;
