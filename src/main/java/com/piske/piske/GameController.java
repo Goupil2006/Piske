@@ -186,7 +186,7 @@ public class GameController implements Initializable {
             delay(500 * i, () -> {
                 Platform.runLater(() -> {
                     System.out.println("Spawn");
-                    int type = Math.random() * (1/(difficulty / 20 + 3)) * num * 3 + 1;
+                    double type = Math.random() * (1/(difficulty / 20 + 3)) * num * 3 + 1;
                     //if (num > 6) {
                    //     type = (Math.random()*2+1);
                     //}
