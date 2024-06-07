@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
@@ -56,27 +57,33 @@
       <Text fill="#1d2f6f" layoutX="732.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" />
       <Text fill="#1d2f6f" layoutX="805.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="11" />
       <Text fill="#1d2f6f" layoutX="5.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <Pane fx:id="Selectareea" layoutX="887.0" layoutY="248.0" prefHeight="312.0" prefWidth="370.0">
+      <Pane fx:id="Selectareea" layoutX="887.0" layoutY="336.0" prefHeight="312.0" prefWidth="370.0">
          <children>
-            <Button layoutX="196.0" layoutY="144.0" mnemonicParsing="false" fx:id="leftRight" prefHeight="25.0" prefWidth="174.0" text="Left / Right" />
+            <Button fx:id="leftRight" layoutX="196.0" layoutY="144.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Left / Right" />
             <Label layoutX="7.0" layoutY="36.0" prefHeight="17.0" prefWidth="362.0" text="Select Type of Block">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button layoutX="7.0" layoutY="77.0" mnemonicParsing="false" fx:id="leftUp" prefHeight="25.0" prefWidth="174.0" text="Left / Up" />
-            <Button layoutX="196.0" layoutY="77.0" mnemonicParsing="false" fx:id="upRight" prefHeight="25.0" prefWidth="174.0" text="Up / Right" />
-            <Button layoutX="196.0" layoutY="109.0" mnemonicParsing="false" fx:id="rightDown" prefHeight="25.0" prefWidth="174.0" text="Right / Down" />
-            <Button layoutX="7.0" layoutY="109.0" mnemonicParsing="false" fx:id="downLeft" prefHeight="25.0" prefWidth="174.0" text="Down / Left" />
-            <Button layoutX="7.0" layoutY="144.0" mnemonicParsing="false" fx:id="downUp" prefHeight="25.0" prefWidth="174.0" text="Down / Up" />
-            <Button layoutX="7.0" layoutY="176.0" mnemonicParsing="false" fx:id="createStation" prefHeight="25.0" prefWidth="362.0" text="Station" />
+            <Button fx:id="leftUp" layoutX="7.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Left / Up" />
+            <Button fx:id="upRight" layoutX="196.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Up / Right" />
+            <Button fx:id="rightDown" layoutX="196.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Right / Down" />
+            <Button fx:id="downLeft" layoutX="7.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Down / Left" />
+            <Button fx:id="downUp" layoutX="7.0" layoutY="144.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Down / Up" />
+            <Button fx:id="createStation" layoutX="7.0" layoutY="176.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Station" />
          </children>
       </Pane>
       <!--<fx:include source="Station.fxml" />-->
       <Accordion />
       <Accordion />
-      <Button layoutX="887.0" layoutY="23.0" mnemonicParsing="false" fx:id="checkMap" prefHeight="25.0" prefWidth="370.0" text="Check Map" />
-      <Button fx:id="uploadButton" layoutX="887.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="370.0" text="Upload Map" />
-      <TextArea layoutX="888.0" layoutY="108.0" prefHeight="124.0" prefWidth="370.0" text="Rules:&#10;1. Start can only be set on the left&#10;2. Way must be a mossible way to travel for a Oponent&#10;3. Must end on the left&#10;4. Stations can be placed anyware&#10;5. Place the Way in the correct order (how the Opponent should walk it)" />
+      <Button fx:id="checkMap" layoutX="887.0" layoutY="23.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="370.0" text="Check Map" />
+      <Button fx:id="uploadButton" layoutX="887.0" layoutY="118.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="370.0" text="Upload Map" />
+      <TextArea layoutX="888.0" layoutY="196.0" prefHeight="124.0" prefWidth="370.0" text="Rules:&#10;1. Start can only be set on the left&#10;2. Way must be a mossible way to travel for a Oponent&#10;3. Must end on the left&#10;4. Stations can be placed anyware&#10;5. Place the Way in the correct order (how the Opponent should walk it)" />
+      <TextField fx:id="filename" layoutX="1009.0" layoutY="76.0" prefHeight="26.0" prefWidth="248.0" />
+      <Label layoutX="888.0" layoutY="77.0" text="Mapname:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

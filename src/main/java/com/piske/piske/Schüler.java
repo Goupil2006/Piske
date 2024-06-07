@@ -76,9 +76,9 @@ public class Schüler {
         translate.setDuration(Duration.millis(1000));
         translate.setNode(imageView);
         translate.setToX((double) pfad.mapX * 72);
-        translate.setToY((double) pfad.mapY * 72 - 4 * 72);
+        translate.setToY((double) pfad.mapY * 72 - starty);
         this.x = pfad.mapX * 72;
-        this.y = pfad.mapY * 72 - 4 * 72;
+        this.y = pfad.mapY * 72 - starty;
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
         pfad = pfad.getNext();
