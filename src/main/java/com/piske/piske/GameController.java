@@ -186,14 +186,18 @@ public class GameController implements Initializable {
             delay(500 * i, () -> {
                 Platform.runLater(() -> {
                     System.out.println("Spawn");
-                    int type = 1;
-                    if (num > 3) {
-                        type = 2;
-                    }
+                    int type = Math.floor(Math.random() * (1/(difficulty / 20 + 3)) * num * 3 + 1);
+                    //if (num > 6) {
+                   //     type = (Math.random()*2+1);
+                    //}
+                   // if (num > 3) {
+                     //   type = (Math.random()*2);;
+                   // }
                     if (difficulty > 20) {
                         type = (int) num / difficulty + 1;
                     }
-                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen, type));
+
+                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen, (int) type));
                     schülerManager.getSchülerAtIndex(schülerManager.length() - 1).goWeg(schuelerweg);
                 });
             });
