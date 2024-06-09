@@ -51,22 +51,22 @@ public class Schüler {
 
             case 2:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Georgios.png"));
-                health = 80;
-                initalhealth = 80;
+                health = 60;
+                initalhealth = 60;
                 speed = 1.2;
                 break;
 
             case 3:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Lukas.png"));
-                health = 400;
-                initalhealth = 400;
+                health = 200;
+                initalhealth = 200;
                 speed = 1.5;
                 break;
 
             case 4:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Paul.png"));
-                health = 1000;
-                initalhealth = 1000;
+                health = 400;
+                initalhealth = 400;
                 speed = 2;
 
                 break;

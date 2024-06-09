@@ -25,13 +25,15 @@ public class Projectile {
     private int x;
     private int y;
     private Schüler target;
+    private Station station;
+    String type = "";
     ImageView imageViewp = new ImageView();
     TranslateTransition translate = new TranslateTransition();
     SchülerManager schülerManager;
     private AnchorPane screen;
 
     public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen, int damage,
-            SchülerManager schülerManager) {
+            SchülerManager schülerManager, Station station) {
         this.damage = damage;
         this.schülerManager = schülerManager;
         this.screen = screen;
@@ -41,12 +43,35 @@ public class Projectile {
         this.starty = y * 72 + 72 / 2;
         this.x = x * 72 + 72 / 2;
         this.y = y * 72 + 72 / 2;
+        this.station = station;
+        Image image1 = null;
+        type = station.name;
+        System.out.println(type);
         angle = a;
         velocity = v;
         height = h;
         width = w;
-        Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
-        imageViewp.setImage(image);
+        //Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
+        switch (type) {
+            case "Silli":
+                image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/pommesbullet.png"));
+            break;
+
+            case "Ira": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/currybullet.png"));
+            break;
+
+            case "Biene": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/burgerbullet.png"));
+            break;
+
+            case "Conny": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bratbullet.png"));
+            break;
+
+            case "Evy": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/cheesybullet.png"));
+            break;
+
+            default: image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
+        }
+        imageViewp.setImage(image1);
         imageViewp.toFront();
         Platform.runLater(() -> {
             screen.getChildren().add(imageViewp);
