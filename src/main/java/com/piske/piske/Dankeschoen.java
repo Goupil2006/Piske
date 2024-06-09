@@ -35,4 +35,25 @@ public class Dankeschoen {
          mp.setVolume(this.sound / 100);
          mp.play();
     }
+
+    public void Sieg() throws MediaException {
+        Media media = new Media(getClass().getResource("/com/piske/piske/audio/victory.mp3").toString());
+        mp = new MediaPlayer(media);
+        mp.setVolume(this.sound / 100);
+        mp.play();
+    }
+
+    public void spawnZwei() throws MediaException {
+        Media media = new Media(getClass().getResource("/com/piske/piske/audio/sieg1.mp3").toString());
+        mp = new MediaPlayer(media);
+        mp.setVolume(this.sound / 100);
+        mp.play();
+    }
+
+    public void niderlage() throws MediaException {
+        Media media = new Media(getClass().getResource("/com/piske/piske/audio/niederlage.mp3").toString());
+        mp = new MediaPlayer(media);
+        mp.setVolume(this.sound / 100);
+        mp.play();
+    }
 }
