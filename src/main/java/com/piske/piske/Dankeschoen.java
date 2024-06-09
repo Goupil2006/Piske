@@ -25,12 +25,14 @@ public class Dankeschoen {
     public void schießeLaut() {
          Media media = new Media(getClass().getResource("/com/piske/piske/audio/schuss.mp3").toString());
          mp = new MediaPlayer(media);
+         mp.setVolume(this.sound / 100);
          mp.play();
     }
 
      public void beameMitarbeiter() {
          Media media = new Media(getClass().getResource("/com/piske/piske/audio/beam.mp3").toString());
          mp = new MediaPlayer(media);
+         mp.setVolume(this.sound / 100);
          mp.play();
     }
 }
