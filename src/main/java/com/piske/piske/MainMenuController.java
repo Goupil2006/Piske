@@ -241,7 +241,7 @@ public class MainMenuController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                delay(100, () -> {
+                delay(1000, () -> {
                     updatebuttons();
                 });
 
