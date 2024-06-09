@@ -138,7 +138,7 @@ public class StationController implements Initializable {
     public void newStation(InterfaceController interfaceController, GameController gameController,
             StationController stationController, AnchorPane plane, int x,
             int y, String grafic, String name, int range, int speed, int damage, int price) throws Exception {
-        if (this.interfaceController.getMoney() >= 50) {
+        if (this.interfaceController.getMoney() >= price) {
             Station station = new Station(interfaceController, gameController, stationController, plane, x, y, grafic,
                     name, range, speed, damage, price);
             this.upgradeController.addStation(station);

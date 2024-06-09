@@ -41,6 +41,7 @@ public class GameController implements Initializable {
 
     private int difficulty;
     private int sound;
+    private int level;
 
     public void setContollers(StationController stationController, InterfaceController interfaceController,
             BuyController buyController, UpgradeController upgradeController) {
@@ -51,7 +52,7 @@ public class GameController implements Initializable {
         this.upgradeController = upgradeController;
     }
 
-    public void setDifAndSound(int difficulty, int sound, String mapjson) {
+    public void setDifAndSound(int difficulty, int sound, String mapjson, int level) {
         this.difficulty = difficulty;
         this.sound = sound;
         // Initilizing everything
@@ -63,6 +64,7 @@ public class GameController implements Initializable {
         this.loadMap(Mapjson);
         Utils.renderWeg(this.schuelerweg, this.gamescreen);
         this.sounds = new Dankeschoen(sound);
+        this.level = level;
     }
 
     @FXML
@@ -161,7 +163,7 @@ public class GameController implements Initializable {
         MainMenuController mainMenuController = loader1.getController();
         switch (state) {
             case 1:
-                mainMenuController.won();
+                mainMenuController.won(this.level);
                 break;
             case 2:
                 mainMenuController.lost();

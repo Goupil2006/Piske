@@ -18,8 +18,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.awt.event.MouseEvent;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -49,6 +51,15 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Button startbutton;
+
+    @FXML
+    private Button startbutton2;
+
+    @FXML
+    private Button startbutton3;
+
+    @FXML
+    private Button startbutton4;
 
     @FXML
     private Label won;
@@ -144,7 +155,7 @@ public class MainMenuController implements Initializable {
 
     public SftpClient sftpClient = new SftpClient("gis-informatik.de", 22, "marc.bernard");
 
-    private void gameStart(javafx.scene.input.MouseEvent event) throws Exception {
+    private void gameStart(javafx.scene.input.MouseEvent event, int level) throws Exception {
         // Load StationController
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/com/piske/piske/Station.fxml"));
         Parent root2 = loader2.load();
@@ -176,7 +187,7 @@ public class MainMenuController implements Initializable {
         System.out.println("UpgradeContoller loaded: " + upgradeController);
 
         gameContoller.setContollers(stationController, interfaceController, buyController, upgradeController);
-        this.gameContoller.setDifAndSound(difficultyValue, soundValue, this.mapjson);
+        this.gameContoller.setDifAndSound(difficultyValue, soundValue, this.mapjson, level);
         interfaceController.setContollers(stationController, gameContoller, buyController, upgradeController);
         stationController.setContollers(interfaceController, gameContoller, buyController, upgradeController);
         buyController.setContollers(stationController, interfaceController, gameContoller, upgradeController);
@@ -208,11 +219,32 @@ public class MainMenuController implements Initializable {
         });
     }
 
-    public void won() {
+    public void won(int level) {
         won.setVisible(true);
         delay(3000, () -> {
             won.setVisible(false);
         });
+        switch (level) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                if (getStand() > level) {
+                    return;
+                }
+                try {
+                    FileWriter writer = new FileWriter(
+                            getClass().getResourceAsStream("/com/piske/piske/Stand.txt").toString());
+                    writer.write(String.valueOf(level));
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                updatebuttons();
+                break;
+            default:
+                break;
+        }
     }
 
     public void lost() {
@@ -222,8 +254,53 @@ public class MainMenuController implements Initializable {
         });
     }
 
+    public int getStand() {
+        InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Stand.txt");
+        if (inputStream == null) {
+            try {
+                throw new FileNotFoundException("Stand.txt");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        byte[] data = null;
+        try {
+            data = inputStream.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            String stand = new String(data, "UTF-8");
+            if (stand.equals("")) {
+                return 0;
+            } else {
+                return Integer.parseInt(stand);
+            }
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updatebuttons() {
+        if (getStand() == 0) {
+            startbutton2.setVisible(false);
+            startbutton3.setVisible(false);
+            startbutton4.setVisible(false);
+        } else if (getStand() == 1) {
+            startbutton3.setVisible(false);
+            startbutton4.setVisible(false);
+        } else if (getStand() == 2) {
+            startbutton4.setVisible(false);
+        } else {
+            startbutton2.setVisible(true);
+            startbutton3.setVisible(true);
+            startbutton4.setVisible(true);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        updatebuttons();
         won.setVisible(false);
         lost.setVisible(false);
         difficulty.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -234,7 +311,34 @@ public class MainMenuController implements Initializable {
         });
         startbutton.setOnMouseClicked(event -> {
             try {
-                this.gameStart(event);
+                this.gameStart(event, 1);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        startbutton2.setOnMouseClicked(event -> {
+            this.mapjson = getMapjson(2);
+            try {
+                this.gameStart(event, 2);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        startbutton3.setOnMouseClicked(event -> {
+            this.mapjson = getMapjson(3);
+            try {
+                this.gameStart(event, 3);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        startbutton4.setOnMouseClicked(event -> {
+            this.mapjson = getMapjson(4);
+            try {
+                this.gameStart(event, 4);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -270,7 +374,7 @@ public class MainMenuController implements Initializable {
                     }
                     System.out.println(this.mapjson);
                     try {
-                        this.gameStart(event);
+                        this.gameStart(event, -1);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -279,6 +383,28 @@ public class MainMenuController implements Initializable {
                 mapselector.getChildren().add(label);
             }
             i++;
+        }
+    }
+
+    public String getMapjson(int a) {
+        InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map" + a + ".json");
+        if (inputStream == null) {
+            try {
+                throw new FileNotFoundException("Map4.json not found");
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        byte[] data = null;
+        try {
+            data = inputStream.readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            return new String(data, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 

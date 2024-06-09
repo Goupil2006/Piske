@@ -107,7 +107,7 @@ public class Schüler {
     private void goNextPfad(Pfad pfad2) {
         final Pfad[] pfad = {pfad2};
         Platform.runLater(() -> {
-            this.position += (double) 1 / speed;
+            this.position += (double) 1;
             translate.setDuration(Duration.millis(1000 * speed));
             translate.setNode(imageView);
             translate.setToX((double) pfad[0].mapX * 72);
