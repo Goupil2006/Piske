@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piske.piske.MainMenuController">
    <children>
-      <Button fx:id="startbutton" layoutX="490.0" layoutY="147.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="260.0" text="Start Game" textAlignment="CENTER">
+      <Button fx:id="startbutton" layoutX="490.0" layoutY="147.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="260.0" text="Level 1" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
@@ -26,21 +26,21 @@
             <Image url="@Images/logoalpha.png" />
          </image>
       </ImageView>
-      <Slider fx:id="difficulty" layoutX="487.0" layoutY="297.0" prefHeight="30.0" prefWidth="300.0" />
-      <Slider fx:id="sound" layoutX="487.0" layoutY="402.0" prefHeight="30.0" prefWidth="300.0" />
-      <Label layoutX="487.0" layoutY="236.0" text="Schwierigkeitsgrad" textAlignment="CENTER">
+      <Slider fx:id="difficulty" layoutX="471.0" layoutY="572.0" prefHeight="30.0" prefWidth="300.0" />
+      <Slider fx:id="sound" layoutX="841.0" layoutY="572.0" prefHeight="30.0" prefWidth="300.0" />
+      <Label layoutX="460.0" layoutY="503.0" text="Schwierigkeitsgrad" textAlignment="CENTER">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <Label layoutX="487.0" layoutY="345.0" text="Lautstärke" textAlignment="CENTER">
+      <Label layoutX="902.0" layoutY="503.0" text="Lautstärke" textAlignment="CENTER">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="861.0" layoutY="227.0" prefHeight="290.0" prefWidth="260.0">
+      <ScrollPane layoutX="861.0" layoutY="227.0" prefHeight="222.0" prefWidth="260.0">
         <content>
-          <AnchorPane fx:id="mapselector" minHeight="0.0" minWidth="0.0" prefHeight="289.0" prefWidth="258.0" />
+          <AnchorPane fx:id="mapselector" minHeight="0.0" minWidth="0.0" prefHeight="243.0" prefWidth="258.0" />
         </content>
       </ScrollPane>
       <Label fx:id="won" alignment="CENTER" layoutX="459.0" layoutY="34.0" prefHeight="80.0" prefWidth="363.0" text="Gewonnen" textAlignment="CENTER" textFill="#279001">
@@ -53,5 +53,20 @@
             <Font size="64.0" />
          </font>
       </Label>
+      <Button fx:id="startbutton2" layoutX="490.0" layoutY="227.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="260.0" text="Level 2" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="startbutton3" layoutX="490.0" layoutY="305.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="260.0" text="Level 3" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="startbutton4" layoutX="490.0" layoutY="384.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="260.0" text="Level 4" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
