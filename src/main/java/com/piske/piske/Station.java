@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class Station {
     InterfaceController interfaceController;
@@ -36,6 +38,9 @@ public class Station {
         imageView.setLayoutY(y * 72);
         Image image = new Image(getClass().getResourceAsStream(grafic));
         imageView.setImage(image);
+        imageView.setOnMouseClicked(event -> {
+           // Circle c = new Circle(300, Color);
+        });
         this.plane.getChildren().add(imageView);
 
         shot(x, y);
