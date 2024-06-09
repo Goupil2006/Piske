@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,7 +40,10 @@ public class InterfaceController implements Initializable {
     private ImageView uhrzeiger;
 
     @FXML
-    private Button startwavebutton;
+    public Button startwavebutton;
+
+    @FXML
+    public Button done;
 
     public Uhr uhr;
 
@@ -87,5 +92,28 @@ public class InterfaceController implements Initializable {
             }
         });
         this.uhr = new Uhr(uhrzeiger);
+        done.setOnAction(event -> {
+            System.out.println("Back");
+            this.stationController.active = false;
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/piske/piske/mainmenu.fxml"));
+            Parent root1 = null;
+            try {
+                root1 = loader1.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            MainMenuController mainMenuController = loader1.getController();
+            System.out.println("mainMenuController loaded: " + mainMenuController);
+
+            // Add both roots to a main container (e.g., VBox)
+            VBox root = new VBox(root1);
+
+            Scene scene = new Scene(root, 1280, 720);
+            Stage stage = (Stage) this.gameController.gamescreen.getScene().getWindow();
+            Platform.runLater(() -> {
+                stage.setScene(scene);
+                stage.show();
+            });
+        });
     }
 }

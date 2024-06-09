@@ -2,22 +2,29 @@ package com.piske.piske;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.jcraft.jsch.JSchException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -65,6 +72,9 @@ public class MapcreatorController {
     @FXML
     private TextArea textArea;
 
+    @FXML
+    private TextField filename;
+
     private Weg weg = new Weg();
     private int x = 0;
     private int y = 0;
@@ -72,6 +82,8 @@ public class MapcreatorController {
 
     private int[][] stations = new int[10][2];
     private int currentStation = 0;
+
+    public SftpClient sftpClient = new SftpClient("gis-informatik.de", 22, "marc.bernard");
 
     @FXML
     private void initialize() {
@@ -141,7 +153,7 @@ public class MapcreatorController {
 
             boolean isWegPossible = weg.isPossibleToWalkBySchuler();
             if (isWegPossible) {
-                weg.appendPfad('w', 'e', -1, y);
+                weg.appendPfad('w', 'e', -1, weg.tail.mapY);
                 Platform.runLater(() -> {
                     uploadButton.setVisible(true);
                 });
@@ -186,6 +198,41 @@ public class MapcreatorController {
                 fileWriter.write(mapObject.toString());
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+
+            // Upload file to server
+            try {
+                sftpClient.authPassword("Piske12!");
+            } catch (JSchException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (!filename.getText().isEmpty()) {
+                try {
+                    sftpClient.uploadFile(file.getAbsolutePath(), "/home/www/Maps/" + filename.getText() + ".json");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/piske/piske/mainmenu.fxml"));
+                Parent root1 = null;
+                try {
+                    root1 = loader1.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                MainMenuController mainMenuController = loader1.getController();
+                System.out.println("mainMenuController loaded: " + mainMenuController);
+
+                // Add both roots to a main container (e.g., VBox)
+                VBox root = new VBox(root1);
+
+                Scene scene = new Scene(root, 1280, 720);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Platform.runLater(() -> {
+                    stage.setScene(scene);
+                    stage.show();
+                });
             }
         });
     }
@@ -237,7 +284,7 @@ public class MapcreatorController {
                     Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Silly.png"));
                     stationImage.setImage(image);
                     gamescreen.getChildren().add(stationImage);
-                    stations[currentStation] = new int[]{x, y};
+                    stations[currentStation] = new int[] { x, y };
                     currentStation++;
                     break;
                 default:

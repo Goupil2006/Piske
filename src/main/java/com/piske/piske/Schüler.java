@@ -1,13 +1,16 @@
 package com.piske.piske;
 
 import javafx.animation.Interpolator;
+import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 
 public class Schüler {
@@ -20,10 +23,19 @@ public class Schüler {
     ImageView imageView = new ImageView();
     private AnchorPane screen;
     TranslateTransition translate = new TranslateTransition();
+    ProgressBar healthBar = new ProgressBar();
+    TranslateTransition translate2 = new TranslateTransition();
     public int initalhealth = 20;
     public int health = initalhealth;
+    public double speed = 1;
+    public double position = 0;
+    public SchülerManager schülerManager;
+    private GameController gameController;
 
-    public Schüler(int x, int y, AnchorPane screen, int type) {
+    public Schüler(int x, int y, AnchorPane screen, int type, SchülerManager schülerManager,
+            GameController gameController) {
+        this.gameController = gameController;
+        this.schülerManager = schülerManager;
         this.screen = screen;
         this.type = type;
         imageView.setLayoutX(x);
@@ -34,31 +46,48 @@ public class Schüler {
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Marc.png"));
                 health = 20;
                 initalhealth = 20;
+                speed = 1;
                 break;
 
             case 2:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Georgios.png"));
-                health = 50;
-                initalhealth = 50;
+                health = 60;
+                initalhealth = 60;
+                speed = 1.2;
                 break;
 
             case 3:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Lukas.png"));
                 health = 200;
                 initalhealth = 200;
+                speed = 1.5;
                 break;
 
             case 4:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Paul.png"));
-                health = 500;
-                initalhealth = 500;
+                health = 400;
+                initalhealth = 400;
+                speed = 2;
 
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + type);
+                image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Paul.png"));
+                health = 3000;
+                initalhealth = 3000;
+                speed = 2;
+                break;
         }
         imageView.setImage(image);
         screen.getChildren().add(imageView);
+
+        // Create a health bar for the Schüler
+        healthBar.setLayoutX(x);
+        healthBar.setLayoutY(y - 25);
+        healthBar.setPrefWidth(72);
+        healthBar.setStyle(
+                "-fx-accent: #DD0000;");
+        healthBar.setProgress((double) health / initalhealth);
+        screen.getChildren().add(healthBar);
     }
 
     public void goWeg(Weg way) {
@@ -68,52 +97,89 @@ public class Schüler {
         startx = temp.mapX * 72;
         starty = temp.mapY * 72;
         imageView.toFront();
+        // Move the health bar along with the Schüler
+        healthBar.setLayoutX(temp.mapX * 72);
+        healthBar.setLayoutY(temp.mapY * 72 - 25);
         temp = temp.getNext();
         goNextPfad(temp);
     }
 
-    private void goNextPfad(Pfad pfad) {
-        translate.setDuration(Duration.millis(1000));
-        translate.setNode(imageView);
-        translate.setToX((double) pfad.mapX * 72);
-        translate.setToY((double) pfad.mapY * 72 - 4 * 72);
-        this.x = pfad.mapX * 72;
-        this.y = pfad.mapY * 72 - 4 * 72;
-        translate.setInterpolator(Interpolator.LINEAR);
-        translate.play();
-        pfad = pfad.getNext();
-        Pfad finalPfad = pfad;
-        translate.setOnFinished(e -> {
-            if (finalPfad != null) {
-                goNextPfad(finalPfad);
-            } else {
-                screen.getChildren().remove(imageView);
-            }
+    private void goNextPfad(Pfad pfad2) {
+        final Pfad[] pfad = {pfad2};
+        Platform.runLater(() -> {
+            this.position += (double) 1;
+            translate.setDuration(Duration.millis(1000 * speed));
+            translate.setNode(imageView);
+            translate.setToX((double) pfad[0].mapX * 72);
+            translate.setToY((double) pfad[0].mapY * 72 - starty);
+            this.x = pfad[0].mapX * 72;
+            this.y = pfad[0].mapY * 72 - starty;
+            translate.setInterpolator(Interpolator.LINEAR);
+
+            translate2.setDuration(Duration.millis(1000 * speed));
+            translate2.setNode(healthBar);
+            translate2.setToX((double) pfad[0].mapX * 72);
+            translate2.setToY((double) pfad[0].mapY * 72 - starty);
+            translate2.setInterpolator(Interpolator.LINEAR);
+
+            ParallelTransition parallelTransition = new ParallelTransition();
+            parallelTransition.getChildren().addAll(translate, translate2);
+            parallelTransition.play();
+
+            pfad[0] = pfad[0].getNext();
+            Pfad finalPfad = pfad[0];
+            parallelTransition.setOnFinished(e -> {
+                if (health > 0) {
+                    if (finalPfad != null) {
+                        goNextPfad(finalPfad);
+                    } else {
+                        Platform.runLater(() -> {
+                            screen.getChildren().remove(healthBar);
+                            screen.getChildren().remove(imageView);
+                        });
+                        System.out.println("testendtest");
+                        try {
+                            this.gameController.endGame(2);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        this.schülerManager.deleteSchüler(this);
+
+                    }
+                }
+
+            });
         });
     }
 
     public void hit(int damage, SchülerManager schülerManager, Consumer<Integer> giveMoney) {
         health -= damage;
+
         System.out.println(health);
         if (health <= 0) {
-            System.out.println("hit");
             giveMoney.accept(this.initalhealth / 5);
             Platform.runLater(() -> {
+                screen.getChildren().remove(healthBar);
                 screen.getChildren().remove(imageView);
             });
             schülerManager.deleteSchüler(this);
-
+        } else {
+            healthBar.setProgress((double) health / initalhealth);
         }
 
     }
 
     public int getX() {
-        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToX() - this.x) + this.x
-                + startx;
+        return (int) ((int) translate.getCurrentTime().toMillis() / 1000 * this.speed
+                * ((int) translate.getToX() - this.x)
+                + this.x
+                + startx);
     }
 
     public int getY() {
-        return (int) translate.getCurrentTime().toMillis() / 1000 * ((int) translate.getToY() - this.y) + this.y
-                + starty;
+        return (int) ((int) translate.getCurrentTime().toMillis() / 1000 * this.speed
+                * ((int) translate.getToY() - this.y)
+                + this.y
+                + starty);
     }
 }

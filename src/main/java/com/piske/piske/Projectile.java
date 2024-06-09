@@ -25,33 +25,56 @@ public class Projectile {
     private int x;
     private int y;
     private Schüler target;
+    private Station station;
+    String type = "";
     ImageView imageViewp = new ImageView();
     TranslateTransition translate = new TranslateTransition();
     SchülerManager schülerManager;
+    private AnchorPane screen;
 
-    public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen, int damage, SchülerManager schülerManager) {
-        System.out.println("test");
+    public Projectile(int x, int y, double a, int v, int h, int w, AnchorPane screen, int damage,
+            SchülerManager schülerManager, Station station) {
         this.damage = damage;
         this.schülerManager = schülerManager;
-        imageViewp.setLayoutX(x * 72);
-        imageViewp.setLayoutY(y * 72);
-        this.startx = x * 72;
-        this.starty = y * 72;
-        this.x = x * 72;
-        this.y = y * 72;
+        this.screen = screen;
+        imageViewp.setLayoutX(x * 72 + 72 / 2);
+        imageViewp.setLayoutY(y * 72 + 72 / 2);
+        this.startx = x * 72 + 72 / 2;
+        this.starty = y * 72 + 72 / 2;
+        this.x = x * 72 + 72 / 2;
+        this.y = y * 72 + 72 / 2;
+        this.station = station;
+        Image image1 = null;
+        type = station.name;
+        System.out.println(type);
         angle = a;
         velocity = v;
         height = h;
         width = w;
-        System.out.println("test2");
-        Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
-        System.out.println("test3");
-        imageViewp.setImage(image);
-        System.out.println("test3");
+        //Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
+        switch (type) {
+            case "Silli":
+                image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/pommesbullet.png"));
+            break;
+
+            case "Ira": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/currybullet.png"));
+            break;
+
+            case "Biene": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/burgerbullet.png"));
+            break;
+
+            case "Conny": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bratbullet.png"));
+            break;
+
+            case "Evy": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/cheesybullet.png"));
+            break;
+
+            default: image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
+        }
+        imageViewp.setImage(image1);
         imageViewp.toFront();
         Platform.runLater(() -> {
             screen.getChildren().add(imageViewp);
-            System.out.println("test4");
         });
 
     }
@@ -124,19 +147,11 @@ public class Projectile {
 
     public void goProjectile(Schüler target, Consumer<Integer> giveMoney) {
         this.target = target;
-        System.out.println("going");
         // rotate projectile
-        RotateTransition rt = new RotateTransition(Duration.millis(50), imageViewp);
         double nowangle = 0;
         int bonus = 0;
-        System.out.println("xpos stat: " + this.startx);
-        System.out.println("xpos target: " + target.getX());
-        System.out.println("ypos stat: " + this.starty);
-        System.out.println("ypos target: " + target.getY());
         double xval = target.getX() - this.startx;
         double yval = this.starty - target.getY();
-        System.out.println("xval: " + xval);
-        System.out.println("yval: " + yval);
         if (xval > 0 && yval < 0) {
             yval = Math.abs(yval);
             bonus = 90;
@@ -157,29 +172,19 @@ public class Projectile {
             } else if (xval > 0) {
                 nowangle = 90;
             }
-            System.out.println("straight angle: " + nowangle);
         } else if (xval == 0) {
             if (yval < 0) {
                 nowangle = 180;
             } else if (yval > 0) {
                 nowangle = 0;
             }
-            System.out.println("straight angle: " + nowangle);
         } else {
-            System.out.println("bonus: " + bonus);
             nowangle = Math.atan(yval / xval);
-            System.out.println("angle: " + nowangle);
             nowangle = Math.toDegrees(nowangle);
-            System.out.println("angledeg: " + nowangle);
             nowangle += bonus;
-            System.out.println("anglebon: " + nowangle);
+            ;
         }
-
-        System.out.println(nowangle);
-        rt.setToAngle(Math.abs(nowangle));
-        rt.setCycleCount(1);
-        rt.setAutoReverse(true);
-        rt.play();
+        imageViewp.setRotate(nowangle);
 
         translate.setDuration(Duration.millis(300));
         translate.setNode(imageViewp);
@@ -193,11 +198,10 @@ public class Projectile {
         translate.setInterpolator(Interpolator.LINEAR);
         translate.play();
 
-        delay( 300, () -> {
+        delay(300, () -> {
             finished(giveMoney);
-            //giveMoney.accept(this.target.health);
+            // giveMoney.accept(this.target.health);
         });
-
 
         // Schüler finaltarget = target;
         // delay(100, () -> {
@@ -213,7 +217,11 @@ public class Projectile {
 
     public void hit() {
         translate.stop();
-        imageViewp.setImage(null);
+        Platform.runLater(() -> {
+            imageViewp.setImage(null);
+            this.screen.getChildren().remove(imageViewp);
+        });
+
     }
 
     public void delay(int milliseconds, Runnable task) {

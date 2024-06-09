@@ -13,7 +13,9 @@ module com.piske.piske {
     requires org.json;
     requires javafx.media;
     requires com.fasterxml.jackson.databind;
+    requires com.jcraft.jsch;
 
     opens com.piske.piske to javafx.fxml;
+
     exports com.piske.piske;
 }

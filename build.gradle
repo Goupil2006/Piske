@@ -35,6 +35,8 @@ javafx {
 }
 
 dependencies {
+    implementation 'com.github.mwiede:jsch:0.2.17'
+
     implementation('org.json:json:20240303')
 
     implementation('org.controlsfx:controlsfx:11.1.2')
