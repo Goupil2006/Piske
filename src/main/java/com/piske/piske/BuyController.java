@@ -7,9 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -34,6 +39,21 @@ public class BuyController implements Initializable {
 
     @FXML
     public AnchorPane buyhead;
+
+    @FXML
+    public Button silli;
+
+    @FXML
+    public Button ira;
+
+    @FXML
+    public Button biene;
+
+    @FXML
+    public Button conny;
+
+    @FXML
+    public Button evy;
 
     private Parent root;
 
@@ -81,9 +101,48 @@ public class BuyController implements Initializable {
         this.createStation.accept("evy");
     }
 
+    public int getStand() {
+        try {
+            String stand = Files.readString(Paths.get(new File("Stand.txt").getAbsolutePath()));
+            if (stand.equals("")) {
+                return 0;
+            } else {
+                return Integer.parseInt(stand);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buyhead.setVisible(false);
         System.out.println("Buycontoller initialized");
+
+        switch (getStand()) {
+            case 0:
+                ira.setDisable(true);
+                biene.setDisable(true);
+                conny.setDisable(true);
+                evy.setDisable(true);
+                break;
+            case 1:
+                biene.setDisable(true);
+                conny.setDisable(true);
+                evy.setDisable(true);
+                break;
+
+            case 2:
+                conny.setDisable(true);
+                evy.setDisable(true);
+                break;
+            case 3:
+                evy.setDisable(true);
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
     }
 }

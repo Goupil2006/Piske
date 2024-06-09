@@ -20,11 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -155,7 +154,13 @@ public class GameController implements Initializable {
 
     }
 
+    public boolean first = true;
+
     public void endGame(int state) throws IOException {
+        if(!first) {
+            return;
+        }
+        first = false;
         System.out.println("Game Over");
         this.stationController.active = false;
         FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/piske/piske/mainmenu.fxml"));

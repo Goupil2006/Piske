@@ -17,7 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
@@ -224,6 +223,7 @@ public class MainMenuController implements Initializable {
         delay(3000, () -> {
             won.setVisible(false);
         });
+        System.out.println(level);
         switch (level) {
             case 1:
             case 2:
@@ -232,15 +232,20 @@ public class MainMenuController implements Initializable {
                 if (getStand() > level) {
                     return;
                 }
+                System.out.println("standright");
+                //System.out.println(getClass().getResource("/Stand.txt").toString().split("jar:file://")[1]);
                 try {
-                    FileWriter writer = new FileWriter(
-                            getClass().getResourceAsStream("/com/piske/piske/Stand.txt").toString());
+                    FileWriter writer = new FileWriter("Stand.txt");
                     writer.write(String.valueOf(level));
                     writer.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                updatebuttons();
+                delay(100, () -> {
+                    updatebuttons();
+                });
+
+
                 break;
             default:
                 break;
@@ -255,46 +260,42 @@ public class MainMenuController implements Initializable {
     }
 
     public int getStand() {
-        InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Stand.txt");
-        if (inputStream == null) {
-            try {
-                throw new FileNotFoundException("Stand.txt");
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        byte[] data = null;
         try {
-            data = inputStream.readAllBytes();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            String stand = new String(data, "UTF-8");
+            String stand = Files.readString(Paths.get(new File("Stand.txt").getAbsolutePath()));
             if (stand.equals("")) {
                 return 0;
             } else {
                 return Integer.parseInt(stand);
             }
-        } catch (UnsupportedEncodingException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void updatebuttons() {
         if (getStand() == 0) {
-            startbutton2.setVisible(false);
-            startbutton3.setVisible(false);
-            startbutton4.setVisible(false);
+            Platform.runLater(() -> {
+                startbutton2.setVisible(false);
+                startbutton3.setVisible(false);
+                startbutton4.setVisible(false);
+            });
+
         } else if (getStand() == 1) {
+            Platform.runLater(() -> {
             startbutton3.setVisible(false);
             startbutton4.setVisible(false);
+            });
         } else if (getStand() == 2) {
+                Platform.runLater(() -> {
+
             startbutton4.setVisible(false);
+        });
         } else {
+                Platform.runLater(() -> {
+
             startbutton2.setVisible(true);
             startbutton3.setVisible(true);
-            startbutton4.setVisible(true);
+            startbutton4.setVisible(true);});
         }
     }
 
