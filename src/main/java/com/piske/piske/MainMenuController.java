@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -65,6 +66,12 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Label lost;
+
+    @FXML
+    private Button mapButton;
+
+    @FXML
+    private ScrollPane maps;
 
     private GameController gameContoller;
 
@@ -278,24 +285,41 @@ public class MainMenuController implements Initializable {
                 startbutton2.setVisible(false);
                 startbutton3.setVisible(false);
                 startbutton4.setVisible(false);
+                mapButton.setVisible(false);
+                maps.setVisible(false);
             });
 
         } else if (getStand() == 1) {
             Platform.runLater(() -> {
             startbutton3.setVisible(false);
             startbutton4.setVisible(false);
+                mapButton.setVisible(false);
+                maps.setVisible(false);
             });
         } else if (getStand() == 2) {
                 Platform.runLater(() -> {
 
             startbutton4.setVisible(false);
+                    mapButton.setVisible(false);
+                    maps.setVisible(false);
         });
-        } else {
+        } else if(getStand() == 3) {
                 Platform.runLater(() -> {
 
             startbutton2.setVisible(true);
             startbutton3.setVisible(true);
-            startbutton4.setVisible(true);});
+            startbutton4.setVisible(true);
+                    mapButton.setVisible(false);
+                    maps.setVisible(false);
+                });
+        } else {
+            Platform.runLater(() -> {
+
+                startbutton2.setVisible(true);
+                startbutton3.setVisible(true);
+                startbutton4.setVisible(true);
+                mapButton.setVisible(true);
+                maps.setVisible(true);});
         }
     }
 
