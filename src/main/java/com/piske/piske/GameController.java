@@ -78,10 +78,10 @@ public class GameController implements Initializable {
     public String mapjson;
     public boolean end = false;
 
-    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target, int damage)
+    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target, int damage, Station station)
             throws IOException {
         System.out.println("go");
-        Projectile p = new Projectile(x, y, a, v, h, w, gamescreen, damage, schülerManager);
+        Projectile p = new Projectile(x, y, a, v, h, w, gamescreen, damage, schülerManager, station);
         System.out.println("goo");
         Consumer<Integer> giveMoney = ((Integer money) -> {
             interfaceController.changeAmount((float) money);
@@ -129,7 +129,7 @@ public class GameController implements Initializable {
             }
             this.erzeugeWelle(this.phase / 2);
             ((Node) event.getSource()).setVisible(false);
-            this.interfaceController.uhr.runTimer((int) (anzahlSchueler[this.phase / 2 - 1] * 0.5) + 30);
+            this.interfaceController.uhr.runTimer((int) (anzahlSchueler[this.phase / 2 - 1] * 1.2) + 30);
             // delay((int) (anzahlSchueler[this.phase / 2 - 1] * 0.5 + 30) * 1000, () -> {
             // try {
             // this.endPhase(this.phase);
@@ -195,7 +195,7 @@ public class GameController implements Initializable {
     public void erzeugeWelle(int num) {
         for (int i = 0; i < anzahlSchueler[num - 1]; i++) {
             int finalI = i;
-            delay(500 * i, () -> {
+            delay(1200 * i, () -> {
                 Platform.runLater(() -> {
                     System.out.println("Spawn");
                     double type = (double) ((3.5 * (Math.pow(1.1, num)) * Math.random())) / 10 * num + 1;

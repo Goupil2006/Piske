@@ -66,7 +66,7 @@ public class Station {
 
         System.out.println("active");
         if (target != null) {
-            this.gameController.createProjectile(x, y, 0, 0, 0, 0, target, this.damage);
+            this.gameController.createProjectile(x, y, 0, 0, 0, 0, target, this.damage, this);
         }
 
         int finalx = x;
