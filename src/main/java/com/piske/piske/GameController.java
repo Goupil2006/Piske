@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -50,11 +51,18 @@ public class GameController implements Initializable {
         this.upgradeController = upgradeController;
     }
 
-    public void setDifAndSound(int difficulty, int sound) {
+    public void setDifAndSound(int difficulty, int sound, String mapjson) {
         this.difficulty = difficulty;
         this.sound = sound;
+        // Initilizing everything
         erzeugeWellen((int) difficulty / 20 + 3);
         interfaceController.setWaveIndicator((int) (phase / 2), (int) difficulty / 20 + 3);
+        this.mapjson = mapjson;
+        System.out.println(mapjson);
+        JSONObject Mapjson = new JSONObject(mapjson);
+        this.loadMap(Mapjson);
+        Utils.renderWeg(this.schuelerweg, this.gamescreen);
+        this.sounds = new Dankeschoen(sound);
     }
 
     @FXML
@@ -65,8 +73,11 @@ public class GameController implements Initializable {
     public SchülerManager schülerManager = new SchülerManager();
     public int phase = 1;
     public Dankeschoen sounds;
+    public String mapjson;
+    public boolean end = false;
 
-    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target, int damage) {
+    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target, int damage)
+            throws IOException {
         System.out.println("go");
         Projectile p = new Projectile(x, y, a, v, h, w, gamescreen, damage, schülerManager);
         System.out.println("goo");
@@ -74,44 +85,24 @@ public class GameController implements Initializable {
             interfaceController.changeAmount((float) money);
         });
         p.goProjectile(target, giveMoney);
+        delay(1750, () -> {
+            if (this.schülerManager.length() == 0) {
+                try {
+                    this.endPhase(this.phase);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        JSONObject Mapjson = null;
-        try {
-            Mapjson = this.readJson();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        this.loadMap(Mapjson);
-        Utils.renderWeg(this.schuelerweg, this.gamescreen);
-        this.sounds = new Dankeschoen(sound);
-    }
 
-    public JSONObject readJson() throws IOException {
-        // Map1.json einlesen;
-        InputStream inputStream = getClass().getResourceAsStream("/com/piske/piske/Maps/Map2.json");
-        try {
-            if (inputStream == null) {
-                throw new FileNotFoundException("Map1.json not found");
-            }
-            byte[] data = inputStream.readAllBytes();
-            String json = new String(data, "UTF-8");
-
-            return new JSONObject(json);
-        } catch (JSONException e) {
-            throw new RuntimeException("Invalid JSON format", e);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("Map1.json not found", e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Unsupported encoding", e);
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading file", e);
-        }
     }
 
     public void loadMap(JSONObject json) {
+        this.schuelerweg.reset();
         JSONArray paths = new JSONArray(json.getJSONArray("Map"));
         for (int i = 0; i < paths.length(); i++) {
             JSONArray path = paths.getJSONArray(i);
@@ -131,41 +122,60 @@ public class GameController implements Initializable {
             this.phase++;
             this.interfaceController.setWaveIndicator((int) (phase / 2), (int) difficulty / 20 + 3);
             if (phase / 2 >= difficulty / 20 + 3) {
-                System.out.println("done");
-                ActionEvent finalevent = event;
-                delay((int) (anzahlSchueler[this.phase / 2 - 1] * 0.5 + 30) * 1000, () -> {
-                    try {
-                        this.endGame(finalevent);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                this.end = true;
 
             }
             this.erzeugeWelle(this.phase / 2);
             ((Node) event.getSource()).setVisible(false);
             this.interfaceController.uhr.runTimer((int) (anzahlSchueler[this.phase / 2 - 1] * 0.5) + 30);
-            delay((int) (anzahlSchueler[this.phase / 2 - 1] * 0.5 + 30) * 1000, () -> {
-                this.phase++;
-                Platform.runLater(() -> {
-                    ((Node) event.getSource()).setVisible(true);
-                });
-            });
+            // delay((int) (anzahlSchueler[this.phase / 2 - 1] * 0.5 + 30) * 1000, () -> {
+            // try {
+            // this.endPhase(this.phase);
+            // } catch (IOException e) {
+            // throw new RuntimeException(e);
+            // }
+            // });
         }
     }
 
-    public void endGame(ActionEvent event) throws IOException {
+    public void endPhase(int phase) throws IOException {
+        this.interfaceController.uhr.stop();
+        if (this.phase % 2 == 0) {
+            if (end) {
+                this.endGame(1);
+                return;
+            }
+            this.phase++;
+            Platform.runLater(() -> {
+                this.interfaceController.startwavebutton.setVisible(true);
+            });
+        }
+
+    }
+
+    public void endGame(int state) throws IOException {
         System.out.println("Game Over");
+        this.stationController.active = false;
         FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/piske/piske/mainmenu.fxml"));
         Parent root1 = loader1.load();
         MainMenuController mainMenuController = loader1.getController();
+        switch (state) {
+            case 1:
+                mainMenuController.won();
+                break;
+            case 2:
+                mainMenuController.lost();
+                break;
+            default:
+                break;
+        }
         System.out.println("mainMenuController loaded: " + mainMenuController);
 
         // Add both roots to a main container (e.g., VBox)
         VBox root = new VBox(root1);
 
         Scene scene = new Scene(root, 1280, 720);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) gamescreen.getScene().getWindow();
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
@@ -186,18 +196,16 @@ public class GameController implements Initializable {
             delay(500 * i, () -> {
                 Platform.runLater(() -> {
                     System.out.println("Spawn");
-                    int type = Math.floor(Math.random() * (1/(difficulty / 20 + 3)) * num * 3 + 1);
-                    //if (num > 6) {
-                   //     type = (Math.random()*2+1);
-                    //}
-                   // if (num > 3) {
-                     //   type = (Math.random()*2);;
-                   // }
-                    if (difficulty > 20) {
-                        type = (int) num / difficulty + 1;
-                    }
+                    double type = (double) ((3.5 * (Math.pow(1.1, num)) * Math.random())) / 10 * num + 1;
+                    System.out.println(type);
+                    // if (num > 6) {
+                    // type = (Math.random()*2+1);
+                    // }
+                    // if (num > 3) {
+                    // type = (Math.random()*2);;
+                    // }
 
-                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen, (int) type));
+                    schülerManager.addSchüler(new Schüler(0, 0, gamescreen, (int) type, schülerManager, this));
                     schülerManager.getSchülerAtIndex(schülerManager.length() - 1).goWeg(schuelerweg);
                 });
             });

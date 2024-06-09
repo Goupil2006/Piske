@@ -39,12 +39,7 @@ public class StationController implements Initializable {
         this.gameController = gameController;
         this.upgradeController = upgradeController;
 
-        JSONObject mapJson = null;
-        try {
-            mapJson = this.gameController.readJson();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        JSONObject mapJson = new JSONObject(gameController.mapjson);
         this.loadStations(mapJson);
     }
 
@@ -117,35 +112,35 @@ public class StationController implements Initializable {
 
     private void addSilli(int x, int y) throws Exception {
         this.newStation(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Silly.png", "Silli");
+                "/com/piske/piske/Images/Silly.png", "Silli", 300, 1000, 10, 50);
     }
 
     private void addIra(int x, int y) throws Exception {
         this.newStation(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Ira.png", "Ira");
+                "/com/piske/piske/Images/Ira.png", "Ira", 1000, 1000, 5, 60);
     }
 
     private void addBiene(int x, int y) throws Exception {
         this.newStation(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Biene.png", "Biene");
+                "/com/piske/piske/Images/Biene.png", "Biene", 500, 2000, 15, 80);
     }
 
     private void addConny(int x, int y) throws Exception {
         this.newStation(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Conny.png", "Conny");
+                "/com/piske/piske/Images/Conny.png", "Conny", 150, 1000, 20, 100);
     }
 
     private void addEvy(int x, int y) throws Exception {
         this.newStation(interfaceController, gameController, this, this.plane, x, y,
-                "/com/piske/piske/Images/Evy.png", "Evy");
+                "/com/piske/piske/Images/Evy.png", "Evy", 400, 1500, 15, 200);
     }
 
     public void newStation(InterfaceController interfaceController, GameController gameController,
             StationController stationController, AnchorPane plane, int x,
-            int y, String grafic, String name) throws Exception {
+            int y, String grafic, String name, int range, int speed, int damage, int price) throws Exception {
         if (this.interfaceController.getMoney() >= 50) {
             Station station = new Station(interfaceController, gameController, stationController, plane, x, y, grafic,
-                    name);
+                    name, range, speed, damage, price);
             this.upgradeController.addStation(station);
 
             Stations.add(station);
@@ -156,6 +151,12 @@ public class StationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    public void removeStation(Station station) {
+        this.plane.getChildren().remove(station.imageView);
+        station.changeecsists();
+        this.Stations.remove(station);
     }
 
     public void loadStations(JSONObject json) {
@@ -173,14 +174,13 @@ public class StationController implements Initializable {
             int finalx = stations.getJSONArray(i).getInt(0);
             int finaly = stations.getJSONArray(i).getInt(1);
             station.setOnMouseClicked(event -> {
-                if (this.gameController.phase % 2 != 0) {
-                    System.out.println("buynew");
-                    try {
-                        addStation(finalx, finaly);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                // if (this.gameController.phase % 2 != 0) {
+                try {
+                    addStation(finalx, finaly);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
+                // }
 
             });
             plane.getChildren().add(station);

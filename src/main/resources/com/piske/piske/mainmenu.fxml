@@ -11,12 +11,12 @@
 
 <AnchorPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piske.piske.MainMenuController">
    <children>
-      <Button fx:id="startbutton" layoutX="490.0" layoutY="147.0" mnemonicParsing="false" onAction="#gameStart" prefHeight="65.0" prefWidth="260.0" text="Start Game" textAlignment="CENTER">
+      <Button fx:id="startbutton" layoutX="490.0" layoutY="147.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="260.0" text="Start Game" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="mapButton" layoutX="861.0" layoutY="147.0" mnemonicParsing="false" onAction="#mapStart" prefHeight="65.0" prefWidth="260.0" text="Build you own Map" textAlignment="CENTER">
+      <Button fx:id="mapButton" layoutX="861.0" layoutY="147.0" mnemonicParsing="false" onAction="#mapStart" prefHeight="65.0" prefWidth="260.0" text="Build your own Map" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
@@ -40,8 +40,18 @@
       </Label>
       <ScrollPane layoutX="861.0" layoutY="227.0" prefHeight="290.0" prefWidth="260.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="289.0" prefWidth="258.0" />
+          <AnchorPane fx:id="mapselector" minHeight="0.0" minWidth="0.0" prefHeight="289.0" prefWidth="258.0" />
         </content>
       </ScrollPane>
+      <Label fx:id="won" alignment="CENTER" layoutX="459.0" layoutY="34.0" prefHeight="80.0" prefWidth="363.0" text="Gewonnen" textAlignment="CENTER" textFill="#279001">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Label fx:id="lost" alignment="CENTER" layoutX="466.0" layoutY="34.0" prefHeight="80.0" prefWidth="363.0" text="Verloren" textAlignment="CENTER" textFill="#FF0000">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

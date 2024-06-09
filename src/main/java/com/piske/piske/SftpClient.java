@@ -2,6 +2,11 @@ package com.piske.piske;
 
 import com.jcraft.jsch.*;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -81,7 +86,8 @@ public final class SftpClient {
      * @throws JSchException If there is any problem with connection
      */
     @SuppressWarnings("unchecked")
-    public void listFiles(String remoteDir) throws SftpException, JSchException {
+    public List<String> listFiles(String remoteDir) throws SftpException, JSchException {
+        List<String> filenames = new ArrayList<String>();
         if (channel == null) {
             throw new IllegalArgumentException("Connection is not available");
         }
@@ -96,8 +102,11 @@ public final class SftpClient {
             if (attrs.isDir()) {
                 size = "PRE";
             }
+            filenames.add(name);
             System.out.printf("[%s] %s(%s)%n", permissions, name, size);
+
         }
+        return filenames;
     }
 
     private String humanReadableByteCount(long bytes) {
@@ -130,16 +139,23 @@ public final class SftpClient {
      * Download a file from remote
      *
      * @param remotePath full path of remote file
-     * @param localPath  full path of where to save file locally
      * @throws SftpException If there is any problem with downloading file related
      *                       permissions etc
      */
-    public void downloadFile(String remotePath, String localPath) throws SftpException {
-        System.out.printf("Downloading [%s] to [%s]...%n", remotePath, localPath);
+    public String downloadFile(String remotePath) throws SftpException {
         if (channel == null) {
             throw new IllegalArgumentException("Connection is not available");
         }
-        channel.get(remotePath, localPath);
+        File file = new File("map.json");
+        channel.get(remotePath, file.getAbsolutePath());
+        String json = null;
+        try {
+            json = Files.readString(Paths.get(file.getAbsolutePath()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("test" + json);
+        return json;
     }
 
     /**

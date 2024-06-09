@@ -3,8 +3,8 @@ package com.piske.piske;
 import org.json.JSONArray;
 
 public class Weg {
-    static Pfad head = null;
-    static Pfad tail = null;
+    public static Pfad head = null;
+    public static Pfad tail = null;
 
     public void weg() {
     }
@@ -18,6 +18,11 @@ public class Weg {
             tail.setNext(temp);
             tail = temp;
         }
+    }
+
+    public void reset() {
+        this.head = null;
+        this.tail = null;
     }
 
     public static Pfad getTail() {

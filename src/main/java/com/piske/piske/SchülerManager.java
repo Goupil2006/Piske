@@ -36,9 +36,6 @@ public class SchülerManager {
             int schülerX = (int) schüler.getX();
             int schülerY = (int) schüler.getY();
 
-            System.out.println("SchülerX: " + schülerX + " SchülerY: " + schülerY);
-            System.out.println("X: " + x + " Y: " + y);
-
             double distance = Math.sqrt(Math.pow(schülerX - x * 72, 2) + Math.pow(schülerY - y * 72, 2));
 
             if (distance <= radius) {
@@ -46,26 +43,33 @@ public class SchülerManager {
             }
         }
 
-        if (!schülerInRadius.isEmpty()) {
-            int randomIndex = (int) (Math.random() * schülerInRadius.size());
-            return schülerInRadius.get(randomIndex);
-        } else {
-            return null;
+        Schüler highestPositionSchüler = null;
+        double highestPosition = Double.NEGATIVE_INFINITY;
+
+        for (Schüler schüler : schülerInRadius) {
+            double schülerPosition = schüler.position;
+            if (schülerPosition > highestPosition) {
+                highestPosition = schülerPosition;
+                highestPositionSchüler = schüler;
+            }
         }
+
+        return highestPositionSchüler;
     }
 
-//    public void checkColistion(Projectile projectile) {
-//        System.out.println("check colision");
-//        for (Schüler schüler : schülerList) {
-//            double distance = Math.sqrt(
-//                    Math.pow(schüler.getX() - projectile.getX(), 2) + Math.pow(schüler.getY() - projectile.getY(), 2));
-//            System.out.println(distance);
-//            if (distance <= 51) {
-//                schüler.hit(projectile.getDamage());
-//                projectile.hit();
-//            }
-//        }
-//    }
+    // public void checkColistion(Projectile projectile) {
+    // System.out.println("check colision");
+    // for (Schüler schüler : schülerList) {
+    // double distance = Math.sqrt(
+    // Math.pow(schüler.getX() - projectile.getX(), 2) + Math.pow(schüler.getY() -
+    // projectile.getY(), 2));
+    // System.out.println(distance);
+    // if (distance <= 51) {
+    // schüler.hit(projectile.getDamage());
+    // projectile.hit();
+    // }
+    // }
+    // }
 
     public void deleteSchüler(Schüler schüler) {
         schülerList.remove(schüler);

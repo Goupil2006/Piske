@@ -13,6 +13,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -70,6 +71,9 @@ public class MapcreatorController {
 
     @FXML
     private TextArea textArea;
+
+    @FXML
+    private TextField filename;
 
     private Weg weg = new Weg();
     private int x = 0;
@@ -149,7 +153,7 @@ public class MapcreatorController {
 
             boolean isWegPossible = weg.isPossibleToWalkBySchuler();
             if (isWegPossible) {
-                weg.appendPfad('w', 'e', -1, y);
+                weg.appendPfad('w', 'e', -1, weg.tail.mapY);
                 Platform.runLater(() -> {
                     uploadButton.setVisible(true);
                 });
@@ -202,32 +206,34 @@ public class MapcreatorController {
             } catch (JSchException e) {
                 throw new RuntimeException(e);
             }
-            try {
-                sftpClient.uploadFile(file.getAbsolutePath(), "/home/www/Maps/map.json");
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            if (!filename.getText().isEmpty()) {
+                try {
+                    sftpClient.uploadFile(file.getAbsolutePath(), "/home/www/Maps/" + filename.getText() + ".json");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/piske/piske/mainmenu.fxml"));
+                Parent root1 = null;
+                try {
+                    root1 = loader1.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                MainMenuController mainMenuController = loader1.getController();
+                System.out.println("mainMenuController loaded: " + mainMenuController);
+
+                // Add both roots to a main container (e.g., VBox)
+                VBox root = new VBox(root1);
+
+                Scene scene = new Scene(root, 1280, 720);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Platform.runLater(() -> {
+                    stage.setScene(scene);
+                    stage.show();
+                });
             }
-
-            System.out.println("Game Over");
-            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/piske/piske/mainmenu.fxml"));
-            Parent root1 = null;
-            try {
-                root1 = loader1.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            MainMenuController mainMenuController = loader1.getController();
-            System.out.println("mainMenuController loaded: " + mainMenuController);
-
-            // Add both roots to a main container (e.g., VBox)
-            VBox root = new VBox(root1);
-
-            Scene scene = new Scene(root, 1280, 720);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Platform.runLater(() -> {
-                stage.setScene(scene);
-                stage.show();
-            });
         });
     }
 
@@ -278,7 +284,7 @@ public class MapcreatorController {
                     Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Silly.png"));
                     stationImage.setImage(image);
                     gamescreen.getChildren().add(stationImage);
-                    stations[currentStation] = new int[] { y, x };
+                    stations[currentStation] = new int[] { x, y };
                     currentStation++;
                     break;
                 default:

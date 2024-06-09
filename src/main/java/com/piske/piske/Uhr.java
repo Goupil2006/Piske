@@ -10,6 +10,8 @@ import java.util.concurrent.TimeUnit;
 public class Uhr {
     private int zeit = 0;
     private ImageView uhrzeiger;
+    double rotationswinkel;
+    double temp;
 
     public Uhr(ImageView uhrzeiger) {
         this.uhrzeiger = uhrzeiger;
@@ -17,23 +19,25 @@ public class Uhr {
     }
 
     public void runTimer(int t) {
-      zeit = t;
-      double rotationswinkel = 360 / t;
-      for (int i = 0; i <= t; i++) {
-            int finalI = i;
-            delay( 1000 * i, () -> {
-                Platform.runLater(() -> {
-                    uhrzeiger.setRotate(rotationswinkel * finalI);
-                });
+        zeit = t;
+        this.rotationswinkel = 360 / t;
+        temp = Math.random();
+        run(0, temp);
+    }
+
+    public void run(int curT, double temp) {
+        delay(1000, () -> {
+            Platform.runLater(() -> {
+                uhrzeiger.setRotate(rotationswinkel * curT);
             });
-            if(i == t) {
-                delay( 1000 * i, () -> {
-                    Platform.runLater(() -> {
-                        uhrzeiger.setRotate(360);
-                    });
-                });
+            if (curT <= zeit && temp == this.temp) {
+                run(curT + 1, temp);
             }
-        }
+        });
+    }
+
+    public void stop() {
+        this.temp = Math.random();
     }
 
     public void delay(int milliseconds, Runnable task) {
