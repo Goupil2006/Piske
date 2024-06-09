@@ -75,6 +75,9 @@ public class MapcreatorController {
     @FXML
     private TextField filename;
 
+    @FXML
+    public Button done;
+
     private Weg weg = new Weg();
     private int x = 0;
     private int y = 0;
@@ -146,6 +149,29 @@ public class MapcreatorController {
         createStation.setOnAction(event -> {
             // Handle createStation button click
             this.addElement("Station");
+        });
+
+        done.setOnAction(event -> {
+            System.out.println("Back");
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/piske/piske/mainmenu.fxml"));
+            Parent root1 = null;
+            try {
+                root1 = loader1.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            MainMenuController mainMenuController = loader1.getController();
+            System.out.println("mainMenuController loaded: " + mainMenuController);
+
+            // Add both roots to a main container (e.g., VBox)
+            VBox root = new VBox(root1);
+
+            Scene scene = new Scene(root, 1280, 720);
+            Stage stage = (Stage) this.gamescreen.getScene().getWindow();
+            Platform.runLater(() -> {
+                stage.setScene(scene);
+                stage.show();
+            });
         });
 
         checkMap.setOnAction(event -> {
@@ -292,5 +318,7 @@ public class MapcreatorController {
             }
             Selectareea.setVisible(false);
         }
+
+
     }
 }

@@ -240,7 +240,7 @@ public class MainMenuController implements Initializable {
                     return;
                 }
                 System.out.println("standright");
-                //System.out.println(getClass().getResource("/Stand.txt").toString().split("jar:file://")[1]);
+                // System.out.println(getClass().getResource("/Stand.txt").toString().split("jar:file://")[1]);
                 try {
                     FileWriter writer = new FileWriter("Stand.txt");
                     writer.write(String.valueOf(level));
@@ -251,7 +251,6 @@ public class MainMenuController implements Initializable {
                 delay(1000, () -> {
                     updatebuttons();
                 });
-
 
                 break;
             default:
@@ -280,6 +279,7 @@ public class MainMenuController implements Initializable {
     }
 
     public void updatebuttons() {
+        System.out.println("updateeeeeeee");
         if (getStand() == 0) {
             Platform.runLater(() -> {
                 startbutton2.setVisible(false);
@@ -291,27 +291,28 @@ public class MainMenuController implements Initializable {
 
         } else if (getStand() == 1) {
             Platform.runLater(() -> {
-            startbutton3.setVisible(false);
-            startbutton4.setVisible(false);
+                startbutton2.setVisible(true);
+                startbutton3.setVisible(false);
+                startbutton4.setVisible(false);
                 mapButton.setVisible(false);
                 maps.setVisible(false);
             });
         } else if (getStand() == 2) {
-                Platform.runLater(() -> {
-
-            startbutton4.setVisible(false);
-                    mapButton.setVisible(false);
-                    maps.setVisible(false);
-        });
-        } else if(getStand() == 3) {
-                Platform.runLater(() -> {
-
-            startbutton2.setVisible(true);
-            startbutton3.setVisible(true);
-            startbutton4.setVisible(true);
-                    mapButton.setVisible(false);
-                    maps.setVisible(false);
-                });
+            Platform.runLater(() -> {
+                startbutton2.setVisible(true);
+                startbutton3.setVisible(true);
+                startbutton4.setVisible(false);
+                mapButton.setVisible(false);
+                maps.setVisible(false);
+            });
+        } else if (getStand() == 3) {
+            Platform.runLater(() -> {
+                startbutton2.setVisible(true);
+                startbutton3.setVisible(true);
+                startbutton4.setVisible(true);
+                mapButton.setVisible(false);
+                maps.setVisible(false);
+            });
         } else {
             Platform.runLater(() -> {
 
@@ -319,7 +320,8 @@ public class MainMenuController implements Initializable {
                 startbutton3.setVisible(true);
                 startbutton4.setVisible(true);
                 mapButton.setVisible(true);
-                maps.setVisible(true);});
+                maps.setVisible(true);
+            });
         }
     }
 
