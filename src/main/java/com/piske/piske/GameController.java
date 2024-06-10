@@ -69,8 +69,6 @@ public class GameController implements Initializable {
         Utils.renderWeg(this.schuelerweg, this.gamescreen);
         // Create object for sounds
         this.sounds = new Dankeschoen(sound);
-        this.sounds = new sieg(sound);
-        this.sounds = new niederlage(sound);
         this.level = level;
     }
 
@@ -127,7 +125,6 @@ public class GameController implements Initializable {
     }
 
     public void startwave(ActionEvent event) throws IOException {
-        this.sounds.sagDankeschoen();
         if (phase % 2 != 0) {
             this.phase++;
             this.interfaceController.setWaveIndicator((int) (phase / 2), (int) difficulty / 20 + 3);
@@ -151,6 +148,7 @@ public class GameController implements Initializable {
 
     public void endPhase(int phase) throws IOException {
         this.interfaceController.uhr.stop();
+        this.sounds.sagDankeschoen();
         // check if Welle over
         if (this.phase % 2 == 0) {
             // check if last wave
@@ -178,6 +176,16 @@ public class GameController implements Initializable {
         first = false;
         System.out.println("Game Over");
         this.stationController.active = false;
+        switch (state) {
+            case 1:
+                this.sounds.sieg();
+                break;
+            case 2:
+                this.sounds.niderlage();
+                break;
+            default:
+                break;
+        }
         FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/com/piske/piske/mainmenu.fxml"));
         Parent root1 = loader1.load();
         MainMenuController mainMenuController = loader1.getController();
