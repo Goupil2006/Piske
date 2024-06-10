@@ -44,13 +44,13 @@ public class Dankeschoen {
         mp.play();
     }
 
-    // public void spawnZwei() throws MediaException {
-    // Media media = new
-    // Media(getClass().getResource("/com/piske/piske/audio/sieg1.mp3").toString());
-    // mp = new MediaPlayer(media);
-    // mp.setVolume(this.sound / 100);
-    // mp.play();
-    // }
+    public void spawnZwei() throws MediaException {
+     Media media = new
+     Media(getClass().getResource("/com/piske/piske/audio/sieg1.mp3").toString());
+     mp = new MediaPlayer(media);
+     mp.setVolume(this.sound / 100);
+     mp.play();
+    }
 
     public void niderlage() throws MediaException {
         Media media = new Media(getClass().getResource("/com/piske/piske/audio/niederlage1.mp3").toString());
