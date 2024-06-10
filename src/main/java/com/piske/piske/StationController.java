@@ -54,7 +54,6 @@ public class StationController implements Initializable {
 
     @FXML
     private void addStation(int x, int y) throws Exception {
-        System.out.println(this.buyController);
         Consumer<String> createStation = ((String type) -> {
             switch (type) {
                 case "silli":
@@ -105,7 +104,6 @@ public class StationController implements Initializable {
                     break;
             }
         });
-        System.out.println("buynew");
         this.upgradeController.stop();
         this.buyController.start(createStation);
     }

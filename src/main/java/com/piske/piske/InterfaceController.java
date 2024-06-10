@@ -85,7 +85,7 @@ public class InterfaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("InterfaceController initialized");
+
         money.setText(amount + "$");
         startwavebutton.setOnAction(event -> {
             try {

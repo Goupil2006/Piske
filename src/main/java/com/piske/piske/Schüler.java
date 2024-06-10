@@ -140,7 +140,6 @@ public class Schüler {
                             screen.getChildren().remove(healthBar);
                             screen.getChildren().remove(imageView);
                         });
-                        System.out.println("testendtest");
                         try {
                             this.gameController.endGame(2);
                         } catch (IOException ex) {
@@ -157,8 +156,6 @@ public class Schüler {
 
     public void hit(int damage, SchülerManager schülerManager, Consumer<Integer> giveMoney) {
         health -= damage;
-
-        System.out.println(health);
         if (health <= 0) {
             // give player money
             giveMoney.accept(this.initalhealth / 5);

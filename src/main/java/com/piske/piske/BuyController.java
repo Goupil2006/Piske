@@ -61,7 +61,6 @@ public class BuyController implements Initializable {
     // start buying
     @FXML
     public void start(Consumer<String> createStation) throws Exception {
-        System.out.println("show buy");
         buyhead.setVisible(true);
         // asign function to varibale for use elsewhere
         this.createStation = createStation;
@@ -70,7 +69,6 @@ public class BuyController implements Initializable {
     // stop buying
     @FXML
     public void stop() throws Exception {
-        System.out.println("hide buy");
         buyhead.setVisible(false);
         // asign function to varibale for use elsewhere
         this.upgradeController.start();
@@ -122,8 +120,6 @@ public class BuyController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buyhead.setVisible(false);
-        System.out.println("Buycontoller initialized");
-
         switch (getStand()) {
             case 0:
                 ira.setDisable(true);

@@ -68,8 +68,6 @@ public class Station {
     private void shot(int x, int y) throws IOException {
         // find Target
         Schüler target = this.gameController.schülerManager.getSchüler(x, y, this.range);
-
-        System.out.println("active");
         if (target != null) {
             // shoot at target
             this.gameController.createProjectile(x, y, 0, 0, 0, 0, target, this.damage, this);

@@ -62,7 +62,6 @@ public class GameController implements Initializable {
         // update wave indicator (aktuelle Welle, max Wellen)
         interfaceController.setWaveIndicator((int) (phase / 2), (int) difficulty / 20 + 3);
         this.mapjson = mapjson;
-        System.out.println(mapjson);
         JSONObject Mapjson = new JSONObject(mapjson);
         // Save map to Weg (Object)
         this.loadMap(Mapjson);
@@ -127,9 +126,7 @@ public class GameController implements Initializable {
 
     public void startwave(ActionEvent event) throws IOException {
         this.sounds.sagDankeschoen();
-        System.out.println(phase);
         if (phase % 2 != 0) {
-            System.out.println("Startwave");
             this.phase++;
             this.interfaceController.setWaveIndicator((int) (phase / 2), (int) difficulty / 20 + 3);
             // Check if last wave
@@ -194,7 +191,6 @@ public class GameController implements Initializable {
             default:
                 break;
         }
-        System.out.println("mainMenuController loaded: " + mainMenuController);
 
         // Add both roots to a main container (e.g., VBox)
         VBox root = new VBox(root1);
@@ -213,7 +209,6 @@ public class GameController implements Initializable {
         for (int i = 0; i < j; i++) {
             anzahlSchueler[i] = (int) ((i + 1) * 5 + (Math.random() * 2 * (i + 1) * difficulty / 10));
         }
-        System.out.println("Anzahl" + anzahlSchueler.length + j);
     }
 
     public void erzeugeWelle(int num) {
@@ -221,9 +216,7 @@ public class GameController implements Initializable {
             int finalI = i;
             delay(1200 * i, () -> {
                 Platform.runLater(() -> {
-                    System.out.println("Spawn");
                     double type = (double) ((3.5 * (Math.pow(1.1, num)) * Math.random())) / 10 * num + 1;
-                    System.out.println(type);
 
                     schülerManager.addSchüler(new Schüler(0, 0, gamescreen, (int) type, schülerManager, this));
                     schülerManager.getSchülerAtIndex(schülerManager.length() - 1).goWeg(schuelerweg);

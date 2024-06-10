@@ -67,7 +67,6 @@ public class UpgradeController implements Initializable {
                     stationNames[finalFoo].setLayoutY(18 + finalI * 29);
                     upgradeButtons[finalFoo].setLayoutY(18 + finalI * 29);
                 });
-                i++;
             }
             foo++;
         }

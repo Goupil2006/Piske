@@ -46,7 +46,6 @@ public class Projectile {
         this.station = station;
         Image image1 = null;
         type = station.name;
-        System.out.println(type);
         angle = a;
         velocity = v;
         height = h;
