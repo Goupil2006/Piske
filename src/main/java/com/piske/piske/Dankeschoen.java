@@ -6,6 +6,7 @@ import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.nio.file.Paths;
+// inspiration (https://falconbyte.net/javafx-mp3-mediaplayer)
 
 public class Dankeschoen {
     public static MediaPlayer mp; // static um abbruch durch GC zu verhindern
