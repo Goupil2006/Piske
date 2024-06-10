@@ -53,6 +53,7 @@ public class Station {
         imageView.setLayoutY(y * 72);
         Image image = new Image(getClass().getResourceAsStream(grafic));
         imageView.setImage(image);
+        imageView.toBack();
         imageView.setOnMouseClicked(event -> {
             // Circle c = new Circle(300, Color);
         });

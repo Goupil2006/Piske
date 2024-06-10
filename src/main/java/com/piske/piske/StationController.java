@@ -167,6 +167,7 @@ public class StationController implements Initializable {
             ImageView station = new ImageView();
             station.setFitHeight(72.0);
             station.setFitWidth(72.0);
+            station.toBack();
             station.setLayoutX(stations.getJSONArray(i).getInt(0) * 72.0);
             station.setLayoutY(stations.getJSONArray(i).getInt(1) * 72.0);
             station.setPickOnBounds(true);

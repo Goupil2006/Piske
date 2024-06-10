@@ -69,6 +69,7 @@ public class UpgradeController implements Initializable {
                 });
             }
             foo++;
+            i++;
         }
     }
 

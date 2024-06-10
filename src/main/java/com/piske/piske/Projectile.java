@@ -39,6 +39,8 @@ public class Projectile {
         this.screen = screen;
         imageViewp.setLayoutX(x * 72 + 72 / 2);
         imageViewp.setLayoutY(y * 72 + 72 / 2);
+        imageViewp.toFront();
+        imageViewp.setStyle("-fx-z-index: 20");
         this.startx = x * 72 + 72 / 2;
         this.starty = y * 72 + 72 / 2;
         this.x = x * 72 + 72 / 2;
