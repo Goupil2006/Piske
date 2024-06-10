@@ -60,6 +60,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating silli: " + x + " " + y);
                         addSilli(x, y);
+                        this.gameContoller.sounds.spawnZwei();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -68,6 +69,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating ira: " + x + " " + y);
                         addIra(x, y);
+                        this.gameContoller.sounds.spawnZwei();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -80,6 +82,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating biene: " + x + " " + y);
                         addBiene(x, y);
+                        this.gameContoller.sounds.spawnZwei();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -89,6 +92,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating conny: " + x + " " + y);
                         addConny(x, y);
+                        this.gameContoller.sounds.spawnZwei();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -98,6 +102,7 @@ public class StationController implements Initializable {
                     try {
                         System.out.println("creating evy: " + x + " " + y);
                         addEvy(x, y);
+                        this.gameContoller.sounds.spawnZwei();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

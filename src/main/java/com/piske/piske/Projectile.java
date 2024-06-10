@@ -215,7 +215,6 @@ public class Projectile {
         // checkColision.accept(this);
         // goProjectile(finaltarget, checkColision);
         // });
-         this.sounds.schießeLaut();
     }
 
     public void finished(Consumer<Integer> giveMoney) {
