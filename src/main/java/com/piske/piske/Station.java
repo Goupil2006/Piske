@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -24,6 +25,8 @@ public class Station {
     public int range = 300;
     public int speed = 1000;
     public int price = 50;
+    public int x = 0;
+    public int y = 0;
 
     public boolean ecsists = true;
 
@@ -37,6 +40,8 @@ public class Station {
         this.stationController = stationController;
         this.plane = plane;
         this.name = name;
+        this.x = x;
+        this.y = y;
 
         this.damage = damage;
         this.range = range;
@@ -54,8 +59,21 @@ public class Station {
         Image image = new Image(getClass().getResourceAsStream(grafic));
         imageView.setImage(image);
         imageView.toBack();
+        //Anzeige des Radius beim Klicken auf Station
         imageView.setOnMouseClicked(event -> {
-            // Circle c = new Circle(300, Color);
+            Circle c = new Circle(this.x * 72 + 36, this.y * 72 + 36, this.range, Color.rgb(217,33, 33));
+            c.setStroke(Color.rgb(0,0,0));
+            c.setStrokeWidth(4);
+            c.setOpacity(0.2);
+            System.out.println("c");
+            this.plane.getChildren().add(c);
+            delay(1500, () -> {
+                System.out.println("tesssst");
+                Platform.runLater(() -> {
+                    this.plane.getChildren().remove(c);
+                });
+
+            });
         });
         this.plane.getChildren().add(imageView);
 
