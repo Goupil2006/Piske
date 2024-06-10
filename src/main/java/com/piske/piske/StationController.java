@@ -139,10 +139,12 @@ public class StationController implements Initializable {
             StationController stationController, AnchorPane plane, int x,
             int y, String grafic, String name, int range, int speed, int damage, int price) throws Exception {
         if (this.interfaceController.getMoney() >= price) {
+            // create Station
             Station station = new Station(interfaceController, gameController, stationController, plane, x, y, grafic,
                     name, range, speed, damage, price);
+            // let upgradeController know about the new station
             this.upgradeController.addStation(station);
-
+            // Add Station to stationarray (Arraylist)
             Stations.add(station);
         }
 
@@ -160,8 +162,10 @@ public class StationController implements Initializable {
     }
 
     public void loadStations(JSONObject json) {
+        // create Stations
         JSONArray stations = json.getJSONArray("Stations");
         for (int i = 0; i < stations.length(); i++) {
+            // create Staion
             ImageView station = new ImageView();
             station.setFitHeight(72.0);
             station.setFitWidth(72.0);
@@ -183,10 +187,12 @@ public class StationController implements Initializable {
                 // }
 
             });
+            // add to screen
             plane.getChildren().add(station);
         }
     }
 
+    // delay function for waiting (internets)
     public void delay(int milliseconds, Runnable task) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.schedule(task, milliseconds, TimeUnit.MILLISECONDS);

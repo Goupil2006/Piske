@@ -51,8 +51,8 @@ public class Schüler {
 
             case 2:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Georgios.png"));
-                health = 60;
-                initalhealth = 60;
+                health = 80;
+                initalhealth = 80;
                 speed = 1.2;
                 break;
 
@@ -65,8 +65,8 @@ public class Schüler {
 
             case 4:
                 image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/Paul.png"));
-                health = 400;
-                initalhealth = 400;
+                health = 1000;
+                initalhealth = 1000;
                 speed = 2;
 
                 break;
@@ -105,9 +105,10 @@ public class Schüler {
     }
 
     private void goNextPfad(Pfad pfad2) {
-        final Pfad[] pfad = {pfad2};
+        final Pfad[] pfad = { pfad2 };
         Platform.runLater(() -> {
             this.position += (double) 1;
+            // Move the Schüler using a TranslateTransition (Animation)
             translate.setDuration(Duration.millis(1000 * speed));
             translate.setNode(imageView);
             translate.setToX((double) pfad[0].mapX * 72);
@@ -116,12 +117,14 @@ public class Schüler {
             this.y = pfad[0].mapY * 72 - starty;
             translate.setInterpolator(Interpolator.LINEAR);
 
+            // Move the health bar using a TranslateTransition (Animation)
             translate2.setDuration(Duration.millis(1000 * speed));
             translate2.setNode(healthBar);
             translate2.setToX((double) pfad[0].mapX * 72);
             translate2.setToY((double) pfad[0].mapY * 72 - starty);
             translate2.setInterpolator(Interpolator.LINEAR);
 
+            // Play both animations at the same time
             ParallelTransition parallelTransition = new ParallelTransition();
             parallelTransition.getChildren().addAll(translate, translate2);
             parallelTransition.play();
@@ -157,19 +160,23 @@ public class Schüler {
 
         System.out.println(health);
         if (health <= 0) {
+            // give player money
             giveMoney.accept(this.initalhealth / 5);
+            // delete Schüler
             Platform.runLater(() -> {
                 screen.getChildren().remove(healthBar);
                 screen.getChildren().remove(imageView);
             });
             schülerManager.deleteSchüler(this);
         } else {
+            // set the health bar to the new health
             healthBar.setProgress((double) health / initalhealth);
         }
 
     }
 
     public int getX() {
+        // Calculate the current x position of the Schüler
         return (int) ((int) translate.getCurrentTime().toMillis() / 1000 * this.speed
                 * ((int) translate.getToX() - this.x)
                 + this.x
@@ -177,6 +184,7 @@ public class Schüler {
     }
 
     public int getY() {
+        // Calculate the current y position of the Schüler
         return (int) ((int) translate.getCurrentTime().toMillis() / 1000 * this.speed
                 * ((int) translate.getToY() - this.y)
                 + this.y

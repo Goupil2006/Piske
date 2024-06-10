@@ -47,6 +47,7 @@ public class InterfaceController implements Initializable {
 
     public Uhr uhr;
 
+    // set Controllers
     public void setContollers(StationController stationController, GameController gameController,
             BuyController buyController, UpgradeController upgradeController) {
         this.stationController = stationController;
@@ -67,10 +68,12 @@ public class InterfaceController implements Initializable {
 
     private float amount = 100;
 
+    // set the wave indicator
     public void setWaveIndicator(int wave, int maxWave) {
         waveindicator.setText("Welle: " + wave + " / " + maxWave);
     }
 
+    // change the amount of money
     public void changeAmount(float amount) {
         this.amount += amount;
         money.setText(this.amount + "$");

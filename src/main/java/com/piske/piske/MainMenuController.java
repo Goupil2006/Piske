@@ -159,6 +159,7 @@ public class MainMenuController implements Initializable {
             "    ]\n" + //
             "}";
 
+    // initialize sftp client
     public SftpClient sftpClient = new SftpClient("gis-informatik.de", 22, "marc.bernard");
 
     private void gameStart(javafx.scene.input.MouseEvent event, int level) throws Exception {

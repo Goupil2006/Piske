@@ -1,5 +1,6 @@
 package com.piske.piske;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -17,6 +18,7 @@ public class UpgradeController implements Initializable {
     private BuyController buyController;
     private GameController gameController;
 
+    // set Controllers
     public void setContollers(StationController stationController, InterfaceController interfaceController,
             GameController gameController, BuyController buyController) {
         this.stationController = stationController;
@@ -57,10 +59,14 @@ public class UpgradeController implements Initializable {
                 stationNames[foo] = stationNames[foo + 1];
                 upgradeButtons[foo] = upgradeButtons[foo + 1];
             }
-            if(deleteButtons[foo] != null) {
-                deleteButtons[foo].setLayoutY(18 + i * 29);
-                stationNames[foo].setLayoutY(18 + i * 29);
-                upgradeButtons[foo].setLayoutY(18 + i * 29);
+            if (deleteButtons[foo] != null) {
+                int finalFoo = foo;
+                int finalI = i;
+                Platform.runLater(() -> {
+                    deleteButtons[finalFoo].setLayoutY(18 + finalI * 29);
+                    stationNames[finalFoo].setLayoutY(18 + finalI * 29);
+                    upgradeButtons[finalFoo].setLayoutY(18 + finalI * 29);
+                });
                 i++;
             }
             foo++;

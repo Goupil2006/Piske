@@ -42,6 +42,7 @@ public class GameController implements Initializable {
     private int sound;
     private int level;
 
+    // set Controllers
     public void setContollers(StationController stationController, InterfaceController interfaceController,
             BuyController buyController, UpgradeController upgradeController) {
         this.stationController = stationController;
@@ -51,17 +52,23 @@ public class GameController implements Initializable {
         this.upgradeController = upgradeController;
     }
 
+    // set difficulty and sound level and map in JSON (Datenformat)
     public void setDifAndSound(int difficulty, int sound, String mapjson, int level) {
         this.difficulty = difficulty;
         this.sound = sound;
         // Initilizing everything
+        // Wellen erzeugen (Anzahl Schüler pro Welle)
         erzeugeWellen((int) difficulty / 20 + 3);
+        // update wave indicator (aktuelle Welle, max Wellen)
         interfaceController.setWaveIndicator((int) (phase / 2), (int) difficulty / 20 + 3);
         this.mapjson = mapjson;
         System.out.println(mapjson);
         JSONObject Mapjson = new JSONObject(mapjson);
+        // Save map to Weg (Object)
         this.loadMap(Mapjson);
+        // Show Weg on display
         Utils.renderWeg(this.schuelerweg, this.gamescreen);
+        // Create object for sounds
         this.sounds = new Dankeschoen(sound);
         this.level = level;
     }
@@ -77,15 +84,18 @@ public class GameController implements Initializable {
     public String mapjson;
     public boolean end = false;
 
-    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target, int damage, Station station)
+    public void createProjectile(int x, int y, double a, int v, int h, int w, Schüler target, int damage,
+            Station station)
             throws IOException {
-        System.out.println("go");
+        // Create projectile
         Projectile p = new Projectile(x, y, a, v, h, w, gamescreen, damage, schülerManager, station);
-        System.out.println("goo");
+        // Declare function for giving money to player
         Consumer<Integer> giveMoney = ((Integer money) -> {
             interfaceController.changeAmount((float) money);
         });
+        // Start projectile (target (Schüler), giveMoney (function s.o.))
         p.goProjectile(target, giveMoney);
+        // Überprüfen ob Spiel vorbei (wenn alle Schüler tot)
         delay(1750, () -> {
             if (this.schülerManager.length() == 0) {
                 try {
@@ -122,9 +132,10 @@ public class GameController implements Initializable {
             System.out.println("Startwave");
             this.phase++;
             this.interfaceController.setWaveIndicator((int) (phase / 2), (int) difficulty / 20 + 3);
+            // Check if last wave
             if (phase / 2 >= difficulty / 20 + 3) {
+                // Set last wave true
                 this.end = true;
-
             }
             this.erzeugeWelle(this.phase / 2);
             ((Node) event.getSource()).setVisible(false);
@@ -141,11 +152,15 @@ public class GameController implements Initializable {
 
     public void endPhase(int phase) throws IOException {
         this.interfaceController.uhr.stop();
+        // check if Welle over
         if (this.phase % 2 == 0) {
+            // check if last wave
             if (end) {
+                // end game
                 this.endGame(1);
                 return;
             }
+            // initialize next wave
             this.phase++;
             Platform.runLater(() -> {
                 this.interfaceController.startwavebutton.setVisible(true);
@@ -157,7 +172,8 @@ public class GameController implements Initializable {
     public boolean first = true;
 
     public void endGame(int state) throws IOException {
-        if(!first) {
+        // check if fist time game end
+        if (!first) {
             return;
         }
         first = false;
@@ -168,9 +184,11 @@ public class GameController implements Initializable {
         MainMenuController mainMenuController = loader1.getController();
         switch (state) {
             case 1:
+                // let mainMenuController know that the player won
                 mainMenuController.won(this.level);
                 break;
             case 2:
+                // let mainMenuController know that the player lost
                 mainMenuController.lost();
                 break;
             default:
@@ -183,6 +201,7 @@ public class GameController implements Initializable {
 
         Scene scene = new Scene(root, 1280, 720);
         Stage stage = (Stage) gamescreen.getScene().getWindow();
+        // Make sure that tasks are done in JavaFX thread
         Platform.runLater(() -> {
             stage.setScene(scene);
             stage.show();
@@ -205,12 +224,6 @@ public class GameController implements Initializable {
                     System.out.println("Spawn");
                     double type = (double) ((3.5 * (Math.pow(1.1, num)) * Math.random())) / 10 * num + 1;
                     System.out.println(type);
-                    // if (num > 6) {
-                    // type = (Math.random()*2+1);
-                    // }
-                    // if (num > 3) {
-                    // type = (Math.random()*2);;
-                    // }
 
                     schülerManager.addSchüler(new Schüler(0, 0, gamescreen, (int) type, schülerManager, this));
                     schülerManager.getSchülerAtIndex(schülerManager.length() - 1).goWeg(schuelerweg);
@@ -219,6 +232,7 @@ public class GameController implements Initializable {
         }
     }
 
+    // delay function for waiting (internets)
     public void delay(int milliseconds, Runnable task) {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.schedule(task, milliseconds, TimeUnit.MILLISECONDS);

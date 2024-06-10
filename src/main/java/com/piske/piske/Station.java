@@ -54,7 +54,7 @@ public class Station {
         Image image = new Image(getClass().getResourceAsStream(grafic));
         imageView.setImage(image);
         imageView.setOnMouseClicked(event -> {
-           // Circle c = new Circle(300, Color);
+            // Circle c = new Circle(300, Color);
         });
         this.plane.getChildren().add(imageView);
 
@@ -71,13 +71,16 @@ public class Station {
 
         System.out.println("active");
         if (target != null) {
+            // shoot at target
             this.gameController.createProjectile(x, y, 0, 0, 0, 0, target, this.damage, this);
         }
 
         int finalx = x;
         int finaly = y;
         delay(this.speed, () -> {
+            // if station is still active and there
             if (stationController.active && this.ecsists) {
+                // shoot again
                 try {
                     this.shot(finalx, finaly);
                 } catch (IOException e) {
@@ -88,10 +91,12 @@ public class Station {
     }
 
     public void upgrade() {
+        // teke his money
         if (this.interfaceController.getMoney() < this.damage * 5) {
             return;
         }
         this.interfaceController.changeAmount(-this.damage * 5);
+        // add damage
         this.damage += originaldamage;
     }
 

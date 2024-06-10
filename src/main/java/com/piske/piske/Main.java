@@ -21,7 +21,7 @@ public class Main extends Application {
         MainMenuController mainMenuController = loader1.getController();
         System.out.println("mainMenuController loaded: " + mainMenuController);
 
-        // Add both roots to a main container (e.g., VBox)
+        // Add both roots to a main container
         VBox root = new VBox(root1);
 
         // Create a Scene

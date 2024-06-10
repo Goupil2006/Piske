@@ -319,6 +319,5 @@ public class MapcreatorController {
             Selectareea.setVisible(false);
         }
 
-
     }
 }

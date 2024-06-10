@@ -51,25 +51,31 @@ public class Projectile {
         velocity = v;
         height = h;
         width = w;
-        //Image image = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
+        // Image image = new
+        // Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
         switch (type) {
             case "Silli":
                 image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/pommesbullet.png"));
-            break;
+                break;
 
-            case "Ira": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/currybullet.png"));
-            break;
+            case "Ira":
+                image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/currybullet.png"));
+                break;
 
-            case "Biene": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/burgerbullet.png"));
-            break;
+            case "Biene":
+                image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/burgerbullet.png"));
+                break;
 
-            case "Conny": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bratbullet.png"));
-            break;
+            case "Conny":
+                image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bratbullet.png"));
+                break;
 
-            case "Evy": image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/cheesybullet.png"));
-            break;
+            case "Evy":
+                image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/cheesybullet.png"));
+                break;
 
-            default: image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
+            default:
+                image1 = new Image(getClass().getResourceAsStream("/com/piske/piske/Images/bullet.png"));
         }
         imageViewp.setImage(image1);
         imageViewp.toFront();
@@ -182,10 +188,10 @@ public class Projectile {
             nowangle = Math.atan(yval / xval);
             nowangle = Math.toDegrees(nowangle);
             nowangle += bonus;
-            ;
         }
         imageViewp.setRotate(nowangle);
 
+        // move projectile
         translate.setDuration(Duration.millis(300));
         translate.setNode(imageViewp);
         translate.setToX(target.getX() - startx + 72 / 2);

@@ -26,6 +26,7 @@ public class BuyController implements Initializable {
     private GameController gameController;
     private UpgradeController upgradeController;
 
+    // set Controllers
     public void setContollers(StationController stationController, InterfaceController interfaceController,
             GameController gameController, UpgradeController upgradeController) {
         this.stationController = stationController;
@@ -57,17 +58,21 @@ public class BuyController implements Initializable {
 
     private Parent root;
 
+    // start buying
     @FXML
     public void start(Consumer<String> createStation) throws Exception {
         System.out.println("show buy");
         buyhead.setVisible(true);
+        // asign function to varibale for use elsewhere
         this.createStation = createStation;
     }
 
+    // stop buying
     @FXML
     public void stop() throws Exception {
         System.out.println("hide buy");
         buyhead.setVisible(false);
+        // asign function to varibale for use elsewhere
         this.upgradeController.start();
     }
 
