@@ -36,7 +36,7 @@ public class Dankeschoen {
          mp.play();
     }
 
-    public void Sieg() throws MediaException {
+    public void sieg() throws MediaException {
         Media media = new Media(getClass().getResource("/com/piske/piske/audio/victory.mp3").toString());
         mp = new MediaPlayer(media);
         mp.setVolume(this.sound / 100);

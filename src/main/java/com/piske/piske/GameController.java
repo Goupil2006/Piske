@@ -69,6 +69,8 @@ public class GameController implements Initializable {
         Utils.renderWeg(this.schuelerweg, this.gamescreen);
         // Create object for sounds
         this.sounds = new Dankeschoen(sound);
+        this.sounds = new sieg(sound);
+        this.sounds = new niederlage(sound);
         this.level = level;
     }
 
@@ -183,10 +185,12 @@ public class GameController implements Initializable {
             case 1:
                 // let mainMenuController know that the player won
                 mainMenuController.won(this.level);
+                this.sounds.sieg();
                 break;
             case 2:
                 // let mainMenuController know that the player lost
                 mainMenuController.lost();
+                this.sounds.niderlage();
                 break;
             default:
                 break;
