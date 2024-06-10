@@ -94,6 +94,8 @@ public class GameController implements Initializable {
         });
         // Start projectile (target (Schüler), giveMoney (function s.o.))
         p.goProjectile(target, giveMoney);
+        // play sound
+        this.sounds.schießeLaut();
         // Überprüfen ob Spiel vorbei (wenn alle Schüler tot)
         delay(1750, () -> {
             if (this.schülerManager.length() == 0) {
@@ -148,7 +150,7 @@ public class GameController implements Initializable {
 
     public void endPhase(int phase) throws IOException {
         this.interfaceController.uhr.stop();
-        this.sounds.sagDankeschoen();
+
         // check if Welle over
         if (this.phase % 2 == 0) {
             // check if last wave
@@ -159,6 +161,8 @@ public class GameController implements Initializable {
             }
             // initialize next wave
             this.phase++;
+            // play sound
+            this.sounds.sagDankeschoen();
             Platform.runLater(() -> {
                 this.interfaceController.startwavebutton.setVisible(true);
             });
