@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="gamescreen" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piske.piske.MapcreatorController">
+<AnchorPane fx:id="gamescreen" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.piske.piske.MapcreatorController">
    <children>
       <!--<fx:include source="Interface.fxml"/>-->
       <Line endX="72.0" endY="720.0" startX="72.0" stroke="#1d2f6f" />
@@ -57,21 +57,33 @@
       <Text fill="#1d2f6f" layoutX="732.0" layoutY="717.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" />
       <Text fill="#1d2f6f" layoutX="805.0" layoutY="716.0" strokeType="OUTSIDE" strokeWidth="0.0" text="11" />
       <Text fill="#1d2f6f" layoutX="5.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <Button fx:id="done" text="Zurück ins Hauptmenü" layoutX="887" layoutY="650.0" prefHeight="18.0" prefWidth="360.0"></Button>
+      <Button fx:id="done" layoutX="887" layoutY="650.0" prefHeight="18.0" prefWidth="360.0" text="Zurück ins Hauptmenü" />
 
       <Pane fx:id="Selectareea" layoutX="887.0" layoutY="336.0" prefHeight="312.0" prefWidth="370.0">
          <children>
-            <Button fx:id="leftRight" layoutX="196.0" layoutY="144.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Left / Right" />
+            <Button fx:id="leftRight" layoutX="196.0" layoutY="142.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="=" />
             <Label layoutX="7.0" layoutY="36.0" prefHeight="17.0" prefWidth="362.0" text="Select Type of Block">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button fx:id="leftUp" layoutX="7.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Left / Up" />
-            <Button fx:id="upRight" layoutX="196.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Up / Right" />
-            <Button fx:id="rightDown" layoutX="196.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Right / Down" />
-            <Button fx:id="downLeft" layoutX="7.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Down / Left" />
-            <Button fx:id="downUp" layoutX="7.0" layoutY="144.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Down / Up" />
+            <Button fx:id="leftUp" layoutX="196.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="╝">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font></Button>
+            <Button fx:id="upRight" layoutX="7.0" layoutY="109.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="╚">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="rightDown" layoutX="7.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="╔">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font></Button>
+            <Button fx:id="downLeft" layoutX="196.0" layoutY="77.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="╗">
+               <font>
+                  <Font name="Arial Black" size="12.0" />
+               </font></Button>
+            <Button fx:id="downUp" layoutX="7.0" layoutY="142.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="||" />
             <Button fx:id="createStation" layoutX="7.0" layoutY="176.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="362.0" text="Station" />
          </children>
       </Pane>
