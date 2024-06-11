@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.piske.piske'
-    mainClass = 'com.piske.piske.Main'
+    mainClass = 'com.piske.piske.Main1'
 }
 
 javafx {
@@ -35,6 +35,11 @@ javafx {
 }
 
 dependencies {
+    implementation 'org.openjfx:javafx-controls:21'
+    implementation 'org.openjfx:javafx-fxml:21'
+    implementation 'org.openjfx:javafx-web:21'
+    implementation 'org.openjfx:javafx-media:21'
+
     implementation 'com.github.mwiede:jsch:0.2.17'
 
     implementation('org.json:json:20240303')

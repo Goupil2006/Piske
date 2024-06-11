@@ -1,7 +1,5 @@
 package com.piske.piske;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.jcraft.jsch.JSchException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

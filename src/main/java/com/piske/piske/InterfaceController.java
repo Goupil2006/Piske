@@ -1,6 +1,5 @@
 package com.piske.piske;
 
-import com.almasb.fxgl.ui.ProgressBar;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

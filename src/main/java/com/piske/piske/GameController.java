@@ -137,7 +137,7 @@ public class GameController implements Initializable {
             }
             this.erzeugeWelle(this.phase / 2);
             ((Node) event.getSource()).setVisible(false);
-            this.interfaceController.uhr.runTimer((int) (anzahlSchueler[this.phase / 2 - 1] * 1.2) + 30);
+            this.interfaceController.uhr.runTimer((int) (anzahlSchueler[this.phase / 2 - 1] * 0.5) + 30);
             // delay((int) (anzahlSchueler[this.phase / 2 - 1] * 0.5 + 30) * 1000, () -> {
             // try {
             // this.endPhase(this.phase);
@@ -230,7 +230,7 @@ public class GameController implements Initializable {
     public void erzeugeWelle(int num) {
         for (int i = 0; i < anzahlSchueler[num - 1]; i++) {
             int finalI = i;
-            delay(1200 * i, () -> {
+            delay(500 * i, () -> {
                 Platform.runLater(() -> {
                     double type = (double) ((3.5 * (Math.pow(1.1, num)) * Math.random())) / 10 * num + 1;
 
